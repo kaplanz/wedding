@@ -4,10 +4,16 @@ header.header {
   @extend .text, .center;
 
   @media screen and (min-width: $screen-sm) {
-    gap: 5%;
+    gap: 4%;
 
     position: sticky;
     top: 0;
+  }
+
+  @media screen and (max-width: $screen-sm) {
+    .flourish {
+      display: none;
+    }
   }
 
   border-bottom: 1px solid var(--color-accent-bg);

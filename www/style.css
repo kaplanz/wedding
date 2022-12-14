@@ -874,9 +874,14 @@ header.header {
 }
 @media screen and (min-width: 32rem) {
   header.header {
-    gap: 5%;
+    gap: 4%;
     position: sticky;
     top: 0;
+  }
+}
+@media screen and (max-width: 32rem) {
+  header.header .flourish {
+    display: none;
   }
 }
 header.header * {
