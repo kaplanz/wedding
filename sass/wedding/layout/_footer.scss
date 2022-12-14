@@ -1,0 +1,11 @@
+footer.footer {
+  @extend .fg-accent, .bg-accent;
+  @extend .text, .center;
+
+  padding: var(--spacer) 0;
+
+  * {
+    margin: 0;
+    padding: 0;
+  }
+}

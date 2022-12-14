@@ -1,0 +1,25 @@
+header.header {
+  @extend .fg-accent, .bg-primary;
+  @extend .flex, .row;
+  @extend .text, .center;
+
+  @media screen and (min-width: $screen-sm) {
+    gap: 5%;
+
+    position: sticky;
+    top: 0;
+  }
+
+  border-bottom: 1px solid var(--color-accent-bg);
+  padding: var(--spacer) 0;
+
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  .flourish {
+    height: 5em;
+    width: 10em;
+  }
+}

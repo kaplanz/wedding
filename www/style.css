@@ -8,7 +8,597 @@
  * of CSS when compiled on its own. These are nothing but Sass helpers.
  */
 :root {
-  --color-accent: #061d56;
+  --font-family-mono: "Fira Code";
+  --font-family-sans: "Noto Sans";
+  --font-family-serif: "Noto Serif";
+  --font-weight-bold: 600;
+  --font-weight-semi: 500;
+  --font-weight-normal: 400;
+  --font-weight-light: 300;
+  --font-size: 16px;
+  --line-height: 1.5;
+  --border-radius: .5em;
+  --spacer: 1rem;
+  --spacer-2: calc(var(--spacer) * 2);
+  --spacer-3: calc(var(--spacer) * 3);
+  --spacer-small-2: calc(var(--spacer) / 2);
+  --spacer-small-3: calc(var(--spacer) / 3);
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-accent-fg: var(--oc-violet-8);
+    --color-accent-bg: var(--oc-violet-2);
+    --color-border: var(--oc-gray-5);
+    --color-link: var(--oc-blue-9);
+    --color-link-hover: var(--oc-blue-8);
+    --color-shadow: var(--oc-gray-5);
+    --color-fg: var(--oc-gray-8);
+    --color-fg-2: var(--oc-gray-7);
+    --color-fg-3: var(--oc-gray-6);
+    --color-bg: var(--oc-gray-0);
+    --color-bg-2: var(--oc-gray-2);
+    --color-bg-3: var(--oc-gray-4);
+    --color-user-error: var(--oc-red-7);
+    --color-user-info: var(--oc-green-7);
+    --color-user-warn: var(--oc-yellow-7);
+    --color-user-debug: var(--oc-blue-7);
+    --color-user-trace: var(--oc-cyan-7);
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-accent-fg: var(--oc-violet-4);
+    --color-accent-bg: var(--oc-violet-9);
+    --color-border: var(--oc-gray-6);
+    --color-link: var(--oc-blue-5);
+    --color-link-hover: var(--oc-blue-4);
+    --color-shadow: var(--oc-black);
+    --color-fg: var(--oc-gray-3);
+    --color-fg-2: var(--oc-gray-0);
+    --color-fg-3: var(--oc-gray-5);
+    --color-bg: var(--oc-gray-9);
+    --color-bg-2: var(--oc-gray-8);
+    --color-bg-3: var(--oc-gray-7);
+    --color-user-error: var(--oc-red-4);
+    --color-user-info: var(--oc-green-4);
+    --color-user-warn: var(--oc-yellow-4);
+    --color-user-debug: var(--oc-blue-4);
+    --color-user-trace: var(--oc-cyan-4);
+  }
+}
+
+/*
+ * Most projects will have a `vendors/` folder containing all the CSS files from
+ * external libraries and frameworks – Normalize, Bootstrap, jQueryUI,
+ * FancyCarouselSliderjQueryPowered, and so on. Putting those aside in the same
+ * folder is a good way to say “Hey, this is not from me, not my code, not my
+ * responsibility”.
+ */
+/*
+ * The `base/` folder holds what we might call the boilerplate code for the
+ * project. In there, you might find the reset file, some typographic rules, and
+ * probably a stylesheet defining some standard styles for commonly used HTML
+ * elements (that I like to call `_base.scss`).
+ */
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  font-weight: normal;
+}
+
+body,
+main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: var(--spacer);
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: var(--spacer);
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-link);
+}
+a:hover, a:focus {
+  text-decoration: underline;
+  color: var(--color-link-hover);
+}
+a:visited {
+  color: var(--color-link);
+}
+a:visited:hover, a:visited:focus {
+  color: var(--color-link-hover);
+}
+
+ul,
+ol,
+dl {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+ol ol,
+ul ol {
+  list-style-type: lower-roman;
+}
+
+ul ul ol,
+ul ol ol,
+ol ul ol,
+ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+dd {
+  margin-left: 0;
+}
+
+dt {
+  margin-top: var(--spacer-small-2);
+  font-weight: var(--font-weight-bold);
+  font-style: italic;
+}
+
+blockquote {
+  opacity: 0.65;
+  margin: 0 0 var(--spacer) 0;
+  border-left: 0.25em solid var(--color-border);
+  padding: 0 var(--spacer);
+}
+
+figure {
+  margin: 0;
+}
+
+figcaption {
+  margin-bottom: var(--spacer);
+  font-size: 0.85em;
+}
+
+img {
+  display: block;
+  margin-top: 0;
+  margin-bottom: var(--spacer);
+  border-radius: var(--border-radius);
+  max-width: 100%;
+}
+
+code,
+pre {
+  font-family: var(--font-family-mono);
+}
+
+code {
+  border-bottom: 1.5px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 0.05em 0.25em;
+  background-color: var(--color-bg-2);
+}
+
+pre {
+  display: block;
+  overflow: auto;
+  margin: var(--spacer) 0;
+  border-radius: var(--border-radius);
+  padding: var(--spacer-small-2);
+}
+pre code {
+  border: 0;
+  padding: 0;
+  background-color: inherit;
+}
+
+table {
+  margin-top: 0;
+  margin-bottom: var(--spacer);
+  border: 0 solid var(--color-border);
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  border-color: inherit;
+  padding: 0.25em 0.5em;
+}
+
+th {
+  text-align: left;
+}
+
+thead th {
+  border-bottom-color: currentColor;
+}
+
+mark {
+  border-radius: var(--border-radius);
+  padding: 0.15em;
+  color: var(--color-bg);
+  background-color: var(--color-user-info);
+}
+
+hr {
+  border: 0;
+  width: 100%;
+  height: 0.5px;
+  background-color: var(--color-border);
+}
+
+abbr {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+abbr[title] {
+  border-bottom: 1px dotted var(--color-border);
+  cursor: help;
+}
+
+/*
+ * The `layout/` folder contains everything that takes part in laying out the site
+ * or application. This folder could have stylesheets for the main parts of the
+ * site (header, footer, navigation, sidebar...), the grid system or even CSS
+ * styles for all the forms.
+ */
+.content {
+  flex-grow: 1;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 48rem;
+  padding: var(--spacer);
+  width: 100%;
+}
+@media screen and (min-width: 32rem) {
+  .content {
+    padding-left: var(--spacer-2);
+    padding-right: var(--spacer-2);
+  }
+}
+@media screen and (min-width: 108rem) {
+  .content {
+    max-width: 72rem;
+    padding-left: var(--spacer-3);
+    padding-right: var(--spacer-3);
+  }
+}
+
+/*
+ * For smaller components, there is the `components/` folder. While `layout/` is
+ * macro (defining the global wireframe), `components/` is more focused on
+ * widgets. It contains all kind of specific modules like a slider, a loader, a
+ * widget, and basically anything along those lines. There are usually a lot of
+ * files in `components/` since the whole site/application should be mostly
+ * composed of tiny modules.
+ */
+.fg-primary, .fg.primary, .primary.color, .fg.main, .color.main, body.color, body,
+body.bg.main {
+  color: var(--color-fg);
+}
+.fg-secondary, .fg.secondary, .secondary.color, body.secondary {
+  color: var(--color-fg-2);
+}
+.fg-tertiary, .fg.tertiary, .tertiary.color, body.tertiary {
+  color: var(--color-fg-3);
+}
+.fg-accent, header.header, footer.footer, .fg.accent, .accent.color, body.accent {
+  color: var(--color-accent-fg);
+}
+
+.bg-primary, header.header, .bg.primary, .primary.color, body.fg.main, .color.main, body.color, body,
+.bg.main {
+  background-color: var(--color-bg);
+}
+.bg-secondary, .bg.secondary, .secondary.color, body.secondary {
+  background-color: var(--color-bg-2);
+}
+.bg-tertiary, .bg.tertiary, .tertiary.color, body.tertiary {
+  background-color: var(--color-bg-3);
+}
+.bg-accent, footer.footer, .bg.accent, .accent.color, body.accent {
+  background-color: var(--color-accent-bg);
+}
+
+.flex, header.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flex-column, .flex.column, header.column.header {
+  flex-direction: column;
+}
+.flex-row, .flex.row, header.header {
+  flex-direction: row;
+}
+.flex.gap, header.gap.header {
+  gap: var(--spacer);
+}
+
+.ft-cursive, .ft.cursive,
+.font-cursive,
+.font.cursive,
+body.cursive,
+h1.cursive,
+h2.cursive,
+h3.cursive,
+h4.cursive,
+h5.cursive,
+h6.cursive {
+  font-family: var(--font-family-cursive), cursive;
+}
+.ft-mono, .ft.mono,
+.font-mono,
+.font.mono,
+body.mono,
+h1.mono,
+h2.mono,
+h3.mono,
+h4.mono,
+h5.mono,
+h6.mono {
+  font-family: var(--font-family-mono), monospace;
+}
+.ft-sans, .ft.sans, .ft.main,
+body.ft,
+.font-sans,
+.font.sans,
+h1.sans,
+h2.sans,
+h3.sans,
+h4.sans,
+h5.sans,
+h6.sans,
+.font.main,
+h1.main,
+h2.main,
+h3.main,
+h4.main,
+h5.main,
+h6.main,
+body.font,
+body {
+  font-family: var(--font-family-sans), sans-serif;
+}
+.ft-serif, .ft.serif, .ft.main,
+body.ft, h1.ft,
+h2.ft,
+h3.ft,
+h4.ft,
+h5.ft,
+h6.ft,
+.font-serif,
+.font.serif,
+.font.main,
+body.font,
+body,
+h1.font,
+h1,
+h2.font,
+h2,
+h3.font,
+h3,
+h4.font,
+h4,
+h5.font,
+h5,
+h6.font,
+h6 {
+  font-family: var(--font-family-serif), serif;
+}
+.ft-bold, .ft.bold,
+.font-bold,
+.font.bold,
+body.bold,
+h1.bold,
+h2.bold,
+h3.bold,
+h4.bold,
+h5.bold,
+h6.bold {
+  font-weight: var(--font-weight-bold);
+}
+.ft-semi, .ft.semi,
+.font-semi,
+.font.semi,
+body.semi,
+h1.semi,
+h2.semi,
+h3.semi,
+h4.semi,
+h5.semi,
+h6.semi {
+  font-weight: var(--font-weight-semi);
+}
+.ft-normal, .ft.normal,
+.font-normal,
+.font.normal,
+body.normal,
+h1.normal,
+h2.normal,
+h3.normal,
+h4.normal,
+h5.normal,
+h6.normal {
+  font-weight: var(--font-weight-normal);
+}
+.ft-light, .ft.bold,
+.font-light,
+.font.bold,
+body.bold,
+h1.bold,
+h2.bold,
+h3.bold,
+h4.bold,
+h5.bold,
+h6.bold {
+  font-weight: var(--font-weight-light);
+}
+
+.fx-animate, .fx.animate, .fx.fx-float, .fx.float,
+.fx.effects-float,
+.effects-animate,
+.effects.animate,
+.effects.fx-float,
+.effects.effects-float,
+.effects.float {
+  transition: all 0.3s ease;
+}
+.fx-float:hover, .fx.float:hover,
+.effects-float:hover,
+.effects.float:hover {
+  transform: translate(0, -2px);
+}
+.fx-outline, .fx.outline, .fx.fx-tile, .fx.tile,
+.fx.effects-tile,
+.effects-outline,
+.effects.outline,
+.effects.fx-tile,
+.effects.effects-tile,
+.effects.tile {
+  border: 0.5px solid var(--color-border);
+}
+.fx-round, .fx.round, .fx.fx-tile, .fx.tile,
+.fx.effects-tile,
+.effects-round,
+.effects.round,
+.effects.fx-tile,
+.effects.effects-tile,
+.effects.tile {
+  border-radius: var(--border-radius);
+}
+.fx-shadow, .fx.shadow, .fx.fx-tile, .fx.tile,
+.fx.effects-tile,
+.effects-shadow,
+.effects.shadow,
+.effects.fx-tile,
+.effects.effects-tile,
+.effects.tile {
+  box-shadow: 0 2px 3px var(--color-shadow);
+}
+.fx-shadow.float:hover, .fx.shadow.float:hover, .fx.float.fx-tile:hover, .fx.float.tile:hover,
+.fx.float.effects-tile:hover,
+.effects-shadow.float:hover,
+.effects.shadow.float:hover,
+.effects.float.fx-tile:hover,
+.effects.float.effects-tile:hover,
+.effects.float.tile:hover {
+  box-shadow: 0 4px 9px -5px var(--color-shadow);
+}
+.fx-unlink,
+.fx unlink,
+.effects-unlink,
+.effects unlink {
+  color: inherit;
+  text-decoration: none;
+}
+.fx-unlink:visited, .fx-unlink:visited:hover, .fx-unlink:hover, .fx-unlink:focus,
+.fx unlink:visited,
+.fx unlink:visited:hover,
+.fx unlink:hover,
+.fx unlink:focus,
+.effects-unlink:visited,
+.effects-unlink:visited:hover,
+.effects-unlink:hover,
+.effects-unlink:focus,
+.effects unlink:visited,
+.effects unlink:visited:hover,
+.effects unlink:hover,
+.effects unlink:focus {
+  color: inherit;
+  text-decoration: none;
+}
+
+.msg.error, .msg.warn, .msg.info, .msg.debug, .msg.trace,
+.message.error,
+.message.warn,
+.message.info,
+.message.debug,
+.message.trace {
+  border-radius: var(--border-radius);
+  color: var(--color-bg);
+  padding: var(--spacer);
+}
+.msg.error,
+.message.error {
+  background-color: var(--color-user-error);
+}
+.msg.warn,
+.message.warn {
+  background-color: var(--color-user-warn);
+}
+.msg.info,
+.message.info {
+  background-color: var(--color-user-info);
+}
+.msg.debug,
+.message.debug {
+  background-color: var(--color-user-debug);
+}
+.msg.trace,
+.message.trace {
+  background-color: var(--color-user-trace);
+}
+
+.tx-center, .tx.center,
+.text-center,
+.text.center,
+header.header,
+footer.footer {
+  text-align: center;
+}
+
+/*
+ * If you have page-specific styles, it is better to put them in a `pages/`
+ * folder, in a file named after the page. For instance, it’s not uncommon to
+ * have very specific styles for the home page hence the need for a `_home.scss`
+ * file in `pages/`.
+ */
+/*
+ * On large sites and applications, it is not unusual to have different themes.
+ * There are certainly different ways of dealing with themes but I personally
+ * like having them all in a `themes/` folder.
+ */
+/*
+ * The `abstracts/` folder gathers all Sass tools and helpers used across the
+ * project. Every global variable, function, mixin and placeholder should be put
+ * in here.
+ *
+ * The rule of thumb for this folder is that it should not output a single line
+ * of CSS when compiled on its own. These are nothing but Sass helpers.
+ */
+:root {
+  --color-accent-fg: #061d56;
   --color-accent-bg: #e6eff5;
   --color-border: #d1a26c;
   --color-link: var(--oc-blue-9);
@@ -317,7 +907,7 @@ body.bg.main {
   color: var(--color-fg-3);
 }
 .fg-accent, footer.footer, header.header, .fg.accent, .accent.color, body.accent {
-  color: var(--color-accent);
+  color: var(--color-accent-fg);
 }
 
 .bg-primary, header.header, .bg.primary, .primary.color, body.fg.main, .color.main, body.color, body,
@@ -349,64 +939,6 @@ body.bg.main {
   gap: var(--spacer);
 }
 
-.fx-animate, .fx.animate, .fx.fx-float, .fx.float,
-.fx.effects-float,
-.effects-animate,
-.effects.animate,
-.effects.fx-float,
-.effects.effects-float,
-.effects.float {
-  transition: all 0.3s ease;
-}
-.fx-float:hover, .fx.float:hover,
-.effects-float:hover,
-.effects.float:hover {
-  transform: translate(0, -2px);
-}
-.fx-outline, .fx.outline,
-.effects-outline,
-.effects.outline {
-  border: 0.5px solid var(--color-border);
-}
-.fx-round, .fx.round,
-.effects-round,
-.effects.round {
-  border-radius: var(--border-radius);
-}
-.fx-shadow, .fx.shadow,
-.effects-shadow,
-.effects.shadow {
-  box-shadow: 0 2px 3px var(--color-shadow);
-}
-.fx-shadow.float:hover, .fx.shadow.float:hover,
-.effects-shadow.float:hover,
-.effects.shadow.float:hover {
-  box-shadow: 0 4px 9px -5px var(--color-shadow);
-}
-.fx-unlink,
-.fx unlink,
-.effects-unlink,
-.effects unlink {
-  color: inherit;
-  text-decoration: none;
-}
-.fx-unlink:visited, .fx-unlink:visited:hover, .fx-unlink:hover, .fx-unlink:focus,
-.fx unlink:visited,
-.fx unlink:visited:hover,
-.fx unlink:hover,
-.fx unlink:focus,
-.effects-unlink:visited,
-.effects-unlink:visited:hover,
-.effects-unlink:hover,
-.effects-unlink:focus,
-.effects unlink:visited,
-.effects unlink:visited:hover,
-.effects unlink:hover,
-.effects unlink:focus {
-  color: inherit;
-  text-decoration: none;
-}
-
 .ft-cursive, .ft.cursive,
 .font-cursive,
 .font.cursive,
@@ -431,16 +963,25 @@ h5.mono,
 h6.mono {
   font-family: var(--font-family-mono), monospace;
 }
-.ft-sans, .ft.sans,
+.ft-sans, .ft.sans, .ft.main,
+body.ft,
 .font-sans,
 .font.sans,
-body.sans,
 h1.sans,
 h2.sans,
 h3.sans,
 h4.sans,
 h5.sans,
-h6.sans {
+h6.sans,
+.font.main,
+h1.main,
+h2.main,
+h3.main,
+h4.main,
+h5.main,
+h6.main,
+body.font,
+body {
   font-family: var(--font-family-sans), sans-serif;
 }
 .ft-serif, .ft.serif, h1.ft,
@@ -499,16 +1040,16 @@ h5.semi,
 h6.semi {
   font-weight: var(--font-weight-semi);
 }
-.ft-normal, .ft.bold,
+.ft-normal, .ft.normal,
 .font-normal,
-.font.bold,
-body.bold,
-h1.bold,
-h2.bold,
-h3.bold,
-h4.bold,
-h5.bold,
-h6.bold {
+.font.normal,
+body.normal,
+h1.normal,
+h2.normal,
+h3.normal,
+h4.normal,
+h5.normal,
+h6.normal {
   font-weight: var(--font-weight-normal);
 }
 .ft-light, .ft.bold,
@@ -522,6 +1063,80 @@ h4.bold,
 h5.bold,
 h6.bold {
   font-weight: var(--font-weight-light);
+}
+
+.fx-animate, .fx.animate, .fx.fx-float, .fx.float,
+.fx.effects-float,
+.effects-animate,
+.effects.animate,
+.effects.fx-float,
+.effects.effects-float,
+.effects.float {
+  transition: all 0.3s ease;
+}
+.fx-float:hover, .fx.float:hover,
+.effects-float:hover,
+.effects.float:hover {
+  transform: translate(0, -2px);
+}
+.fx-outline, .fx.outline, .fx.fx-tile, .fx.tile,
+.fx.effects-tile,
+.effects-outline,
+.effects.outline,
+.effects.fx-tile,
+.effects.effects-tile,
+.effects.tile {
+  border: 0.5px solid var(--color-border);
+}
+.fx-round, .fx.round, .fx.fx-tile, .fx.tile,
+.fx.effects-tile,
+.effects-round,
+.effects.round,
+.effects.fx-tile,
+.effects.effects-tile,
+.effects.tile {
+  border-radius: var(--border-radius);
+}
+.fx-shadow, .fx.shadow, .fx.fx-tile, .fx.tile,
+.fx.effects-tile,
+.effects-shadow,
+.effects.shadow,
+.effects.fx-tile,
+.effects.effects-tile,
+.effects.tile {
+  box-shadow: 0 2px 3px var(--color-shadow);
+}
+.fx-shadow.float:hover, .fx.shadow.float:hover, .fx.float.fx-tile:hover, .fx.float.tile:hover,
+.fx.float.effects-tile:hover,
+.effects-shadow.float:hover,
+.effects.shadow.float:hover,
+.effects.float.fx-tile:hover,
+.effects.float.effects-tile:hover,
+.effects.float.tile:hover {
+  box-shadow: 0 4px 9px -5px var(--color-shadow);
+}
+.fx-unlink,
+.fx unlink,
+.effects-unlink,
+.effects unlink {
+  color: inherit;
+  text-decoration: none;
+}
+.fx-unlink:visited, .fx-unlink:visited:hover, .fx-unlink:hover, .fx-unlink:focus,
+.fx unlink:visited,
+.fx unlink:visited:hover,
+.fx unlink:hover,
+.fx unlink:focus,
+.effects-unlink:visited,
+.effects-unlink:visited:hover,
+.effects-unlink:hover,
+.effects-unlink:focus,
+.effects unlink:visited,
+.effects unlink:visited:hover,
+.effects unlink:hover,
+.effects unlink:focus {
+  color: inherit;
+  text-decoration: none;
 }
 
 .msg.error, .msg.warn, .msg.info, .msg.debug, .msg.trace,
