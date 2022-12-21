@@ -1,6 +1,6 @@
-use std::collections::HashMap;
 use std::io;
 use std::net::SocketAddr;
+use std::path::PathBuf;
 use std::sync::Arc;
 
 use axum::handler::HandlerWithoutStateExt;
@@ -8,8 +8,9 @@ use axum::routing::{get, get_service};
 use axum::{Router, Server};
 use axum_login::axum_sessions::{async_session, SessionLayer};
 use axum_login::{memory_store, AuthLayer, AuthUser};
-use clap::Parser;
-use log::info;
+use clap::{Parser, ValueHint};
+use color_eyre::eyre::Result;
+use log::{info, warn};
 use rand::Rng;
 use tokio::sync::RwLock;
 use tower::ServiceExt;
@@ -17,12 +18,13 @@ use tower_http::services::ServeDir;
 use tower_http::trace::TraceLayer;
 
 mod auth;
+mod db;
 mod error;
 mod route;
 mod user;
 
 use crate::auth::RequireAuth;
-use crate::user::User;
+use crate::db::Database;
 
 /// Hannah & Zakhary's wedding server.
 #[derive(Parser)]
@@ -33,23 +35,42 @@ struct Args {
     #[arg(default_value_t = 3000)]
     #[arg(env = "PORT")]
     port: u16,
+
+    /// Path to guestlist.
+    #[arg(short, long)]
+    #[arg(value_hint = ValueHint::FilePath)]
+    guests: Option<PathBuf>,
 }
 
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<()> {
+    // Install panic and error report handlers
+    color_eyre::install()?;
     // Initialize tracing
     tracing_subscriber::fmt::init();
     // Parse args
     let args = Args::parse();
 
+    // Parse the guestlist
+    let guests = match &args.guests {
+        Some(path) => Database::try_from(path.as_path())?,
+        None => {
+            warn!("no guestlist provided, login will not be possible");
+            Default::default()
+        }
+    };
+    info!("loaded {} guests", guests.len());
+
     // Initialize session layer
     let secret: [u8; 64] = rand::thread_rng().gen();
     let session = SessionLayer::new(async_session::MemoryStore::new(), &secret).with_secure(false);
     // Initialize auth layer
-    let user = User::new("Zakhary".to_string());
-    let store = Arc::new(RwLock::new(HashMap::new()));
-    store.write().await.insert(user.get_id(), user);
-    let store = memory_store::MemoryStore::new(&store);
+    let users = guests
+        .into_iter()
+        .map(|record| (record.guest.get_id(), record.guest))
+        .collect();
+    let memory = Arc::new(RwLock::new(users));
+    let store = memory_store::MemoryStore::new(&memory);
     let auth = AuthLayer::new(store, &secret);
 
     // Build our application with a route
@@ -79,4 +100,6 @@ async fn main() {
         .serve(app.into_make_service())
         .await
         .unwrap();
+
+    Ok(())
 }

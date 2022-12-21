@@ -6,18 +6,20 @@ use serde::Deserialize;
 
 #[derive(Clone, Debug, Default, Deserialize)]
 pub struct User {
-    name: String,
+    first: String,
+    last: String,
 }
 
 impl User {
-    pub fn new(name: String) -> Self {
-        Self { name }
+    #[allow(unused)]
+    pub fn new(first: String, last: String) -> Self {
+        Self { first, last }
     }
 }
 
 impl AuthUser for User {
     fn get_id(&self) -> String {
-        self.name.clone()
+        format!("{} {}", self.first, self.last)
     }
 
     fn get_password_hash(&self) -> SecretVec<u8> {
@@ -27,6 +29,6 @@ impl AuthUser for User {
 
 impl Display for User {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        self.name.fmt(f)
+        self.get_id().fmt(f)
     }
 }
