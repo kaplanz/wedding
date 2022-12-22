@@ -1,10 +1,10 @@
 use std::fmt::Display;
 
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
 use crate::user::User;
 
-#[derive(Clone, Debug, Default, Serialize)]
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct Guest {
     #[serde(flatten)]
     pub user: User,
@@ -16,7 +16,7 @@ impl Guest {
         &self.user
     }
 
-    pub fn rsvp(&mut self, rsvp: Rsvp) {
+    pub fn update(&mut self, rsvp: Rsvp) {
         self.rsvp = Some(rsvp);
     }
 }
@@ -30,7 +30,7 @@ impl From<User> for Guest {
     }
 }
 
-#[derive(Clone, Debug, Serialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub enum Rsvp {
     Yes { meal: Meal, msg: String },
     No,
@@ -46,8 +46,34 @@ impl Display for Rsvp {
     }
 }
 
-#[derive(Clone, Debug, Serialize)]
+impl From<Reply> for Rsvp {
+    fn from(reply: Reply) -> Self {
+        match reply.attend {
+            Attend::Yes => Self::Yes {
+                meal: reply.meal.unwrap_or_default(),
+                msg: reply.msg.unwrap_or_default(),
+            },
+            Attend::No => Self::No,
+        }
+    }
+}
+
+#[derive(Clone, Debug, Deserialize)]
+pub struct Reply {
+    attend: Attend,
+    meal: Option<Meal>,
+    msg: Option<String>,
+}
+
+#[derive(Clone, Debug, Deserialize)]
+pub enum Attend {
+    Yes,
+    No,
+}
+
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub enum Meal {
+    #[default]
     Meat,
     Fish,
     Veggie,

@@ -84,7 +84,7 @@ async fn main() -> Result<()> {
                 .post(route::update)
                 .layer(RequireAuth::login()),
         )
-        .route("/update", get(route::update))
+        .route("/update", get(route::update).post(route::update))
         .fallback_service(
             get_service(
                 ServeDir::new("www").not_found_service(

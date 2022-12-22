@@ -1,7 +1,40 @@
 {% extends "index.html" %}
 
 {%- block content -%}
-      <p>
-        Thanks {{ guest }}, we look forward to seeing you there!
-      </p>
+      <div class="rsvp">
+        <div>
+          <p>
+            Hey {{ user.first() }}, do you know if you'll be able to make it?
+          </p>
+        </div>
+
+        <div class="form">
+          <form action="/rsvp" method="post">
+
+            <form>
+              <label for="yes">Yes</label>
+              <input type="radio" name="attend" id="yes" value="Yes" required>
+              <label for="no">No</label>
+              <input type="radio" name="attend" id="no" value="No" required>
+            </form>
+
+            <div class="yesonly">
+              <form>
+                <label for="meat">Meat</label>
+                <input type="radio" name="meal" id="meat" value="Meat" checked>
+                <label for="fish">Fish</label>
+                <input type="radio" name="meal" id="fish" value="Fish">
+                <label for="veggie">Veggie</label>
+                <input type="radio" name="meal" id="veggie" value="Veggie">
+              </form>
+              <label for="msg"></label>
+              <textarea name="msg" id="msg" rows="8" cols="40"
+                placeholder="Leave us a message..."></textarea>
+            </div>
+
+            <input type="submit" value="RSVP">
+
+          </form>
+        </div>
+      </div>
 {%- endblock -%}

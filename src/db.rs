@@ -7,7 +7,7 @@ use log::{debug, trace};
 use serde::Deserialize;
 use thiserror::Error;
 
-use crate::guest::{Guest, Rsvp};
+use crate::guest::{Guest, Reply};
 use crate::user::User;
 
 type Ident = usize;
@@ -57,15 +57,16 @@ impl Database {
         self.guests.values().map(|guest| &guest.user)
     }
 
-    pub fn update(&mut self, ident: Ident, rsvp: Rsvp) -> Result<(), Error> {
+    pub fn update(&mut self, ident: Ident, reply: Reply) -> Result<(), Error> {
         // Extract the guest to update
+        let rsvp = reply.into();
         let guest = self
             .guests
             .get_mut(&ident)
             .ok_or_else(|| Error::Missing(ident))?;
         trace!("update: `{}` -> {}", guest.user().name(), rsvp);
         // Perform the update
-        guest.rsvp(rsvp);
+        guest.update(rsvp);
 
         Ok(())
     }

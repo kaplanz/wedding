@@ -16,6 +16,16 @@ impl User {
         Self { first, last }
     }
 
+    #[allow(unused)]
+    pub fn first(&self) -> &str {
+        self.first.as_ref()
+    }
+
+    #[allow(unused)]
+    pub fn last(&self) -> &str {
+        self.last.as_ref()
+    }
+
     pub fn name(&self) -> String {
         format!("{} {}", self.first, self.last)
     }

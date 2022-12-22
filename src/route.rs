@@ -3,11 +3,10 @@ use axum::extract::State;
 use axum::http::StatusCode;
 use axum::response::{Html, IntoResponse, Redirect, Response};
 use axum::Form;
-use axum_login::AuthUser;
 
 use crate::auth::{self, AuthContext};
 use crate::db::Database;
-use crate::guest;
+use crate::guest::Reply;
 use crate::user::User;
 
 pub async fn index() -> impl IntoResponse {
@@ -29,18 +28,11 @@ pub async fn logout(auth: AuthContext) -> impl IntoResponse {
 }
 
 pub async fn rsvp(auth: AuthContext) -> impl IntoResponse {
-    Rsvp::get(&auth.current_user.unwrap()).await
+    Rsvp::get(auth.current_user.unwrap().clone()).await
 }
 
-pub async fn update(State(mut db): State<Database>) -> impl IntoResponse {
-    db.update(
-        0,
-        guest::Rsvp::Yes {
-            meal: guest::Meal::Meat,
-            msg: "Thanks for inviting me!".to_string(),
-        },
-    )
-    .unwrap();
+pub async fn update(State(mut db): State<Database>, Form(reply): Form<Reply>) -> impl IntoResponse {
+    db.update(0, reply).unwrap();
     Redirect::to("/")
 }
 
@@ -101,16 +93,16 @@ impl IntoResponse for Login {
 #[derive(Template)]
 #[template(path = "rsvp.html")]
 struct Rsvp {
-    guest: String,
+    user: User,
 }
 
 impl Rsvp {
-    fn new(guest: String) -> Self {
-        Self { guest }
+    fn new(user: User) -> Self {
+        Self { user }
     }
 
-    async fn get(user: &User) -> impl IntoResponse {
-        Self::new(user.get_id())
+    async fn get(user: User) -> impl IntoResponse {
+        Self::new(user)
     }
 }
 
