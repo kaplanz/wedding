@@ -122,8 +122,7 @@ figcaption {
 img {
   display: block;
 
-  margin-top: 0;
-  margin-bottom: var(--spacer);
+  margin: var(--spacer);
   border-radius: var(--border-radius);
   max-width: 100%;
 }
