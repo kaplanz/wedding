@@ -1,10 +1,13 @@
 use askama::Template;
+use axum::extract::State;
 use axum::http::StatusCode;
 use axum::response::{Html, IntoResponse, Redirect, Response};
 use axum::Form;
 use axum_login::AuthUser;
 
 use crate::auth::{self, AuthContext};
+use crate::db::Database;
+use crate::guest;
 use crate::user::User;
 
 pub async fn index() -> impl IntoResponse {
@@ -27,6 +30,18 @@ pub async fn logout(auth: AuthContext) -> impl IntoResponse {
 
 pub async fn rsvp(auth: AuthContext) -> impl IntoResponse {
     Rsvp::get(&auth.current_user.unwrap()).await
+}
+
+pub async fn update(State(mut db): State<Database>) -> impl IntoResponse {
+    db.update(
+        0,
+        guest::Rsvp::Yes {
+            meal: guest::Meal::Meat,
+            msg: "Thanks for inviting me!".to_string(),
+        },
+    )
+    .unwrap();
+    Redirect::to("/")
 }
 
 #[derive(Template)]

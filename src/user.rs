@@ -2,9 +2,9 @@ use std::fmt::Display;
 
 use axum_login::secrecy::SecretVec;
 use axum_login::AuthUser;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, Default, Deserialize)]
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct User {
     first: String,
     last: String,
@@ -15,11 +15,15 @@ impl User {
     pub fn new(first: String, last: String) -> Self {
         Self { first, last }
     }
+
+    pub fn name(&self) -> String {
+        format!("{} {}", self.first, self.last)
+    }
 }
 
 impl AuthUser for User {
     fn get_id(&self) -> String {
-        format!("{} {}", self.first, self.last)
+        self.name()
     }
 
     fn get_password_hash(&self) -> SecretVec<u8> {

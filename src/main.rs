@@ -20,6 +20,7 @@ use tower_http::trace::TraceLayer;
 mod auth;
 mod db;
 mod error;
+mod guest;
 mod route;
 mod user;
 
@@ -37,7 +38,6 @@ struct Args {
     port: u16,
 
     /// Path to guestlist.
-    #[arg(short, long)]
     #[arg(value_hint = ValueHint::FilePath)]
     guests: Option<PathBuf>,
 }
@@ -52,22 +52,22 @@ async fn main() -> Result<()> {
     let args = Args::parse();
 
     // Parse the guestlist
-    let guests = match &args.guests {
+    let db = match &args.guests {
         Some(path) => Database::try_from(path.as_path())?,
         None => {
             warn!("no guestlist provided, login will not be possible");
-            Default::default()
+            Database::default()
         }
     };
-    info!("loaded {} guests", guests.len());
+    info!("loaded {} guests", db.len());
 
     // Initialize session layer
     let secret: [u8; 64] = rand::thread_rng().gen();
     let session = SessionLayer::new(async_session::MemoryStore::new(), &secret).with_secure(false);
     // Initialize auth layer
-    let users = guests
-        .into_iter()
-        .map(|record| (record.guest.get_id(), record.guest))
+    let users = db
+        .iter()
+        .map(|user| (user.get_id(), user.clone()))
         .collect();
     let memory = Arc::new(RwLock::new(users));
     let store = memory_store::MemoryStore::new(&memory);
@@ -78,7 +78,13 @@ async fn main() -> Result<()> {
         .route("/", get(route::index))
         .route("/login", get(route::login).post(route::auth))
         .route("/logout", get(route::logout))
-        .route("/rsvp", get(route::rsvp).layer(RequireAuth::login()))
+        .route(
+            "/rsvp",
+            get(route::rsvp)
+                .post(route::update)
+                .layer(RequireAuth::login()),
+        )
+        .route("/update", get(route::update))
         .fallback_service(
             get_service(
                 ServeDir::new("www").not_found_service(
@@ -91,7 +97,8 @@ async fn main() -> Result<()> {
         )
         .layer(TraceLayer::new_for_http())
         .layer(auth)
-        .layer(session);
+        .layer(session)
+        .with_state(db);
 
     // Run it
     let addr = SocketAddr::from(([0; 8], args.port));
