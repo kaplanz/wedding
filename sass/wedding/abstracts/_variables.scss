@@ -30,6 +30,8 @@ $screen-xl: 108rem;
   --color-user-trace: var(--oc-cyan-7);
 
   // -- Font --
+  // Defaults
+  --font-main-family:    var(--font-family-serif);
   // Family
   --font-family-cursive: "Corinthia";
   --font-family-mono:    "Fira Code";

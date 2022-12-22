@@ -1,7 +1,7 @@
 .ft,
 .font {
   &.main {
-    @extend .sans;
+    font-family: var(--font-main-family);
   }
 
   // Family

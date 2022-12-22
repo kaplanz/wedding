@@ -56,18 +56,21 @@ $screen-xl: 108rem;
   }
 
   // -- Font --
+  // Defaults
+  --font-main-family:    var(--font-family-sans);
   // Family
-  --font-family-mono:   "Fira Code";
-  --font-family-sans:   "Noto Sans";
-  --font-family-serif:  "Noto Serif";
+  --font-family-cursive: "Corinthia";
+  --font-family-mono:    "Fira Code";
+  --font-family-sans:    "Noto Sans";
+  --font-family-serif:   "Noto Serif";
   // Weight
-  --font-weight-bold:   600;
-  --font-weight-semi:   500;
-  --font-weight-normal: 400;
-  --font-weight-light:  300;
+  --font-weight-bold:    600;
+  --font-weight-semi:    500;
+  --font-weight-normal:  400;
+  --font-weight-light:   300;
   // Text
-  --font-size:          16px;
-  --line-height:        1.5;
+  --font-size:           16px;
+  --line-height:         1.5;
 
   // -- Shape --
   --border-radius: .5em;
