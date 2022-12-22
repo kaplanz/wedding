@@ -1,13 +1,27 @@
 {% extends "index.html" %}
 
 {%- block content -%}
-      <form action="/login" method="post">
-        <label for="first">
-          <input type="text" name="first" placeholder="First name">
-        </label>
-        <label for="last">
-          <input type="text" name="last" placeholder="Last name">
-        </label>
-        <input type="submit" value="Login">
-      </form>
+      <div class="login">
+        <div class="body">
+          <p>
+            Log in below using your name as it appears on your invitation to
+            RSVP, choose your meal preferences, and let us know any comments you
+            might have!
+          </p>
+          <p>
+            You can log in as many times as you like to update your RSVP status
+            up until 01 May, 2023.
+          </p>
+        </div>
+        <br>
+        <div class="form">
+          <form action="/login" method="post">
+            <label for="first"></label>
+            <input type="text" name="first" placeholder="First name" required>
+            <label for="last"></label>
+            <input type="text" name="last" placeholder="Last name" required>
+            <input type="submit" value="Login">
+          </form>
+        </div>
+      </div>
 {%- endblock -%}

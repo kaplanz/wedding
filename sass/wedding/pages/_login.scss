@@ -1,0 +1,34 @@
+.login {
+  @media screen and (min-width: $screen-sm) {
+    div.form {
+      max-width: 50%;
+    }
+  }
+
+  div.form {
+    margin: auto;
+
+    form {
+      @extend .flex, .column, .gap;
+      @extend .fx, .tile;
+
+      padding: var(--spacer);
+
+      input {
+        @extend .fx, .round;
+
+        padding: var(--spacer-small-3);
+
+        &[type="submit"] {
+          cursor: pointer;
+        }
+
+        &[type="text"] {
+          &:required:valid {
+            background-color: var(--color-accent-bg);
+          }
+        }
+      }
+    }
+  }
+}
