@@ -548,12 +548,51 @@ h6.bold {
   background-color: var(--color-user-trace);
 }
 
+.pos-left, .pos.left,
+.position-left,
+.position.left {
+  float: left;
+}
+.pos-center, .pos.center, header.pos.header, footer.pos.footer,
+.position-center,
+.position.center,
+header.position.header,
+footer.position.footer {
+  float: center;
+}
+.pos-right, .pos.right,
+.position-right,
+.position.right {
+  float: right;
+}
+
+.tx-left, .tx.left,
+.text-left,
+.text.left,
+header.left.header,
+footer.left.footer {
+  text-align: left;
+}
 .tx-center, .tx.center,
 .text-center,
 .text.center,
 header.header,
 footer.footer {
   text-align: center;
+}
+.tx-right, .tx.right,
+.text-right,
+.text.right,
+header.right.header,
+footer.right.footer {
+  text-align: right;
+}
+.tx-justify, .tx.justify,
+.text-justify,
+.text.justify,
+header.justify.header,
+footer.justify.footer {
+  text-align: justify;
 }
 
 /*
