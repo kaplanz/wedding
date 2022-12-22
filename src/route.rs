@@ -17,7 +17,7 @@ pub async fn login() -> impl IntoResponse {
 
 pub async fn auth(auth: AuthContext, Form(user): Form<User>) -> impl IntoResponse {
     auth::login(auth, user).await;
-    Redirect::to("/")
+    Redirect::to("/rsvp")
 }
 
 pub async fn logout(auth: AuthContext) -> impl IntoResponse {
