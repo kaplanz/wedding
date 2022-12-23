@@ -17,15 +17,13 @@ use tower::ServiceExt;
 use tower_http::services::ServeDir;
 use tower_http::trace::TraceLayer;
 
-mod auth;
 mod db;
-mod error;
-mod guest;
-mod route;
+mod srv;
 mod user;
 
-use crate::auth::RequireAuth;
 use crate::db::Database;
+use crate::srv::auth::RequireAuth;
+use crate::srv::{error, route};
 
 /// Hannah & Zakhary's wedding server.
 #[derive(Parser)]
@@ -37,9 +35,14 @@ struct Args {
     #[arg(env = "PORT")]
     port: u16,
 
-    /// Path to guestlist.
+    /// Path to input guestlist.
     #[arg(value_hint = ValueHint::FilePath)]
     guests: Option<PathBuf>,
+
+    /// Path to output guestlist.
+    #[arg(short, long)]
+    #[arg(value_hint = ValueHint::FilePath)]
+    out: Option<PathBuf>,
 }
 
 #[tokio::main]
@@ -51,16 +54,16 @@ async fn main() -> Result<()> {
     // Parse args
     let args = Args::parse();
 
-    // Parse the guestlist
-    let db = match &args.guests {
+    // Initialize database
+    let mut db = match &args.guests {
         Some(path) => Database::try_from(path.as_path())?,
         None => {
             warn!("no guestlist provided, login will not be possible");
             Database::default()
         }
     };
+    db.path = args.out; // set optional output file
     info!("loaded {} guests", db.len());
-
     // Initialize session layer
     let secret: [u8; 64] = rand::thread_rng().gen();
     let session = SessionLayer::new(async_session::MemoryStore::new(), &secret).with_secure(false);
@@ -81,10 +84,9 @@ async fn main() -> Result<()> {
         .route(
             "/rsvp",
             get(route::rsvp)
-                .post(route::update)
+                .post(route::reply)
                 .layer(RequireAuth::login()),
         )
-        .route("/update", get(route::update).post(route::update))
         .fallback_service(
             get_service(
                 ServeDir::new("www").not_found_service(

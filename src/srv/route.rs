@@ -3,18 +3,22 @@ use axum::extract::State;
 use axum::http::StatusCode;
 use axum::response::{Html, IntoResponse, Redirect, Response};
 use axum::Form;
+use log::error;
 
-use crate::auth::{self, AuthContext};
-use crate::db::Database;
-use crate::guest::Reply;
+use super::auth::{self, AuthContext};
+use crate::db::guest::Reply;
+use crate::db::{Database, self};
 use crate::user::User;
 
 pub async fn index() -> impl IntoResponse {
     Index::get().await
 }
 
-pub async fn login() -> impl IntoResponse {
-    Login::get().await
+pub async fn login(auth: AuthContext) -> impl IntoResponse {
+    match auth.current_user {
+        Some(_) => Redirect::to("/rsvp").into_response(),
+        None => Login::get().await.into_response(),
+    }
 }
 
 pub async fn auth(auth: AuthContext, Form(user): Form<User>) -> impl IntoResponse {
@@ -31,8 +35,17 @@ pub async fn rsvp(auth: AuthContext) -> impl IntoResponse {
     Rsvp::get(auth.current_user.unwrap().clone()).await
 }
 
-pub async fn update(State(mut db): State<Database>, Form(reply): Form<Reply>) -> impl IntoResponse {
-    db.update(0, reply).unwrap();
+pub async fn reply(
+    State(mut db): State<Database>,
+    auth: AuthContext,
+    Form(reply): Form<Reply>,
+) -> impl IntoResponse {
+    let user = auth.current_user.unwrap();
+    db.update(&user, reply).unwrap();
+    match db.write() {
+        Ok(_) | Err(db::Error::Path) => (),
+        Err(err) => error!("{err}"),
+    };
     Redirect::to("/")
 }
 

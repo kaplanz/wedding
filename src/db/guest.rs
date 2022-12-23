@@ -2,13 +2,16 @@ use std::fmt::Display;
 
 use serde::{Deserialize, Serialize};
 
+use crate::db::Group;
 use crate::user::User;
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct Guest {
+    pub(super) group: Group,
     #[serde(flatten)]
-    pub user: User,
-    rsvp: Option<Rsvp>,
+    pub(super) user: User,
+    #[serde(flatten)]
+    pub(super) rsvp: Option<Rsvp>,
 }
 
 impl Guest {
@@ -18,15 +21,6 @@ impl Guest {
 
     pub fn update(&mut self, rsvp: Rsvp) {
         self.rsvp = Some(rsvp);
-    }
-}
-
-impl From<User> for Guest {
-    fn from(user: User) -> Self {
-        Guest {
-            user,
-            ..Default::default()
-        }
     }
 }
 
@@ -58,14 +52,31 @@ impl From<Reply> for Rsvp {
     }
 }
 
-#[derive(Clone, Debug, Deserialize)]
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Reply {
-    attend: Attend,
-    meal: Option<Meal>,
-    msg: Option<String>,
+    pub(super) attend: Attend,
+    pub(super) meal: Option<Meal>,
+    pub(super) msg: Option<String>,
 }
 
-#[derive(Clone, Debug, Deserialize)]
+impl From<Rsvp> for Reply {
+    fn from(rsvp: Rsvp) -> Self {
+        match rsvp {
+            Rsvp::Yes { meal, msg } => Reply {
+                attend: Attend::Yes,
+                meal: Some(meal),
+                msg: Some(msg),
+            },
+            Rsvp::No => Reply {
+                attend: Attend::No,
+                meal: None,
+                msg: None,
+            },
+        }
+    }
+}
+
+#[derive(Clone, Debug, Deserialize, Serialize)]
 pub enum Attend {
     Yes,
     No,

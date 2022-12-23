@@ -4,18 +4,17 @@ use axum_login::secrecy::SecretVec;
 use axum_login::AuthUser;
 use serde::{Deserialize, Serialize};
 
+use crate::db::Ident;
+
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct User {
-    first: String,
-    last: String,
+    #[serde(skip)]
+    pub(crate) ident: Ident,
+    pub(super) first: String,
+    pub(super) last: String,
 }
 
 impl User {
-    #[allow(unused)]
-    pub fn new(first: String, last: String) -> Self {
-        Self { first, last }
-    }
-
     #[allow(unused)]
     pub fn first(&self) -> &str {
         self.first.as_ref()
