@@ -1,16 +1,18 @@
 use std::net::SocketAddr;
 
-use askama::Template;
 use axum::extract::{ConnectInfo, State};
 use axum::http::StatusCode;
-use axum::response::{Html, IntoResponse, Redirect, Response};
+use axum::response::{IntoResponse, Redirect};
 use axum::Form;
 use log::{error, trace};
 
+use self::page::{Index, Login, Registry, Rsvp};
 use super::auth::{self, AuthContext};
 use crate::db::guest::Reply;
 use crate::db::{self, Database};
 use crate::user::User;
+
+mod page;
 
 pub async fn index() -> impl IntoResponse {
     Index::get().await
@@ -87,114 +89,4 @@ pub async fn reply(
     };
     // Redirect to the homepage
     Redirect::to("/").into_response()
-}
-
-#[derive(Template)]
-#[template(path = "index.html")]
-struct Index;
-
-impl Index {
-    fn new() -> Self {
-        Self
-    }
-
-    async fn get() -> impl IntoResponse {
-        Self::new()
-    }
-}
-
-impl IntoResponse for Index {
-    fn into_response(self) -> Response {
-        match self.render() {
-            Ok(html) => Html(html).into_response(),
-            Err(err) => (
-                StatusCode::INTERNAL_SERVER_ERROR,
-                format!("500: Failed to render template: {err}"),
-            )
-                .into_response(),
-        }
-    }
-}
-
-#[derive(Template)]
-#[template(path = "login.html")]
-struct Login;
-
-impl Login {
-    fn new() -> Self {
-        Self
-    }
-
-    async fn get() -> impl IntoResponse {
-        Self::new()
-    }
-}
-
-impl IntoResponse for Login {
-    fn into_response(self) -> Response {
-        match self.render() {
-            Ok(html) => Html(html).into_response(),
-            Err(err) => (
-                StatusCode::INTERNAL_SERVER_ERROR,
-                format!("500: Failed to render template: {err}"),
-            )
-                .into_response(),
-        }
-    }
-}
-
-#[derive(Template)]
-#[template(path = "registry.html")]
-struct Registry;
-
-impl Registry {
-    fn new() -> Self {
-        Self
-    }
-
-    async fn get() -> impl IntoResponse {
-        Self::new()
-    }
-}
-
-impl IntoResponse for Registry {
-    fn into_response(self) -> Response {
-        match self.render() {
-            Ok(html) => Html(html).into_response(),
-            Err(err) => (
-                StatusCode::INTERNAL_SERVER_ERROR,
-                format!("500: Failed to render template: {err}"),
-            )
-                .into_response(),
-        }
-    }
-}
-
-#[derive(Template)]
-#[template(path = "rsvp.html")]
-struct Rsvp {
-    user: User,
-}
-
-impl Rsvp {
-    fn new(user: User) -> Self {
-        Self { user }
-    }
-
-    async fn get(user: User) -> impl IntoResponse {
-        Self::new(user)
-    }
-}
-
-impl IntoResponse for Rsvp {
-    fn into_response(self) -> Response {
-        match self.render() {
-            Ok(html) => Html(html).into_response(),
-            Err(err) => (
-                StatusCode::INTERNAL_SERVER_ERROR,
-                format!("500: Failed to render template: {err}"),
-            )
-                .into_response(),
-        }
-    }
 }
