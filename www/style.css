@@ -701,20 +701,11 @@ footer.footer * {
 }
 
 header.header {
+  position: sticky;
+  top: 0;
+  gap: 4%;
   border-bottom: 1px solid var(--color-accent-bg);
   padding: var(--spacer) 0;
-}
-@media screen and (min-width: 32rem) {
-  header.header {
-    gap: 4%;
-    position: sticky;
-    top: 0;
-  }
-}
-@media screen and (max-width: 32rem) {
-  header.header .flourish {
-    display: none;
-  }
 }
 header.header * {
   margin: 0;
@@ -726,6 +717,12 @@ header.header .flourish {
 }
 header.header hr {
   margin-top: -12px;
+}
+@media screen and (max-width: 32rem) {
+  header.header .flourish {
+    height: 3em;
+    width: 6em;
+  }
 }
 
 /*
