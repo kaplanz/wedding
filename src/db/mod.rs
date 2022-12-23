@@ -20,6 +20,7 @@ pub type Group = usize;
 #[derive(Clone, Debug, Default)]
 pub struct Database {
     pub path: Option<PathBuf>,
+    idents: HashMap<User, Ident>,
     guests: HashMap<Ident, Guest>,
     groups: HashMap<Group, Vec<Ident>>,
 }
@@ -40,6 +41,9 @@ impl Database {
             guest.user.ident = ident;
             // Get the guest's group
             let group = guest.group;
+            // Add the user's identifier to the database
+            let user = guest.user.clone();
+            db.idents.insert(user, ident);
             // Add the guest into the database
             db.guests.insert(ident, guest);
             // Insert the guest (by identifier) into their group
@@ -61,6 +65,10 @@ impl Database {
 
     pub fn len(&self) -> usize {
         self.guests.len()
+    }
+
+    pub fn query(&self, user: &User) -> Option<Ident> {
+        self.idents.get(user).cloned()
     }
 
     pub fn update(&mut self, user: &User, reply: Reply) -> Result<(), Error> {

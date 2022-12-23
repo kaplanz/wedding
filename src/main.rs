@@ -107,7 +107,7 @@ async fn main() -> Result<()> {
     let addr = SocketAddr::from(([0; 8], args.port));
     info!("listening on {addr}");
     Server::bind(&addr)
-        .serve(app.into_make_service())
+        .serve(app.into_make_service_with_connect_info::<SocketAddr>())
         .await
         .unwrap();
 

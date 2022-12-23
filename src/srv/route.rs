@@ -1,13 +1,15 @@
+use std::net::SocketAddr;
+
 use askama::Template;
-use axum::extract::State;
+use axum::extract::{ConnectInfo, State};
 use axum::http::StatusCode;
 use axum::response::{Html, IntoResponse, Redirect, Response};
 use axum::Form;
-use log::error;
+use log::{error, trace};
 
 use super::auth::{self, AuthContext};
 use crate::db::guest::Reply;
-use crate::db::{Database, self};
+use crate::db::{self, Database};
 use crate::user::User;
 
 pub async fn index() -> impl IntoResponse {
@@ -21,8 +23,24 @@ pub async fn login(auth: AuthContext) -> impl IntoResponse {
     }
 }
 
-pub async fn auth(auth: AuthContext, Form(user): Form<User>) -> impl IntoResponse {
+pub async fn auth(
+    State(db): State<Database>,
+    auth: AuthContext,
+    ConnectInfo(addr): ConnectInfo<SocketAddr>,
+    Form(mut user): Form<User>,
+) -> impl IntoResponse {
+    trace!("attempt: `{user}`, from: {addr}");
+    let Some(ident) = db.query(&user) else {
+        // User not found
+        trace!("reject: `{user}`");
+        // Redirect back on failuer
+        return Redirect::to("/login");
+    };
+    // Update user identifier
+    user.ident = ident;
+    // Authenticate user
     auth::login(auth, user).await;
+    // Redirect onwards to rsvp
     Redirect::to("/rsvp")
 }
 

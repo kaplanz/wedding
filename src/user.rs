@@ -1,12 +1,13 @@
 use std::fmt::Display;
+use std::hash::Hash;
 
 use axum_login::secrecy::SecretVec;
 use axum_login::AuthUser;
 use serde::{Deserialize, Serialize};
 
-use crate::db::Ident;
+pub use crate::db::Ident;
 
-#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+#[derive(Clone, Debug, Default, Deserialize, Eq, Serialize)]
 pub struct User {
     #[serde(skip)]
     pub(crate) ident: Ident,
@@ -43,5 +44,18 @@ impl AuthUser for User {
 impl Display for User {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         self.get_id().fmt(f)
+    }
+}
+
+impl Hash for User {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.first.hash(state);
+        self.last.hash(state);
+    }
+}
+
+impl PartialEq for User {
+    fn eq(&self, other: &Self) -> bool {
+        (self.first == other.first) && (self.last == other.last)
     }
 }
