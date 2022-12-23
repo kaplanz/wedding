@@ -6,35 +6,54 @@
 
 {%- block content -%}
       <div class="rsvp">
-        <div>
-          <p>
-            Hey {{ user.first() }}, will you be able to attend?
-          </p>
-        </div>
-
         <div class="form">
           <form action="/rsvp" method="post">
-
-            <div name="attend">
-              <label for="yes">Yes</label>
-              <input type="radio" name="attend" id="yes" value="Yes" required>
-              <label for="no">No</label>
-              <input type="radio" name="attend" id="no" value="No" required>
+            <div class="section">
+              <p>
+                Hey {{ user.first() }}, will you be able to attend?
+              </p>
+            </div>
+            <div name="attend" class="radio">
+              <label for="yes">
+                Yes
+                <input type="radio" name="attend" id="yes" value="Yes" required>
+              </label>
+              <label for="no">
+                No
+                <input type="radio" name="attend" id="no" value="No" required>
+              </label>
             </div>
 
-            <div class="yesonly">
-              <p>We're so glad you can make it!</p>
-              <div name="meal">
-                <label for="meat">Meat</label>
-                <input type="radio" name="meal" id="meat" value="Meat" checked>
-                <label for="fish">Fish</label>
-                <input type="radio" name="meal" id="fish" value="Fish">
-                <label for="veggie">Veggie</label>
-                <input type="radio" name="meal" id="veggie" value="Veggie">
+            <div class="section" id="yesonly">
+              <div class="item">
+                <p>
+                  We're so glad you can make it! Next, let's figure out what
+                  you're eating...
+                </p>
+                <div name="meal" class="radio">
+                    <label for="meat">
+                      Meat
+                      <input type="radio" name="meal" id="meat" value="Meat" checked>
+                    </label>
+                    <label for="fish">
+                      Fish
+                      <input type="radio" name="meal" id="fish" value="Fish">
+                    </label>
+                    <label for="veggie">
+                      Veggie
+                      <input type="radio" name="meal" id="veggie" value="Veggie">
+                    </label>
+                </div>
               </div>
-              <label for="msg"></label>
-              <textarea name="msg" id="msg" rows="8" cols="40"
-                placeholder="Leave us a message..."></textarea>
+
+              <div class="item">
+                <p>
+                  Last question: Do you have any comments for us?
+                </p>
+                <label for="msg"></label>
+                <textarea name="msg" id="msg" rows="8" cols="40"
+                  placeholder="Leave us a message..."></textarea>
+              </div>
             </div>
 
             <input type="submit" value="RSVP">

@@ -309,20 +309,20 @@ body.bg.main {
   background-color: var(--color-accent-bg);
 }
 
-.flex, .login div.form > form, .login div.form, header.header {
+.flex, .rsvp div.form > form .section, .rsvp div.form > form .radio, .rsvp div.form > form, .rsvp div.form, .login div.form > form, .login div.form, header.header {
   display: flex;
 }
-.flex.center, .login div.form > form.center, .login div.form, header.header, footer.flex.footer {
+.flex.center, .rsvp div.form > form .center.section, .rsvp div.form > form .radio, .rsvp div.form > form, .rsvp div.form, .login div.form > form.center, .login div.form, header.header, footer.flex.footer, .rsvp div.form > form footer.footer.section {
   align-items: center;
   justify-content: center;
 }
-.flex-column, .flex.column, .login div.form > form, .login div.column.form, header.column.header {
+.flex-column, .flex.column, .rsvp div.form > form .section, .rsvp div.form > form .column.radio, .rsvp div.form > form, .rsvp div.column.form, .login div.form > form, .login div.column.form, header.column.header {
   flex-direction: column;
 }
-.flex-row, .flex.row, .login div.form > form.row, .login div.row.form, header.header {
+.flex-row, .flex.row, .rsvp div.form > form .row.section, .rsvp div.form > form .radio, .rsvp div.form > form.row, .rsvp div.row.form, .login div.form > form.row, .login div.row.form, header.header {
   flex-direction: row;
 }
-.flex.gap, .login div.form > form, .login div.gap.form, header.gap.header {
+.flex.gap, .rsvp div.form > form .section, .rsvp div.form > form .radio, .rsvp div.form > form, .rsvp div.gap.form, .login div.form > form, .login div.gap.form, header.gap.header {
   gap: var(--spacer);
 }
 
@@ -434,8 +434,11 @@ h6.bold {
   font-weight: var(--font-weight-light);
 }
 
-.fx-animate, .fx.animate, .login div.form > form input.animate, .login div.form > form.animate, .fx.fx-float, .login div.form > form input.fx-float, .login div.form > form.fx-float, .fx.float, .login div.form > form input.float, .login div.form > form.float,
+.fx-animate, .fx.animate, .rsvp div.form > form .radio > label.animate:has(input[type=radio]), .rsvp div.form > form textarea.animate, .rsvp div.form > form input.animate, .login div.form > form input.animate, .login div.form > form.animate, .fx.fx-float, .rsvp div.form > form .radio > label.fx-float:has(input[type=radio]), .rsvp div.form > form textarea.fx-float, .rsvp div.form > form input.fx-float, .login div.form > form input.fx-float, .login div.form > form.fx-float, .fx.float, .rsvp div.form > form .radio > label.float:has(input[type=radio]), .rsvp div.form > form textarea.float, .rsvp div.form > form input.float, .login div.form > form input.float, .login div.form > form.float,
 .fx.effects-float,
+.rsvp div.form > form .radio > label.effects-float:has(input[type=radio]),
+.rsvp div.form > form textarea.effects-float,
+.rsvp div.form > form input.effects-float,
 .login div.form > form input.effects-float,
 .login div.form > form.effects-float,
 .effects-animate,
@@ -445,13 +448,16 @@ h6.bold {
 .effects.float {
   transition: all 0.3s ease;
 }
-.fx-float:hover, .fx.float:hover, .login div.form > form input.float:hover, .login div.form > form.float:hover,
+.fx-float:hover, .fx.float:hover, .rsvp div.form > form .radio > label.float:hover:has(input[type=radio]), .rsvp div.form > form textarea.float:hover, .rsvp div.form > form input.float:hover, .login div.form > form input.float:hover, .login div.form > form.float:hover,
 .effects-float:hover,
 .effects.float:hover {
   transform: translate(0, -2px);
 }
-.fx-outline, .fx.outline, .login div.form > form input.outline, .fx.fx-tile, .login div.form > form input.fx-tile, .fx.tile, .login div.form > form input.tile, .login div.form > form,
+.fx-outline, .fx.outline, .rsvp div.form > form .radio > label.outline:has(input[type=radio]), .rsvp div.form > form textarea.outline, .rsvp div.form > form input.outline, .login div.form > form input.outline, .fx.fx-tile, .rsvp div.form > form .radio > label.fx-tile:has(input[type=radio]), .rsvp div.form > form textarea.fx-tile, .rsvp div.form > form input.fx-tile, .login div.form > form input.fx-tile, .fx.tile, .rsvp div.form > form .radio > label.tile:has(input[type=radio]), .rsvp div.form > form textarea.tile, .rsvp div.form > form input.tile, .login div.form > form input.tile, .login div.form > form,
 .fx.effects-tile,
+.rsvp div.form > form .radio > label.effects-tile:has(input[type=radio]),
+.rsvp div.form > form textarea.effects-tile,
+.rsvp div.form > form input.effects-tile,
 .login div.form > form input.effects-tile,
 .effects-outline,
 .effects.outline,
@@ -460,7 +466,7 @@ h6.bold {
 .effects.tile {
   border: 0.5px solid var(--color-border);
 }
-.fx-round, .fx.round, .login div.form > form input, .fx.fx-tile, .fx.tile, .login div.form > form,
+.fx-round, .fx.round, .rsvp div.form > form .radio > label:has(input[type=radio]), .rsvp div.form > form textarea, .rsvp div.form > form input, .login div.form > form input, .fx.fx-tile, .fx.tile, .login div.form > form,
 .fx.effects-tile,
 .effects-round,
 .effects.round,
@@ -469,8 +475,10 @@ h6.bold {
 .effects.tile {
   border-radius: var(--border-radius);
 }
-.fx-shadow, .fx.shadow, .login div.form > form input.shadow, .fx.fx-tile, .login div.form > form input.fx-tile, .fx.tile, .login div.form > form input.tile, .login div.form > form,
+.fx-shadow, .fx.shadow, .rsvp div.form > form .radio > label:has(input[type=radio]), .rsvp div.form > form textarea.shadow, .rsvp div.form > form input.shadow, .login div.form > form input.shadow, .fx.fx-tile, .rsvp div.form > form textarea.fx-tile, .rsvp div.form > form input.fx-tile, .login div.form > form input.fx-tile, .fx.tile, .rsvp div.form > form textarea.tile, .rsvp div.form > form input.tile, .login div.form > form input.tile, .login div.form > form,
 .fx.effects-tile,
+.rsvp div.form > form textarea.effects-tile,
+.rsvp div.form > form input.effects-tile,
 .login div.form > form input.effects-tile,
 .effects-shadow,
 .effects.shadow,
@@ -479,8 +487,10 @@ h6.bold {
 .effects.tile {
   box-shadow: 0 2px 3px var(--color-shadow);
 }
-.fx-shadow.float:hover, .fx.shadow.float:hover, .login div.form > form input.shadow.float:hover, .fx.float.fx-tile:hover, .login div.form > form input.float.fx-tile:hover, .fx.float.tile:hover, .login div.form > form input.float.tile:hover, .login div.form > form.float:hover,
+.fx-shadow.float:hover, .fx.shadow.float:hover, .rsvp div.form > form .radio > label.float:hover:has(input[type=radio]), .rsvp div.form > form textarea.shadow.float:hover, .rsvp div.form > form input.shadow.float:hover, .login div.form > form input.shadow.float:hover, .fx.float.fx-tile:hover, .rsvp div.form > form textarea.float.fx-tile:hover, .rsvp div.form > form input.float.fx-tile:hover, .login div.form > form input.float.fx-tile:hover, .fx.float.tile:hover, .rsvp div.form > form textarea.float.tile:hover, .rsvp div.form > form input.float.tile:hover, .login div.form > form input.float.tile:hover, .login div.form > form.float:hover,
 .fx.float.effects-tile:hover,
+.rsvp div.form > form textarea.float.effects-tile:hover,
+.rsvp div.form > form input.float.effects-tile:hover,
 .login div.form > form input.float.effects-tile:hover,
 .effects-shadow.float:hover,
 .effects.shadow.float:hover,
@@ -491,6 +501,9 @@ h6.bold {
 }
 .fx-unlink,
 .fx unlink,
+.rsvp div.form > form .radio > label:has(input[type=radio]) unlink,
+.rsvp div.form > form textarea unlink,
+.rsvp div.form > form input unlink,
 .login div.form > form unlink,
 .effects-unlink,
 .effects unlink {
@@ -499,11 +512,20 @@ h6.bold {
 }
 .fx-unlink:visited, .fx-unlink:visited:hover, .fx-unlink:hover, .fx-unlink:focus,
 .fx unlink:visited,
+.rsvp div.form > form .radio > label:has(input[type=radio]) unlink:visited,
+.rsvp div.form > form textarea unlink:visited,
+.rsvp div.form > form input unlink:visited,
 .login div.form > form unlink:visited,
 .fx unlink:visited:hover,
 .fx unlink:hover,
+.rsvp div.form > form .radio > label:has(input[type=radio]) unlink:hover,
+.rsvp div.form > form textarea unlink:hover,
+.rsvp div.form > form input unlink:hover,
 .login div.form > form unlink:hover,
 .fx unlink:focus,
+.rsvp div.form > form .radio > label:has(input[type=radio]) unlink:focus,
+.rsvp div.form > form textarea unlink:focus,
+.rsvp div.form > form input unlink:focus,
 .login div.form > form unlink:focus,
 .effects-unlink:visited,
 .effects-unlink:visited:hover,
@@ -553,9 +575,12 @@ h6.bold {
 .position.left {
   float: left;
 }
-.pos-center, .pos.center, .login div.pos.form, header.pos.header, footer.pos.footer,
+.pos-center, .pos.center, .rsvp div.form > form .pos.radio, .rsvp div.form > form.pos, .rsvp div.pos.form, .login div.pos.form, header.pos.header, footer.pos.footer,
 .position-center,
 .position.center,
+.rsvp div.form > form .position.radio,
+.rsvp div.form > form.position,
+.rsvp div.position.form,
 .login div.position.form,
 header.position.header,
 footer.position.footer {
@@ -574,9 +599,12 @@ header.left.header,
 footer.left.footer {
   text-align: left;
 }
-.tx-center, .tx.center, .login div.tx.form,
+.tx-center, .rsvp div.form > form .radio > label:has(input[type=radio]), .tx.center, .rsvp div.form > form .tx.radio, .rsvp div.form > form.tx, .rsvp div.tx.form, .login div.tx.form,
 .text-center,
 .text.center,
+.rsvp div.form > form .text.radio,
+.rsvp div.form > form.text,
+.rsvp div.text.form,
 .login div.text.form,
 header.header,
 footer.footer {
@@ -756,6 +784,44 @@ header.header hr {
 }
 .login div.form > form input[type=text]:required:valid {
   background-color: var(--color-accent-bg);
+}
+
+.rsvp div.form {
+  margin: auto;
+}
+.rsvp div.form > form {
+  width: 422px;
+}
+.rsvp div.form > form:has(input[type=radio][id=yes]:not(:checked)) #yesonly {
+  display: none;
+}
+.rsvp div.form > form input {
+  padding: var(--spacer-small-3);
+}
+.rsvp div.form > form input[type=submit] {
+  min-width: 6em;
+  cursor: pointer;
+}
+.rsvp div.form > form input[type=radio] {
+  display: none;
+}
+.rsvp div.form > form textarea {
+  padding: var(--spacer-small-3);
+  resize: none;
+}
+.rsvp div.form > form .radio > label:has(input[type=radio]) {
+  padding: var(--spacer-small-3);
+  min-width: 4em;
+  cursor: pointer;
+}
+.rsvp div.form > form .radio > label:has(input[type=radio]):has(:checked) {
+  background-color: var(--color-accent-fg);
+  color: var(--color-accent-bg);
+}
+.rsvp div.form p {
+  overflow-wrap: break-word;
+  margin-bottom: 0;
+  width: auto;
 }
 
 /*

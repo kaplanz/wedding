@@ -1,0 +1,71 @@
+.rsvp {
+  div.form {
+    @extend .flex, .center;
+
+    margin: auto;
+
+    > form {
+      @extend .flex, .column, .center, .gap;
+
+      width: 422px;
+
+      &:has(input[type="radio"][id="yes"]:not(:checked)) #yesonly {
+        display: none;
+      }
+
+      input {
+        @extend .fx, .round;
+
+        padding: var(--spacer-small-3);
+
+        &[type="submit"] {
+          min-width: 6em;
+
+          cursor: pointer;
+        }
+
+        &[type="radio"] {
+          display: none,
+        }
+      }
+
+      textarea {
+        @extend .fx, .round;
+
+        padding: var(--spacer-small-3);
+
+        resize: none;
+      }
+
+      .radio {
+        @extend .flex, .row, .center, .gap;
+
+        > label:has(input[type="radio"]) {
+          @extend .fx, .round, .shadow;
+          @extend .tx-center;
+
+          padding: var(--spacer-small-3);
+          min-width: 4em;
+
+          cursor: pointer;
+
+          &:has(:checked) {
+            background-color: var(--color-accent-fg);
+            color: var(--color-accent-bg);
+          }
+        }
+      }
+
+      .section {
+        @extend .flex, .column, .gap;
+      }
+    }
+
+    p {
+      overflow-wrap: break-word;
+
+      margin-bottom: 0;
+      width: auto;
+    }
+  }
+}
