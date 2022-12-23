@@ -5,6 +5,7 @@ use log::trace;
 use crate::user::User;
 
 pub type AuthContext = extractors::AuthContext<User, MemoryStore<User>>;
+#[allow(unused)]
 pub type RequireAuth = RequireAuthorizationLayer<User>;
 
 pub async fn login(mut auth: AuthContext, user: User) {

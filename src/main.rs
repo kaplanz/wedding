@@ -22,7 +22,6 @@ mod srv;
 mod user;
 
 use crate::db::Database;
-use crate::srv::auth::RequireAuth;
 use crate::srv::{error, route};
 
 /// Hannah & Zakhary's wedding server.
@@ -82,12 +81,7 @@ async fn main() -> Result<()> {
         .route("/login", get(route::login).post(route::auth))
         .route("/logout", get(route::logout))
         .route("/registry", get(route::registry))
-        .route(
-            "/rsvp",
-            get(route::rsvp)
-                .post(route::reply)
-                .layer(RequireAuth::login()),
-        )
+        .route("/rsvp", get(route::rsvp).post(route::reply))
         .fallback_service(
             get_service(
                 ServeDir::new("www").not_found_service(
