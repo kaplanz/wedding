@@ -1,17 +1,14 @@
 .login {
-  @media screen and (min-width: $screen-sm) {
-    div.form {
-      max-width: 50%;
-    }
-  }
-
   div.form {
+    @extend .flex, .center;
+
     margin: auto;
 
-    form {
+    > form {
       @extend .flex, .column, .gap;
       @extend .fx, .tile;
 
+      width: 320px;
       padding: var(--spacer);
 
       input {

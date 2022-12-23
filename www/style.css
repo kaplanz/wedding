@@ -309,20 +309,20 @@ body.bg.main {
   background-color: var(--color-accent-bg);
 }
 
-.flex, .login div.form form, header.header {
+.flex, .login div.form > form, .login div.form, header.header {
   display: flex;
 }
-.flex.center, .login div.form form.center, header.header, footer.flex.footer {
+.flex.center, .login div.form > form.center, .login div.form, header.header, footer.flex.footer {
   align-items: center;
   justify-content: center;
 }
-.flex-column, .flex.column, .login div.form form, header.column.header {
+.flex-column, .flex.column, .login div.form > form, .login div.column.form, header.column.header {
   flex-direction: column;
 }
-.flex-row, .flex.row, .login div.form form.row, header.header {
+.flex-row, .flex.row, .login div.form > form.row, .login div.row.form, header.header {
   flex-direction: row;
 }
-.flex.gap, .login div.form form, header.gap.header {
+.flex.gap, .login div.form > form, .login div.gap.form, header.gap.header {
   gap: var(--spacer);
 }
 
@@ -434,10 +434,10 @@ h6.bold {
   font-weight: var(--font-weight-light);
 }
 
-.fx-animate, .fx.animate, .login div.form form input.animate, .login div.form form.animate, .fx.fx-float, .login div.form form input.fx-float, .login div.form form.fx-float, .fx.float, .login div.form form input.float, .login div.form form.float,
+.fx-animate, .fx.animate, .login div.form > form input.animate, .login div.form > form.animate, .fx.fx-float, .login div.form > form input.fx-float, .login div.form > form.fx-float, .fx.float, .login div.form > form input.float, .login div.form > form.float,
 .fx.effects-float,
-.login div.form form input.effects-float,
-.login div.form form.effects-float,
+.login div.form > form input.effects-float,
+.login div.form > form.effects-float,
 .effects-animate,
 .effects.animate,
 .effects.fx-float,
@@ -445,14 +445,14 @@ h6.bold {
 .effects.float {
   transition: all 0.3s ease;
 }
-.fx-float:hover, .fx.float:hover, .login div.form form input.float:hover, .login div.form form.float:hover,
+.fx-float:hover, .fx.float:hover, .login div.form > form input.float:hover, .login div.form > form.float:hover,
 .effects-float:hover,
 .effects.float:hover {
   transform: translate(0, -2px);
 }
-.fx-outline, .fx.outline, .login div.form form input.outline, .fx.fx-tile, .login div.form form input.fx-tile, .fx.tile, .login div.form form input.tile, .login div.form form,
+.fx-outline, .fx.outline, .login div.form > form input.outline, .fx.fx-tile, .login div.form > form input.fx-tile, .fx.tile, .login div.form > form input.tile, .login div.form > form,
 .fx.effects-tile,
-.login div.form form input.effects-tile,
+.login div.form > form input.effects-tile,
 .effects-outline,
 .effects.outline,
 .effects.fx-tile,
@@ -460,7 +460,7 @@ h6.bold {
 .effects.tile {
   border: 0.5px solid var(--color-border);
 }
-.fx-round, .fx.round, .login div.form form input, .fx.fx-tile, .fx.tile, .login div.form form,
+.fx-round, .fx.round, .login div.form > form input, .fx.fx-tile, .fx.tile, .login div.form > form,
 .fx.effects-tile,
 .effects-round,
 .effects.round,
@@ -469,9 +469,9 @@ h6.bold {
 .effects.tile {
   border-radius: var(--border-radius);
 }
-.fx-shadow, .fx.shadow, .login div.form form input.shadow, .fx.fx-tile, .login div.form form input.fx-tile, .fx.tile, .login div.form form input.tile, .login div.form form,
+.fx-shadow, .fx.shadow, .login div.form > form input.shadow, .fx.fx-tile, .login div.form > form input.fx-tile, .fx.tile, .login div.form > form input.tile, .login div.form > form,
 .fx.effects-tile,
-.login div.form form input.effects-tile,
+.login div.form > form input.effects-tile,
 .effects-shadow,
 .effects.shadow,
 .effects.fx-tile,
@@ -479,9 +479,9 @@ h6.bold {
 .effects.tile {
   box-shadow: 0 2px 3px var(--color-shadow);
 }
-.fx-shadow.float:hover, .fx.shadow.float:hover, .login div.form form input.shadow.float:hover, .fx.float.fx-tile:hover, .login div.form form input.float.fx-tile:hover, .fx.float.tile:hover, .login div.form form input.float.tile:hover, .login div.form form.float:hover,
+.fx-shadow.float:hover, .fx.shadow.float:hover, .login div.form > form input.shadow.float:hover, .fx.float.fx-tile:hover, .login div.form > form input.float.fx-tile:hover, .fx.float.tile:hover, .login div.form > form input.float.tile:hover, .login div.form > form.float:hover,
 .fx.float.effects-tile:hover,
-.login div.form form input.float.effects-tile:hover,
+.login div.form > form input.float.effects-tile:hover,
 .effects-shadow.float:hover,
 .effects.shadow.float:hover,
 .effects.float.fx-tile:hover,
@@ -491,7 +491,7 @@ h6.bold {
 }
 .fx-unlink,
 .fx unlink,
-.login div.form form unlink,
+.login div.form > form unlink,
 .effects-unlink,
 .effects unlink {
   color: inherit;
@@ -499,12 +499,12 @@ h6.bold {
 }
 .fx-unlink:visited, .fx-unlink:visited:hover, .fx-unlink:hover, .fx-unlink:focus,
 .fx unlink:visited,
-.login div.form form unlink:visited,
+.login div.form > form unlink:visited,
 .fx unlink:visited:hover,
 .fx unlink:hover,
-.login div.form form unlink:hover,
+.login div.form > form unlink:hover,
 .fx unlink:focus,
-.login div.form form unlink:focus,
+.login div.form > form unlink:focus,
 .effects-unlink:visited,
 .effects-unlink:visited:hover,
 .effects-unlink:hover,
@@ -553,9 +553,10 @@ h6.bold {
 .position.left {
   float: left;
 }
-.pos-center, .pos.center, header.pos.header, footer.pos.footer,
+.pos-center, .pos.center, .login div.pos.form, header.pos.header, footer.pos.footer,
 .position-center,
 .position.center,
+.login div.position.form,
 header.position.header,
 footer.position.footer {
   float: center;
@@ -573,9 +574,10 @@ header.left.header,
 footer.left.footer {
   text-align: left;
 }
-.tx-center, .tx.center,
+.tx-center, .tx.center, .login div.tx.form,
 .text-center,
 .text.center,
+.login div.text.form,
 header.header,
 footer.footer {
   text-align: center;
@@ -739,24 +741,20 @@ header.header hr {
  * have very specific styles for the home page hence the need for a `_home.scss`
  * file in `pages/`.
  */
-@media screen and (min-width: 32rem) {
-  .login div.form {
-    max-width: 50%;
-  }
-}
 .login div.form {
   margin: auto;
 }
-.login div.form form {
+.login div.form > form {
+  width: 320px;
   padding: var(--spacer);
 }
-.login div.form form input {
+.login div.form > form input {
   padding: var(--spacer-small-3);
 }
-.login div.form form input[type=submit] {
+.login div.form > form input[type=submit] {
   cursor: pointer;
 }
-.login div.form form input[type=text]:required:valid {
+.login div.form > form input[type=text]:required:valid {
   background-color: var(--color-accent-bg);
 }
 
