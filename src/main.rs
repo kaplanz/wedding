@@ -81,6 +81,7 @@ async fn main() -> Result<()> {
         .route("/", get(route::index))
         .route("/login", get(route::login).post(route::auth))
         .route("/logout", get(route::logout))
+        .route("/registry", get(route::registry))
         .route(
             "/rsvp",
             get(route::rsvp)

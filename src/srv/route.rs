@@ -31,6 +31,10 @@ pub async fn logout(auth: AuthContext) -> impl IntoResponse {
     Redirect::to("/")
 }
 
+pub async fn registry() -> impl IntoResponse {
+    Registry::get().await
+}
+
 pub async fn rsvp(auth: AuthContext) -> impl IntoResponse {
     Rsvp::get(auth.current_user.unwrap().clone()).await
 }
@@ -91,6 +95,33 @@ impl Login {
 }
 
 impl IntoResponse for Login {
+    fn into_response(self) -> Response {
+        match self.render() {
+            Ok(html) => Html(html).into_response(),
+            Err(err) => (
+                StatusCode::INTERNAL_SERVER_ERROR,
+                format!("500: Failed to render template: {err}"),
+            )
+                .into_response(),
+        }
+    }
+}
+
+#[derive(Template)]
+#[template(path = "registry.html")]
+struct Registry;
+
+impl Registry {
+    fn new() -> Self {
+        Self
+    }
+
+    async fn get() -> impl IntoResponse {
+        Self::new()
+    }
+}
+
+impl IntoResponse for Registry {
     fn into_response(self) -> Response {
         match self.render() {
             Ok(html) => Html(html).into_response(),
