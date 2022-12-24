@@ -434,13 +434,12 @@ h6.bold {
   font-weight: var(--font-weight-light);
 }
 
-.fx-animate, .fx.animate, .rsvp div.form > form .radio > label.animate:has(input[type=radio]), .rsvp div.form > form textarea.animate, .rsvp div.form > form input.animate, .login div.form > form input.animate, .login div.form > form.animate, .fx.fx-float, .rsvp div.form > form .radio > label.fx-float:has(input[type=radio]), .rsvp div.form > form textarea.fx-float, .rsvp div.form > form input.fx-float, .login div.form > form input.fx-float, .login div.form > form.fx-float, .fx.float, .rsvp div.form > form .radio > label.float:has(input[type=radio]), .rsvp div.form > form textarea.float, .rsvp div.form > form input.float, .login div.form > form input.float, .login div.form > form.float,
+.fx-animate, .fx.animate, .rsvp div.form > form .radio > label.animate:has(input[type=radio]), .login div.form > form.animate, textarea.animate, input.animate, .fx.fx-float, .rsvp div.form > form .radio > label.fx-float:has(input[type=radio]), .login div.form > form.fx-float, textarea.fx-float, input.fx-float, .fx.float, .rsvp div.form > form .radio > label.float:has(input[type=radio]), .login div.form > form.float, textarea.float, input.float,
 .fx.effects-float,
 .rsvp div.form > form .radio > label.effects-float:has(input[type=radio]),
-.rsvp div.form > form textarea.effects-float,
-.rsvp div.form > form input.effects-float,
-.login div.form > form input.effects-float,
 .login div.form > form.effects-float,
+textarea.effects-float,
+input.effects-float,
 .effects-animate,
 .effects.animate,
 .effects.fx-float,
@@ -448,17 +447,16 @@ h6.bold {
 .effects.float {
   transition: all 0.3s ease;
 }
-.fx-float:hover, .fx.float:hover, .rsvp div.form > form .radio > label.float:hover:has(input[type=radio]), .rsvp div.form > form textarea.float:hover, .rsvp div.form > form input.float:hover, .login div.form > form input.float:hover, .login div.form > form.float:hover,
+.fx-float:hover, .fx.float:hover, .rsvp div.form > form .radio > label.float:hover:has(input[type=radio]), .login div.form > form.float:hover, textarea.float:hover, input.float:hover,
 .effects-float:hover,
 .effects.float:hover {
   transform: translate(0, -2px);
 }
-.fx-outline, .fx.outline, .rsvp div.form > form .radio > label.outline:has(input[type=radio]), .rsvp div.form > form textarea.outline, .rsvp div.form > form input.outline, .login div.form > form input.outline, .fx.fx-tile, .rsvp div.form > form .radio > label.fx-tile:has(input[type=radio]), .rsvp div.form > form textarea.fx-tile, .rsvp div.form > form input.fx-tile, .login div.form > form input.fx-tile, .fx.tile, .rsvp div.form > form .radio > label.tile:has(input[type=radio]), .rsvp div.form > form textarea.tile, .rsvp div.form > form input.tile, .login div.form > form input.tile, .login div.form > form,
+.fx-outline, .fx.outline, .rsvp div.form > form .radio > label.outline:has(input[type=radio]), textarea.outline, input.outline, .fx.fx-tile, .rsvp div.form > form .radio > label.fx-tile:has(input[type=radio]), textarea.fx-tile, input.fx-tile, .fx.tile, .rsvp div.form > form .radio > label.tile:has(input[type=radio]), .login div.form > form, textarea.tile, input.tile,
 .fx.effects-tile,
 .rsvp div.form > form .radio > label.effects-tile:has(input[type=radio]),
-.rsvp div.form > form textarea.effects-tile,
-.rsvp div.form > form input.effects-tile,
-.login div.form > form input.effects-tile,
+textarea.effects-tile,
+input.effects-tile,
 .effects-outline,
 .effects.outline,
 .effects.fx-tile,
@@ -466,20 +464,23 @@ h6.bold {
 .effects.tile {
   border: 0.5px solid var(--color-border);
 }
-.fx-round, .fx.round, .rsvp div.form > form .radio > label:has(input[type=radio]), .rsvp div.form > form textarea, .rsvp div.form > form input, .login div.form > form input, .fx.fx-tile, .fx.tile, .login div.form > form,
+.fx-round, .fx.round, .rsvp div.form > form .radio > label:has(input[type=radio]), textarea.fx, textarea, input.fx, input, .fx.fx-tile, textarea.fx-tile, input.fx-tile, .fx.tile, .login div.form > form, textarea.tile, input.tile,
 .fx.effects-tile,
+textarea.effects-tile,
+input.effects-tile,
 .effects-round,
 .effects.round,
+textarea.effects,
+input.effects,
 .effects.fx-tile,
 .effects.effects-tile,
 .effects.tile {
   border-radius: var(--border-radius);
 }
-.fx-shadow, .fx.shadow, .rsvp div.form > form .radio > label:has(input[type=radio]), .rsvp div.form > form textarea.shadow, .rsvp div.form > form input.shadow, .login div.form > form input.shadow, .fx.fx-tile, .rsvp div.form > form textarea.fx-tile, .rsvp div.form > form input.fx-tile, .login div.form > form input.fx-tile, .fx.tile, .rsvp div.form > form textarea.tile, .rsvp div.form > form input.tile, .login div.form > form input.tile, .login div.form > form,
+.fx-shadow, .fx.shadow, .rsvp div.form > form .radio > label:has(input[type=radio]), textarea.shadow, input.shadow, .fx.fx-tile, textarea.fx-tile, input.fx-tile, .fx.tile, .login div.form > form, textarea.tile, input.tile,
 .fx.effects-tile,
-.rsvp div.form > form textarea.effects-tile,
-.rsvp div.form > form input.effects-tile,
-.login div.form > form input.effects-tile,
+textarea.effects-tile,
+input.effects-tile,
 .effects-shadow,
 .effects.shadow,
 .effects.fx-tile,
@@ -487,11 +488,10 @@ h6.bold {
 .effects.tile {
   box-shadow: 0 2px 3px var(--color-shadow);
 }
-.fx-shadow.float:hover, .fx.shadow.float:hover, .rsvp div.form > form .radio > label.float:hover:has(input[type=radio]), .rsvp div.form > form textarea.shadow.float:hover, .rsvp div.form > form input.shadow.float:hover, .login div.form > form input.shadow.float:hover, .fx.float.fx-tile:hover, .rsvp div.form > form textarea.float.fx-tile:hover, .rsvp div.form > form input.float.fx-tile:hover, .login div.form > form input.float.fx-tile:hover, .fx.float.tile:hover, .rsvp div.form > form textarea.float.tile:hover, .rsvp div.form > form input.float.tile:hover, .login div.form > form input.float.tile:hover, .login div.form > form.float:hover,
+.fx-shadow.float:hover, .fx.shadow.float:hover, .rsvp div.form > form .radio > label.float:hover:has(input[type=radio]), textarea.shadow.float:hover, input.shadow.float:hover, .fx.float.fx-tile:hover, textarea.float.fx-tile:hover, input.float.fx-tile:hover, .fx.float.tile:hover, .login div.form > form.float:hover, textarea.float.tile:hover, input.float.tile:hover,
 .fx.float.effects-tile:hover,
-.rsvp div.form > form textarea.float.effects-tile:hover,
-.rsvp div.form > form input.float.effects-tile:hover,
-.login div.form > form input.float.effects-tile:hover,
+textarea.float.effects-tile:hover,
+input.float.effects-tile:hover,
 .effects-shadow.float:hover,
 .effects.shadow.float:hover,
 .effects.float.fx-tile:hover,
@@ -502,9 +502,9 @@ h6.bold {
 .fx-unlink,
 .fx unlink,
 .rsvp div.form > form .radio > label:has(input[type=radio]) unlink,
-.rsvp div.form > form textarea unlink,
-.rsvp div.form > form input unlink,
 .login div.form > form unlink,
+textarea unlink,
+input unlink,
 .effects-unlink,
 .effects unlink {
   color: inherit;
@@ -513,20 +513,20 @@ h6.bold {
 .fx-unlink:visited, .fx-unlink:visited:hover, .fx-unlink:hover, .fx-unlink:focus,
 .fx unlink:visited,
 .rsvp div.form > form .radio > label:has(input[type=radio]) unlink:visited,
-.rsvp div.form > form textarea unlink:visited,
-.rsvp div.form > form input unlink:visited,
 .login div.form > form unlink:visited,
+textarea unlink:visited,
+input unlink:visited,
 .fx unlink:visited:hover,
 .fx unlink:hover,
 .rsvp div.form > form .radio > label:has(input[type=radio]) unlink:hover,
-.rsvp div.form > form textarea unlink:hover,
-.rsvp div.form > form input unlink:hover,
 .login div.form > form unlink:hover,
+textarea unlink:hover,
+input unlink:hover,
 .fx unlink:focus,
 .rsvp div.form > form .radio > label:has(input[type=radio]) unlink:focus,
-.rsvp div.form > form textarea unlink:focus,
-.rsvp div.form > form input unlink:focus,
 .login div.form > form unlink:focus,
+textarea unlink:focus,
+input unlink:focus,
 .effects-unlink:visited,
 .effects-unlink:visited:hover,
 .effects-unlink:hover,
@@ -694,6 +694,21 @@ footer.justify.footer {
  * probably a stylesheet defining some standard styles for commonly used HTML
  * elements (that I like to call `_base.scss`).
  */
+input {
+  padding: var(--spacer-small-3);
+}
+input[type=submit] {
+  cursor: pointer;
+}
+input[type=text]:required:valid {
+  background-color: var(--color-accent-bg);
+}
+
+textarea {
+  padding: var(--spacer-small-3);
+  resize: none;
+}
+
 /*
  * The `layout/` folder contains everything that takes part in laying out the site
  * or application. This folder could have stylesheets for the main parts of the
@@ -776,15 +791,6 @@ header.header hr {
   width: 320px;
   padding: var(--spacer);
 }
-.login div.form > form input {
-  padding: var(--spacer-small-3);
-}
-.login div.form > form input[type=submit] {
-  cursor: pointer;
-}
-.login div.form > form input[type=text]:required:valid {
-  background-color: var(--color-accent-bg);
-}
 
 .rsvp div.form {
   margin: auto;
@@ -795,19 +801,11 @@ header.header hr {
 .rsvp div.form > form:has(input[type=radio][id=yes]:not(:checked)) #yesonly {
   display: none;
 }
-.rsvp div.form > form input {
-  padding: var(--spacer-small-3);
-}
 .rsvp div.form > form input[type=submit] {
   min-width: 6em;
-  cursor: pointer;
 }
 .rsvp div.form > form input[type=radio] {
   display: none;
-}
-.rsvp div.form > form textarea {
-  padding: var(--spacer-small-3);
-  resize: none;
 }
 .rsvp div.form > form .radio > label:has(input[type=radio]) {
   padding: var(--spacer-small-3);

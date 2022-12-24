@@ -14,27 +14,13 @@
       }
 
       input {
-        @extend .fx, .round;
-
-        padding: var(--spacer-small-3);
-
         &[type="submit"] {
           min-width: 6em;
-
-          cursor: pointer;
         }
 
         &[type="radio"] {
           display: none,
         }
-      }
-
-      textarea {
-        @extend .fx, .round;
-
-        padding: var(--spacer-small-3);
-
-        resize: none;
       }
 
       .radio {

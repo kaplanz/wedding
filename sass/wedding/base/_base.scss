@@ -1,0 +1,23 @@
+input {
+  @extend .fx, .round;
+
+  padding: var(--spacer-small-3);
+
+  &[type="submit"] {
+    cursor: pointer;
+  }
+
+  &[type="text"] {
+    &:required:valid {
+      background-color: var(--color-accent-bg);
+    }
+  }
+}
+
+textarea {
+  @extend .fx, .round;
+
+  padding: var(--spacer-small-3);
+
+  resize: none;
+}
