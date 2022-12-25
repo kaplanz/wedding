@@ -499,42 +499,21 @@ input.float.effects-tile:hover,
 .effects.float.tile:hover {
   box-shadow: 0 4px 9px -5px var(--color-shadow);
 }
-.fx-unlink,
-.fx unlink,
-.rsvp div.form > form .radio > label:has(input[type=radio]) unlink,
-.login div.form > form unlink,
-textarea unlink,
-input unlink,
+.fx-unlink, .fx.unlink, .rsvp div.form > form .radio > label.unlink:has(input[type=radio]), .login div.form > form.unlink, textarea.unlink, input.unlink,
 .effects-unlink,
-.effects unlink {
+.effects.unlink {
   color: inherit;
   text-decoration: none;
 }
-.fx-unlink:visited, .fx-unlink:visited:hover, .fx-unlink:hover, .fx-unlink:focus,
-.fx unlink:visited,
-.rsvp div.form > form .radio > label:has(input[type=radio]) unlink:visited,
-.login div.form > form unlink:visited,
-textarea unlink:visited,
-input unlink:visited,
-.fx unlink:visited:hover,
-.fx unlink:hover,
-.rsvp div.form > form .radio > label:has(input[type=radio]) unlink:hover,
-.login div.form > form unlink:hover,
-textarea unlink:hover,
-input unlink:hover,
-.fx unlink:focus,
-.rsvp div.form > form .radio > label:has(input[type=radio]) unlink:focus,
-.login div.form > form unlink:focus,
-textarea unlink:focus,
-input unlink:focus,
+.fx-unlink:visited, .fx-unlink:visited:hover, .fx-unlink:hover, .fx-unlink:focus, .fx.unlink:visited, .rsvp div.form > form .radio > label.unlink:visited:has(input[type=radio]), .login div.form > form.unlink:visited, textarea.unlink:visited, input.unlink:visited, .fx.unlink:visited:hover, .fx.unlink:hover, .rsvp div.form > form .radio > label.unlink:hover:has(input[type=radio]), .login div.form > form.unlink:hover, textarea.unlink:hover, input.unlink:hover, .fx.unlink:focus, .rsvp div.form > form .radio > label.unlink:focus:has(input[type=radio]), .login div.form > form.unlink:focus, textarea.unlink:focus, input.unlink:focus,
 .effects-unlink:visited,
 .effects-unlink:visited:hover,
 .effects-unlink:hover,
 .effects-unlink:focus,
-.effects unlink:visited,
-.effects unlink:visited:hover,
-.effects unlink:hover,
-.effects unlink:focus {
+.effects.unlink:visited,
+.effects.unlink:visited:hover,
+.effects.unlink:hover,
+.effects.unlink:focus {
   color: inherit;
   text-decoration: none;
 }
