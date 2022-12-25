@@ -40,11 +40,16 @@
     --color-bg: var(--oc-gray-0);
     --color-bg-2: var(--oc-gray-2);
     --color-bg-3: var(--oc-gray-4);
-    --color-user-error: var(--oc-red-7);
-    --color-user-info: var(--oc-green-7);
-    --color-user-warn: var(--oc-yellow-7);
-    --color-user-debug: var(--oc-blue-7);
-    --color-user-trace: var(--oc-cyan-7);
+    --color-user-error-bg: var(--oc-red-2);
+    --color-user-info-bg: var(--oc-green-2);
+    --color-user-warn-bg: var(--oc-yellow-2);
+    --color-user-debug-bg: var(--oc-blue-2);
+    --color-user-trace-bg: var(--oc-cyan-2);
+    --color-user-error-fg: var(--oc-red-7);
+    --color-user-info-fg: var(--oc-green-7);
+    --color-user-warn-fg: var(--oc-yellow-7);
+    --color-user-debug-fg: var(--oc-blue-7);
+    --color-user-trace-fg: var(--oc-cyan-7);
   }
 }
 @media (prefers-color-scheme: dark) {
@@ -61,11 +66,16 @@
     --color-bg: var(--oc-gray-9);
     --color-bg-2: var(--oc-gray-8);
     --color-bg-3: var(--oc-gray-7);
-    --color-user-error: var(--oc-red-4);
-    --color-user-info: var(--oc-green-4);
-    --color-user-warn: var(--oc-yellow-4);
-    --color-user-debug: var(--oc-blue-4);
-    --color-user-trace: var(--oc-cyan-4);
+    --color-user-error-bg: var(--oc-red-7);
+    --color-user-info-bg: var(--oc-green-7);
+    --color-user-warn-bg: var(--oc-yellow-7);
+    --color-user-debug-bg: var(--oc-blue-7);
+    --color-user-trace-bg: var(--oc-cyan-7);
+    --color-user-error-fg: var(--oc-red-4);
+    --color-user-info-fg: var(--oc-green-4);
+    --color-user-warn-fg: var(--oc-yellow-4);
+    --color-user-debug-fg: var(--oc-blue-4);
+    --color-user-trace-fg: var(--oc-cyan-4);
   }
 }
 
@@ -524,29 +534,36 @@ input.float.effects-tile:hover,
 .message.info,
 .message.debug,
 .message.trace {
+  border-style: double;
+  border-width: thick;
   border-radius: var(--border-radius);
-  color: var(--color-bg);
   padding: var(--spacer);
+  color: var(--color-fg);
 }
 .msg.error,
 .message.error {
-  background-color: var(--color-user-error);
+  border-color: var(--color-user-error-fg);
+  background-color: var(--color-user-error-bg);
 }
 .msg.warn,
 .message.warn {
-  background-color: var(--color-user-warn);
+  border-color: var(--color-user-warn-fg);
+  background-color: var(--color-user-warn-bg);
 }
 .msg.info,
 .message.info {
-  background-color: var(--color-user-info);
+  border-color: var(--color-user-into-fg);
+  background-color: var(--color-user-info-bg);
 }
 .msg.debug,
 .message.debug {
-  background-color: var(--color-user-debug);
+  border-color: var(--color-user-debug-fg);
+  background-color: var(--color-user-debug-bg);
 }
 .msg.trace,
 .message.trace {
-  background-color: var(--color-user-trace);
+  border-color: var(--color-user-trace-fg);
+  background-color: var(--color-user-trace-bg);
 }
 
 .pos-left, .pos.left,
@@ -636,11 +653,16 @@ footer.justify.footer {
   --color-bg: var(--oc-gray-0);
   --color-bg-2: var(--oc-gray-2);
   --color-bg-3: var(--oc-gray-4);
-  --color-user-error: var(--oc-red-7);
-  --color-user-info: var(--oc-green-7);
-  --color-user-warn: var(--oc-yellow-7);
-  --color-user-debug: var(--oc-blue-7);
-  --color-user-trace: var(--oc-cyan-7);
+  --color-user-error-bg: var(--oc-red-3);
+  --color-user-info-bg: var(--oc-green-3);
+  --color-user-warn-bg: var(--oc-yellow-3);
+  --color-user-debug-bg: var(--oc-blue-3);
+  --color-user-trace-bg: var(--oc-cyan-3);
+  --color-user-error-fg: var(--oc-red-7);
+  --color-user-info-fg: var(--oc-green-7);
+  --color-user-warn-fg: var(--oc-yellow-7);
+  --color-user-debug-fg: var(--oc-blue-7);
+  --color-user-trace-fg: var(--oc-cyan-7);
   --font-main-family: var(--font-family-serif);
   --font-family-cursive: "Corinthia";
   --font-family-mono: "Fira Code";

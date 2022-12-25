@@ -55,17 +55,23 @@ impl Dashboard {
     }
 }
 
-#[derive(Template)]
+#[derive(Default, Template)]
 #[template(path = "login.html")]
-pub struct Login;
+pub struct Login {
+    msg: Option<String>,
+}
 
 impl Login {
     fn new() -> Self {
-        Self
+        Self::default()
     }
 
     pub async fn get() -> impl IntoResponse {
         Self::new()
+    }
+
+    pub async fn msg(msg: String) -> impl IntoResponse {
+        Self { msg: Some(msg) }
     }
 }
 

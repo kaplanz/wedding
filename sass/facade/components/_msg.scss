@@ -5,28 +5,41 @@
   &.info,
   &.debug,
   &.trace {
+    border-style: double;
+    border-width: thick;
     border-radius: var(--border-radius);
-    color: var(--color-bg);
     padding: var(--spacer);
+
+    color: var(--color-fg);
   }
 
   &.error {
-    background-color: var(--color-user-error);
+    border-color: var(--color-user-error-fg);
+
+    background-color: var(--color-user-error-bg);
   }
 
   &.warn {
-    background-color: var(--color-user-warn);
+    border-color: var(--color-user-warn-fg);
+
+    background-color: var(--color-user-warn-bg);
   }
 
   &.info {
-    background-color: var(--color-user-info);
+    border-color: var(--color-user-into-fg);
+
+    background-color: var(--color-user-info-bg);
   }
 
   &.debug {
-    background-color: var(--color-user-debug);
+    border-color: var(--color-user-debug-fg);
+
+    background-color: var(--color-user-debug-bg);
   }
 
   &.trace {
-    background-color: var(--color-user-trace);
+    border-color: var(--color-user-trace-fg);
+
+    background-color: var(--color-user-trace-bg);
   }
 }

@@ -24,11 +24,16 @@ $screen-xl: 108rem;
     --color-bg-2:       var(--oc-gray-2);
     --color-bg-3:       var(--oc-gray-4);
     // Message
-    --color-user-error: var(--oc-red-7);
-    --color-user-info:  var(--oc-green-7);
-    --color-user-warn:  var(--oc-yellow-7);
-    --color-user-debug: var(--oc-blue-7);
-    --color-user-trace: var(--oc-cyan-7);
+    --color-user-error-bg: var(--oc-red-2);
+    --color-user-info-bg:  var(--oc-green-2);
+    --color-user-warn-bg:  var(--oc-yellow-2);
+    --color-user-debug-bg: var(--oc-blue-2);
+    --color-user-trace-bg: var(--oc-cyan-2);
+    --color-user-error-fg: var(--oc-red-7);
+    --color-user-info-fg:  var(--oc-green-7);
+    --color-user-warn-fg:  var(--oc-yellow-7);
+    --color-user-debug-fg: var(--oc-blue-7);
+    --color-user-trace-fg: var(--oc-cyan-7);
   }
   @media (prefers-color-scheme: dark) {
     // Accent
@@ -48,16 +53,21 @@ $screen-xl: 108rem;
     --color-bg-2:       var(--oc-gray-8);
     --color-bg-3:       var(--oc-gray-7);
     // Message
-    --color-user-error: var(--oc-red-4);
-    --color-user-info:  var(--oc-green-4);
-    --color-user-warn:  var(--oc-yellow-4);
-    --color-user-debug: var(--oc-blue-4);
-    --color-user-trace: var(--oc-cyan-4);
+    --color-user-error-bg: var(--oc-red-7);
+    --color-user-info-bg:  var(--oc-green-7);
+    --color-user-warn-bg:  var(--oc-yellow-7);
+    --color-user-debug-bg: var(--oc-blue-7);
+    --color-user-trace-bg: var(--oc-cyan-7);
+    --color-user-error-fg: var(--oc-red-4);
+    --color-user-info-fg:  var(--oc-green-4);
+    --color-user-warn-fg:  var(--oc-yellow-4);
+    --color-user-debug-fg: var(--oc-blue-4);
+    --color-user-trace-fg: var(--oc-cyan-4);
   }
 
   // -- Font --
   // Defaults
-  --font-main-family:    var(--font-family-sans);
+  --font-main-family: var(--font-family-sans);
   // Family
   --font-family-cursive: "Corinthia";
   --font-family-mono:    "Fira Code";

@@ -17,9 +17,13 @@
             up until 01 May, 2023.
           </p>
         </div>
-        <br>
         <div class="form">
           <form action="/login" method="post">
+            {% if let Some(msg) = msg %}
+              <div class="msg error">
+                {{ msg }}
+              </div>
+            {% endif %}
             <label for="first"></label>
             <input type="text" name="first" id="first" placeholder="First name" required>
             <label for="last"></label>

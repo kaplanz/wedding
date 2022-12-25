@@ -71,14 +71,16 @@ pub async fn auth(
         // User not found
         trace!("reject: `{user}`");
         // Redirect back on failuer
-        return Redirect::to("/login");
+        return Login::msg(
+            format!("Hmm, we couldn't find a login for: {user}")
+        ).await.into_response();
     };
     // Update user identifier
     user.ident = ident;
     // Authenticate user
     auth::login(auth, user).await;
     // Redirect onwards to RSVP
-    Redirect::to("/dashboard")
+    Redirect::to("/dashboard").into_response()
 }
 
 pub async fn logout(auth: AuthContext) -> impl IntoResponse {

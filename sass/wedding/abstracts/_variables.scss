@@ -23,11 +23,16 @@ $screen-xl: 108rem;
   --color-bg-2:       var(--oc-gray-2);
   --color-bg-3:       var(--oc-gray-4);
   // Message
-  --color-user-error: var(--oc-red-7);
-  --color-user-info:  var(--oc-green-7);
-  --color-user-warn:  var(--oc-yellow-7);
-  --color-user-debug: var(--oc-blue-7);
-  --color-user-trace: var(--oc-cyan-7);
+  --color-user-error-bg: var(--oc-red-3);
+  --color-user-info-bg:  var(--oc-green-3);
+  --color-user-warn-bg:  var(--oc-yellow-3);
+  --color-user-debug-bg: var(--oc-blue-3);
+  --color-user-trace-bg: var(--oc-cyan-3);
+  --color-user-error-fg: var(--oc-red-7);
+  --color-user-info-fg:  var(--oc-green-7);
+  --color-user-warn-fg:  var(--oc-yellow-7);
+  --color-user-debug-fg: var(--oc-blue-7);
+  --color-user-trace-fg: var(--oc-cyan-7);
 
   // -- Font --
   // Defaults
