@@ -9,6 +9,7 @@ edition = "2021"
 askama = "0.11.1"
 axum = { version = "0.6.1", features = ["form", "query"] }
 axum-login = "0.4.1"
+axum-server = { version = "0.4.4", features = ["tls-rustls"] }
 clap = { version = "4.0.30", features = ["derive", "env"] }
 color-eyre = "0.6.2"
 csv = "1.1.6"

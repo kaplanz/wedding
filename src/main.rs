@@ -5,9 +5,10 @@ use std::sync::Arc;
 
 use axum::handler::HandlerWithoutStateExt;
 use axum::routing::{get, get_service};
-use axum::{Router, Server};
+use axum::Router;
 use axum_login::axum_sessions::{async_session, SessionLayer};
 use axum_login::{memory_store, AuthLayer, AuthUser};
+use axum_server::tls_rustls::RustlsConfig;
 use clap::{Parser, ValueHint};
 use color_eyre::eyre::Result;
 use log::{info, warn};
@@ -42,6 +43,14 @@ struct Args {
     #[arg(short, long)]
     #[arg(value_hint = ValueHint::FilePath)]
     out: Option<PathBuf>,
+
+    /// Certificate file for TLS.
+    #[arg(long)]
+    cert: Option<PathBuf>,
+
+    /// Key file for TLS.
+    #[arg(long)]
+    key: Option<PathBuf>,
 }
 
 #[tokio::main]
@@ -52,6 +61,9 @@ async fn main() -> Result<()> {
     tracing_subscriber::fmt::init();
     // Parse args
     let args = Args::parse();
+
+    // Extract TLS certificate and key
+    let tls = CertKey::try_from((args.cert, args.key)).ok();
 
     // Initialize database
     let mut db = match &args.guests {
@@ -103,11 +115,59 @@ async fn main() -> Result<()> {
 
     // Run it
     let addr = SocketAddr::from(([0; 8], args.port));
-    info!("listening on {addr}");
-    Server::bind(&addr)
-        .serve(app.into_make_service_with_connect_info::<SocketAddr>())
-        .await
-        .unwrap();
+    match tls {
+        Some(tls) => {
+            // Prepare TLS config
+            let config = RustlsConfig::from_pem_file(tls.cert, tls.key)
+                .await
+                .unwrap();
+            // Serve the app
+            info!("listening on https://{addr}");
+            axum_server::bind_rustls(addr, config)
+                .serve(app.into_make_service_with_connect_info::<SocketAddr>())
+                .await
+                .unwrap();
+        }
+        None => {
+            // Serve the app
+            info!("listening on http://{addr}");
+            axum_server::bind(addr)
+                .serve(app.into_make_service_with_connect_info::<SocketAddr>())
+                .await
+                .unwrap();
+        }
+    }
 
     Ok(())
+}
+
+#[derive(Debug)]
+struct CertKey {
+    cert: PathBuf,
+    key: PathBuf,
+}
+
+impl TryFrom<(Option<PathBuf>, Option<PathBuf>)> for CertKey {
+    type Error = ();
+
+    fn try_from((cert, key): (Option<PathBuf>, Option<PathBuf>)) -> Result<Self, Self::Error> {
+        match (cert, key) {
+            (Some(cert), Some(key)) => Ok(Self { cert, key }),
+            (Some(cert), None) => {
+                warn!(
+                    "missing TLS key file, ignoring certificate: `{}`",
+                    cert.display()
+                );
+                Err(())
+            }
+            (None, Some(key)) => {
+                warn!(
+                    "missing TLS certificate file, ignoring key: `{}`",
+                    key.display()
+                );
+                Err(())
+            }
+            (None, None) => Err(()),
+        }
+    }
 }
