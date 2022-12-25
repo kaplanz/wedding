@@ -7,25 +7,35 @@
 {%- block content -%}
       <div class="dashboard">
         <h3>Welcome, {{ user.first() }}!</h3>
-        <ul>
+        <ul class="guests">
           {% for guest in guests %}
-            <li>
-              <a href="/rsvp/{{ guest.user().ident }}">
-                {{ guest.user() }}
-              </a>
-              <span>
+            <li class="guest">
+              <a class="name" href="/rsvp/{{ guest.user().ident }}">
+                <div>{{ guest.user() }}</div>
                 {% if let Some(reply) = guest.reply() -%}
-                  <span>{{ reply.attend }}</span>
-                  {%- if let Some(meal) = reply.meal -%}
-                    <span>, {{ meal }}</span>
-                  {% endif %}
-                  {%- if let Some(msg) = reply.msg -%}
-                    {%- if !msg.is_empty() -%}
-                      <span>, {{ msg }}</span>
+                  <div>
+                    <hr>
+                    <div>
+                      <i class="fa-solid fa-envelope-open-text">:</i>
+                      <span>{{ reply.attend }}</span>
+                    </div>
+                    {%- if let Some(meal) = reply.meal -%}
+                      <div>
+                        <i class="fa-solid fa-utensils">:</i>
+                        <span>{{ meal }}</span>
+                      </div>
                     {% endif %}
-                  {% endif %}
+                    {%- if let Some(msg) = reply.msg -%}
+                      {%- if !msg.is_empty() -%}
+                        <div>
+                          <i class="fa-solid fa-message">:</i>
+                          <span>{{ msg }}</span>
+                        </div>
+                      {% endif %}
+                    {% endif %}
+                  </div>
                 {% endif -%}
-              </span>
+              </a>
             </li>
           {% endfor %}
         </ul>

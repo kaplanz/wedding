@@ -1,0 +1,26 @@
+.dashboard {
+  ul.guests {
+    @extend .flex, .gap;
+
+    @media screen and (min-width: $screen-sm) {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    @media screen and (max-width: $screen-sm) {
+      flex-direction: column;
+    }
+
+    margin: var(--spacer);
+    padding: 0;
+
+    list-style-type: none;
+
+    li.guest > a {
+      @extend .flex, .column, .gap;
+      @extend .fx, .float, .tile, .unlink;
+
+      padding: var(--spacer);
+    }
+  }
+}
