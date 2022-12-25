@@ -67,18 +67,27 @@ impl Database {
         self.guests.len()
     }
 
-    pub fn query(&self, user: &User) -> Option<Ident> {
-        self.idents.get(user).cloned()
+    pub fn query(&self, user: &User) -> Option<&Ident> {
+        self.idents.get(user)
     }
 
-    pub fn update(&mut self, user: &User, reply: Reply) -> Result<(), Error> {
-        // Get the user's identifier
-        let ident = user.ident;
+    pub fn guest(&self, ident: &Ident) -> Option<&Guest> {
+        self.guests.get(ident)
+    }
+
+    pub fn group(&self, ident: &Ident) -> Result<&[Ident], Error> {
+        // Extract the guest
+        let group = self.guests.get(ident).ok_or(Error::Guest)?.group;
+        // Return the user's group
+        self.groups
+            .get(&group)
+            .map(Vec::as_slice)
+            .ok_or(Error::Guest)
+    }
+
+    pub fn update(&mut self, ident: &Ident, reply: Reply) -> Result<(), Error> {
         // Extract the guest to update
-        let guest = self
-            .guests
-            .get_mut(&ident)
-            .ok_or_else(|| Error::Guest(ident))?;
+        let guest = self.guests.get_mut(ident).ok_or(Error::Guest)?;
         // Convert the reply into an rsvp
         let rsvp = reply.into();
         // Perform the update
@@ -138,6 +147,6 @@ pub enum Error {
     Io(#[from] io::Error),
     #[error(transparent)]
     Csv(#[from] csv::Error),
-    #[error("missing guest: {0}")]
-    Guest(Ident),
+    #[error("missing guest")]
+    Guest,
 }

@@ -7,7 +7,7 @@ edition = "2021"
 
 [dependencies]
 askama = "0.11.1"
-axum = { version = "0.6.1", features = ["form"] }
+axum = { version = "0.6.1", features = ["form", "query"] }
 axum-login = "0.4.1"
 clap = { version = "4.0.30", features = ["derive", "env"] }
 color-eyre = "0.6.2"
@@ -20,4 +20,4 @@ tokio = { version = "1.23.0", features = ["full"] }
 tower = "0.4.13"
 tower-http = { version = "0.3.5", features = ["fs", "trace"] }
 tracing-subscriber = "0.3.16"
-uuid = { version = "1.2.2", features = ["v4"] }
+uuid = { version = "1.2.2", features = ["v4", "serde"] }

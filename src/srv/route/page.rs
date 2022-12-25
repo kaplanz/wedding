@@ -2,6 +2,7 @@ use askama::Template;
 use axum::http::StatusCode;
 use axum::response::{Html, IntoResponse, Response};
 
+use crate::db::guest::Guest;
 use crate::user::User;
 
 macro_rules! add_impl {
@@ -21,7 +22,7 @@ macro_rules! add_impl {
     )*)
 }
 
-add_impl! { Index Login Registry Rsvp }
+add_impl! { Index Dashboard Login Registry Rsvp }
 
 #[derive(Template)]
 #[template(path = "index.html")]
@@ -34,6 +35,23 @@ impl Index {
 
     pub async fn get() -> impl IntoResponse {
         Self::new()
+    }
+}
+
+#[derive(Template)]
+#[template(path = "dashboard.html")]
+pub struct Dashboard {
+    user: User,
+    guests: Vec<Guest>,
+}
+
+impl Dashboard {
+    fn new(user: User, guests: Vec<Guest>) -> Self {
+        Self { user, guests }
+    }
+
+    pub async fn get(user: User, guests: Vec<Guest>) -> impl IntoResponse {
+        Self::new(user, guests)
     }
 }
 
@@ -68,15 +86,15 @@ impl Registry {
 #[derive(Template)]
 #[template(path = "rsvp.html")]
 pub struct Rsvp {
-    user: User,
+    guest: Guest,
 }
 
 impl Rsvp {
-    fn new(user: User) -> Self {
-        Self { user }
+    fn new(guest: Guest) -> Self {
+        Self { guest }
     }
 
-    pub async fn get(user: User) -> impl IntoResponse {
-        Self::new(user)
+    pub async fn get(guest: Guest) -> impl IntoResponse {
+        Self::new(guest)
     }
 }

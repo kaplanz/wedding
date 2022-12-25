@@ -4,6 +4,13 @@ use askama::Template;
 use axum::http::StatusCode;
 use axum::response::{Html, IntoResponse, Response};
 
+pub async fn e401() -> impl IntoResponse {
+    Error::new(
+        StatusCode::UNAUTHORIZED,
+        "You don't have access to that!".to_string(),
+    )
+}
+
 pub async fn e404() -> impl IntoResponse {
     Error::new(StatusCode::NOT_FOUND, "Page not found :(".to_string())
 }
