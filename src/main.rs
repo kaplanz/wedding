@@ -74,6 +74,8 @@ async fn main() -> Result<()> {
     let memory = Arc::new(RwLock::new(users));
     let store = memory_store::MemoryStore::new(&memory);
     let auth = AuthLayer::new(store, &secret);
+    // Wrap dataabase layer
+    let db = Arc::new(RwLock::new(db));
 
     // Build our application with a route
     let app = Router::new()

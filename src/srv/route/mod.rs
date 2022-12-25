@@ -1,10 +1,12 @@
 use std::net::SocketAddr;
+use std::sync::Arc;
 
 use axum::extract::{ConnectInfo, Path, State};
 use axum::http::StatusCode;
 use axum::response::{IntoResponse, Redirect};
 use axum::Form;
 use log::{error, trace};
+use tokio::sync::RwLock;
 use uuid::Uuid;
 
 use self::page::{Dashboard, Index, Login, Registry, Rsvp};
@@ -21,11 +23,16 @@ pub async fn index() -> impl IntoResponse {
     Index::get().await
 }
 
-pub async fn dashboard(State(db): State<Database>, auth: AuthContext) -> impl IntoResponse {
+pub async fn dashboard(
+    State(db): State<Arc<RwLock<Database>>>,
+    auth: AuthContext,
+) -> impl IntoResponse {
     // Redirect to the login if no user authenticated
     let Some(user) = auth.current_user.clone() else {
         return Redirect::to("/login").into_response();
     };
+    // Acquire database as a reader
+    let db = db.read().await;
     // Get all the guests in this user's group
     // TODO: Handle errors better (don't just unwrap)
     let guests = db
@@ -49,11 +56,13 @@ pub async fn login(auth: AuthContext) -> impl IntoResponse {
 }
 
 pub async fn auth(
-    State(db): State<Database>,
+    State(db): State<Arc<RwLock<Database>>>,
     auth: AuthContext,
     ConnectInfo(addr): ConnectInfo<SocketAddr>,
     Form(mut user): Form<User>,
 ) -> impl IntoResponse {
+    // Acquire database as a reader
+    let db = db.read().await;
     // Query the database using provided credentials
     trace!("attempt: `{user}`, from: {addr}");
     let Some(ident) = db.query(&user).cloned() else {
@@ -83,7 +92,7 @@ pub async fn registry() -> impl IntoResponse {
 }
 
 pub async fn rsvp(
-    State(db): State<Database>,
+    State(db): State<Arc<RwLock<Database>>>,
     auth: AuthContext,
     Path(guest): Path<Uuid>,
 ) -> impl IntoResponse {
@@ -91,6 +100,8 @@ pub async fn rsvp(
     let Some(user) = auth.current_user.clone() else {
         return Redirect::to("/login").into_response();
     };
+    // Acquire database as a reader
+    let db = db.read().await;
     // Confirm this user is in the requested guest's group
     let group = db.group(&user.ident).unwrap();
     if !group.contains(&guest) {
@@ -104,7 +115,7 @@ pub async fn rsvp(
 }
 
 pub async fn reply(
-    State(mut db): State<Database>,
+    State(db): State<Arc<RwLock<Database>>>,
     auth: AuthContext,
     Path(guest): Path<Uuid>,
     Form(reply): Form<Reply>,
@@ -114,6 +125,8 @@ pub async fn reply(
         // User not found, return status code
         return StatusCode::UNAUTHORIZED.into_response();
     };
+    // Acquire database as a writer
+    let mut db = db.write().await;
     // Confirm this user is in the requested guest's group
     let group = db.group(&user.ident).unwrap();
     if !group.contains(&guest) {

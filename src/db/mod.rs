@@ -17,7 +17,7 @@ use self::record::Record;
 pub type Ident = Uuid;
 pub type Group = usize;
 
-#[derive(Clone, Debug, Default)]
+#[derive(Debug, Default)]
 pub struct Database {
     pub path: Option<PathBuf>,
     idents: HashMap<User, Ident>,
