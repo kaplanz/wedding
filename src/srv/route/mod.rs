@@ -61,10 +61,12 @@ pub async fn auth(
     ConnectInfo(addr): ConnectInfo<SocketAddr>,
     Form(mut user): Form<User>,
 ) -> impl IntoResponse {
+    // Sanitize user input
+    trace!("attempt: `{user}`, from: {addr}");
+    user.sanitize();
     // Acquire database as a reader
     let db = db.read().await;
     // Query the database using provided credentials
-    trace!("attempt: `{user}`, from: {addr}");
     let Some(ident) = db.query(&user).cloned() else {
         // User not found
         trace!("reject: `{user}`");

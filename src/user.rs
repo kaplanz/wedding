@@ -29,6 +29,11 @@ impl User {
     pub fn name(&self) -> String {
         format!("{} {}", self.first, self.last)
     }
+
+    pub fn sanitize(&mut self) {
+        self.first = sanitize(&self.first);
+        self.last = sanitize(&self.last);
+    }
 }
 
 impl AuthUser for User {
@@ -58,4 +63,14 @@ impl PartialEq for User {
     fn eq(&self, other: &Self) -> bool {
         (self.first == other.first) && (self.last == other.last)
     }
+}
+
+fn sanitize(input: &str) -> String {
+    let mut chars = input.trim().chars();
+    chars
+        .next()
+        .into_iter()
+        .flat_map(|c| c.to_uppercase())
+        .chain(chars.flat_map(|c| c.to_lowercase()))
+        .collect()
 }
