@@ -41,7 +41,7 @@
                       {%- if !msg.is_empty() -%}
                         <tr>
                           <td><i class="fa-solid fa-message"></i></td>
-                          <td>{{ msg }}</td>
+                          <td>"{{ msg|linebreaksbr|safe }}"</td>
                         </tr>
                       {%- endif -%}
                     {%- endif -%}
