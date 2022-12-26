@@ -7,37 +7,42 @@
 {%- block content -%}
       <div class="dashboard">
         <h3>Welcome, {{ user.first() }}!</h3>
+        <p>
+          We found the following guests on your invitation:
+        </p>
         <ul class="guests">
           {%- for guest in guests -%}
-            <li class="guest">
-              <a class="name" href="/rsvp?guest={{ guest.user().ident }}">
-                <div>{{ guest.user() }}</div>
-                {%- if let Some(reply) = guest.reply() -%}
-                  <div>
-                    <hr>
-                    <div>
-                      <i class="fa-solid fa-envelope-open-text">:</i>
-                      <span>{{ reply.attend }}</span>
-                    </div>
-                    {%- if let Some(meal) = reply.meal -%}
-                      <div>
-                        <i class="fa-solid fa-utensils">:</i>
-                        <span>{{ meal }}</span>
-                      </div>
-                    {%- endif -%}
-                    {%- if let Some(msg) = reply.msg -%}
-                      {%- if !msg.is_empty() -%}
-                        <div>
-                          <i class="fa-solid fa-message">:</i>
-                          <span>{{ msg }}</span>
-                        </div>
-                      {%- endif -%}
-                    {%- endif -%}
-                  </div>
-                {%- endif -%}
-              </a>
-            </li>
+            {% call render(guest) %}
           {%- endfor -%}
         </ul>
       </div>
 {%- endblock -%}
+
+{%- macro render(guest) -%}
+            <li class="guest">
+              <a class="name" href="/rsvp?guest={{ guest.user().ident }}">
+                <div>{{ guest.user() }}</div>
+                {%- if let Some(reply) = guest.reply() -%}
+                  <hr>
+                  <div>
+                    <i class="fa-solid fa-envelope-open-text">:</i>
+                    <span>{{ reply.attend }}</span>
+                  </div>
+                  {%- if let Some(meal) = reply.meal -%}
+                    <div>
+                      <i class="fa-solid fa-utensils">:</i>
+                      <span>{{ meal }}</span>
+                    </div>
+                  {%- endif -%}
+                  {%- if let Some(msg) = reply.msg -%}
+                    {%- if !msg.is_empty() -%}
+                      <div>
+                        <i class="fa-solid fa-message">:</i>
+                        <span>{{ msg }}</span>
+                      </div>
+                    {%- endif -%}
+                  {%- endif -%}
+                {%- endif -%}
+              </a>
+            </li>
+{%- endmacro -%}

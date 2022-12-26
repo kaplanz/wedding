@@ -17,10 +17,10 @@
     list-style-type: none;
 
     li.guest > a {
-      @extend .flex, .column, .gap;
+      @extend .flex, .column;
       @extend .fx, .float, .tile, .unlink;
 
-      padding: var(--spacer);
+      padding: var(--spacer-small-2);
     }
   }
 }

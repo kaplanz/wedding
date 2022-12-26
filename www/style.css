@@ -332,7 +332,7 @@ body.bg.main {
 .flex-row, .flex.row, .rsvp div.form > form .row.section, .rsvp div.form > form .radio, .rsvp div.form > form.row, .rsvp div.row.form, .login div.form > form.row, .login div.row.form, .dashboard ul.guests li.guest > a.row, .dashboard ul.guests .rsvp div.form > form li.guest > a.radio, .rsvp div.form > form .dashboard ul.guests li.guest > a.radio, .dashboard ul.row.guests, nav.nav, header.header {
   flex-direction: row;
 }
-.flex.gap, .rsvp div.form > form .section, .rsvp div.form > form .radio, .rsvp div.form > form, .rsvp div.gap.form, .login div.form > form, .login div.gap.form, .dashboard ul.guests li.guest > a, .dashboard ul.guests, nav.nav, header.gap.header {
+.flex.gap, .rsvp div.form > form .section, .rsvp div.form > form .radio, .rsvp div.form > form, .rsvp div.gap.form, .login div.form > form, .login div.gap.form, .dashboard ul.guests li.guest > a.gap, .dashboard ul.guests .rsvp div.form > form li.guest > a.section, .rsvp div.form > form .dashboard ul.guests li.guest > a.section, .dashboard ul.guests .rsvp div.form > form li.guest > a.radio, .rsvp div.form > form .dashboard ul.guests li.guest > a.radio, .dashboard ul.guests, nav.nav, header.gap.header {
   gap: var(--spacer);
 }
 
@@ -816,7 +816,7 @@ nav.nav a.item .current {
   }
 }
 .dashboard ul.guests li.guest > a {
-  padding: var(--spacer);
+  padding: var(--spacer-small-2);
 }
 
 .login div.form {
