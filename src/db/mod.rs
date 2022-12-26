@@ -1,7 +1,7 @@
-use std::collections::HashMap;
 use std::io;
 use std::path::{Path, PathBuf};
 
+use indexmap::IndexMap;
 use log::{debug, info, trace};
 use thiserror::Error;
 use uuid::Uuid;
@@ -20,9 +20,9 @@ pub type Group = usize;
 #[derive(Debug, Default)]
 pub struct Database {
     pub path: Option<PathBuf>,
-    idents: HashMap<User, Ident>,
-    guests: HashMap<Ident, Guest>,
-    groups: HashMap<Group, Vec<Ident>>,
+    idents: IndexMap<User, Ident>,
+    guests: IndexMap<Ident, Guest>,
+    groups: IndexMap<Group, Vec<Ident>>,
 }
 
 impl Database {
