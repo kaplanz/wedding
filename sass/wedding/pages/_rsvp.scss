@@ -1,13 +1,13 @@
 .rsvp {
   div.form {
-    @extend .flex, .center;
+    @extend .flex, .row, .center;
 
     margin: auto;
 
     > form {
       @extend .flex, .column, .center, .gap;
 
-      width: 422px;
+      max-width: 420px;
 
       &:has(input[type="radio"][id="yes"]:not(:checked)) #yesonly {
         display: none;
@@ -44,6 +44,10 @@
 
       .section {
         @extend .flex, .column, .gap;
+
+        .item {
+          @extend .fx, .center;
+        }
       }
     }
 

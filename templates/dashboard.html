@@ -24,24 +24,28 @@
                 <div>{{ guest.user() }}</div>
                 {%- if let Some(reply) = guest.reply() -%}
                   <hr>
-                  <div>
-                    <i class="fa-solid fa-envelope-open-text">:</i>
-                    <span>{{ reply.attend }}</span>
-                  </div>
-                  {%- if let Some(meal) = reply.meal -%}
-                    <div>
-                      <i class="fa-solid fa-utensils">:</i>
-                      <span>{{ meal }}</span>
-                    </div>
-                  {%- endif -%}
-                  {%- if let Some(msg) = reply.msg -%}
-                    {%- if !msg.is_empty() -%}
-                      <div>
-                        <i class="fa-solid fa-message">:</i>
-                        <span>{{ msg }}</span>
-                      </div>
+                  <table>
+                    <col class="icon">
+                    <col class="data">
+                    <tr>
+                      <td><i class="fa-solid fa-envelope-open-text"></i></td>
+                      <td>{{ reply.attend }}</td>
+                    </tr>
+                    {%- if let Some(meal) = reply.meal -%}
+                      <tr>
+                        <td><i class="fa-solid fa-utensils"></i></td>
+                        <td>{{ meal }}</td>
+                      </tr>
                     {%- endif -%}
-                  {%- endif -%}
+                    {%- if let Some(msg) = reply.msg -%}
+                      {%- if !msg.is_empty() -%}
+                        <tr>
+                          <td><i class="fa-solid fa-message"></i></td>
+                          <td>{{ msg }}</td>
+                        </tr>
+                      {%- endif -%}
+                    {%- endif -%}
+                  </table>
                 {%- endif -%}
               </a>
             </li>

@@ -1,13 +1,13 @@
 .dashboard {
   ul.guests {
-    @extend .flex, .gap;
+    @extend .flex, .center, .gap;
 
-    @media screen and (min-width: $screen-sm) {
+    @media screen and (min-width: $screen-xs) {
       flex-direction: row;
       flex-wrap: wrap;
     }
 
-    @media screen and (max-width: $screen-sm) {
+    @media screen and (max-width: $screen-xs) {
       flex-direction: column;
     }
 
@@ -21,6 +21,23 @@
       @extend .fx, .float, .tile, .unlink;
 
       padding: var(--spacer-small-2);
+
+      table, th, tr {
+        margin: 0;
+        border: 0;
+        border-style: hidden;
+        padding: 0;
+      }
+
+      table col {
+        &.icon {
+          width: 0;
+        }
+
+        &.data {
+          width: 100%;
+        }
+      }
     }
   }
 }

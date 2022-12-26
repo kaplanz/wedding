@@ -2,17 +2,26 @@
   display: flex;
 
   &.center {
-    align-items: center;
-    justify-content: center;
+    &.horizontal {
+      justify-content: center;
+    }
+
+    &.vertical {
+      align-items: center;
+    }
   }
 
   &-column,
   &.column {
+    @extend .vertical;
+
     flex-direction: column;
   }
 
   &-row,
   &.row {
+    @extend .horizontal;
+
     flex-direction: row;
   }
 

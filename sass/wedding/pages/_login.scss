@@ -1,6 +1,6 @@
 .login {
   div.form {
-    @extend .flex, .center;
+    @extend .flex, .row, .center;
 
     margin: auto;
 
@@ -8,6 +8,7 @@
       @extend .flex, .column, .gap;
       @extend .fx, .tile;
 
+      margin: var(--spacer);
       width: 320px;
       padding: var(--spacer);
     }

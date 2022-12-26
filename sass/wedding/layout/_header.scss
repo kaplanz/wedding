@@ -20,8 +20,18 @@ header.header {
     width: 10em;
   }
 
+  .headline {
+    white-space: nowrap;
+  }
+
   hr {
     margin-top: -12px;
+  }
+
+  @media screen and (max-width: $screen-xs) {
+    .flourish {
+      display: none;
+    }
   }
 
   @media screen and (max-width: $screen-sm) {

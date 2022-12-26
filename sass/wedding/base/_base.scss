@@ -17,6 +17,7 @@ input {
 textarea {
   @extend .fx, .round;
 
+  min-width: 100%;
   padding: var(--spacer-small-3);
 
   resize: none;
