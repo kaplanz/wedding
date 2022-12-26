@@ -1,5 +1,3 @@
-use std::io;
-
 use askama::Template;
 use axum::http::StatusCode;
 use axum::response::{Html, IntoResponse, Response};
@@ -9,8 +7,8 @@ pub async fn e404() -> impl IntoResponse {
     Error::e404()
 }
 
-pub async fn e500(err: io::Error) -> impl IntoResponse {
-    (StatusCode::INTERNAL_SERVER_ERROR, format!("{err}"))
+pub async fn e500<E: std::error::Error>(err: E) -> impl IntoResponse {
+    Error::e500(err)
 }
 
 #[derive(Debug, Error, Template)]
@@ -41,6 +39,10 @@ impl Error {
 
     pub fn e404() -> Self {
         Self::new(StatusCode::NOT_FOUND, "Page not found :(".to_string())
+    }
+
+    pub fn e500<E: std::error::Error>(err: E) -> Self {
+        Self::new(StatusCode::INTERNAL_SERVER_ERROR, format!("{err}"))
     }
 }
 
