@@ -9,7 +9,7 @@ use log::{error, trace};
 use serde::Deserialize;
 use tokio::sync::RwLock;
 
-use self::page::{Dashboard, Index, Login, Registry, Rsvp};
+use self::page::{Dashboard, Home, Login, Registry, Rsvp};
 use super::auth::{self, AuthContext};
 use super::error;
 use crate::db::guest::Reply;
@@ -23,9 +23,9 @@ pub struct Action {
     guest: Option<Ident>,
 }
 
-pub async fn index() -> impl IntoResponse {
-    // Present index page
-    Index::get().await
+pub async fn home() -> impl IntoResponse {
+    // Present homepage
+    Home::get().await
 }
 
 pub async fn dashboard(

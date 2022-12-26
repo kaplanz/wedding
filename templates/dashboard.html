@@ -8,11 +8,11 @@
       <div class="dashboard">
         <h3>Welcome, {{ user.first() }}!</h3>
         <ul class="guests">
-          {% for guest in guests %}
+          {%- for guest in guests -%}
             <li class="guest">
               <a class="name" href="/rsvp?guest={{ guest.user().ident }}">
                 <div>{{ guest.user() }}</div>
-                {% if let Some(reply) = guest.reply() -%}
+                {%- if let Some(reply) = guest.reply() -%}
                   <div>
                     <hr>
                     <div>
@@ -24,20 +24,20 @@
                         <i class="fa-solid fa-utensils">:</i>
                         <span>{{ meal }}</span>
                       </div>
-                    {% endif %}
+                    {%- endif -%}
                     {%- if let Some(msg) = reply.msg -%}
                       {%- if !msg.is_empty() -%}
                         <div>
                           <i class="fa-solid fa-message">:</i>
                           <span>{{ msg }}</span>
                         </div>
-                      {% endif %}
-                    {% endif %}
+                      {%- endif -%}
+                    {%- endif -%}
                   </div>
-                {% endif -%}
+                {%- endif -%}
               </a>
             </li>
-          {% endfor %}
+          {%- endfor -%}
         </ul>
       </div>
 {%- endblock -%}

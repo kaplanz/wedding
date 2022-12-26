@@ -22,13 +22,13 @@ macro_rules! add_impl {
     )*)
 }
 
-add_impl! { Index Dashboard Login Registry Rsvp }
+add_impl! { Home Dashboard Login Registry Rsvp }
 
 #[derive(Template)]
-#[template(path = "index.html")]
-pub struct Index;
+#[template(path = "home.html")]
+pub struct Home;
 
-impl Index {
+impl Home {
     fn new() -> Self {
         Self
     }

@@ -91,7 +91,7 @@ async fn main() -> Result<()> {
 
     // Build our application with a route
     let app = Router::new()
-        .route("/", get(route::index))
+        .route("/", get(route::home))
         .route("/dashboard", get(route::dashboard))
         .route("/login", get(route::login).post(route::auth))
         .route("/logout", get(route::logout))

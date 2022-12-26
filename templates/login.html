@@ -19,11 +19,11 @@
         </div>
         <div class="form">
           <form action="/login" method="post">
-            {% if let Some(msg) = msg %}
+            {%- if let Some(msg) = msg -%}
               <div class="msg error">
                 {{ msg }}
               </div>
-            {% endif %}
+            {%- endif -%}
             <label for="first"></label>
             <input type="text" name="first" id="first" placeholder="First name" required>
             <label for="last"></label>
