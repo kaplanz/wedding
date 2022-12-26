@@ -11,7 +11,7 @@ use axum_login::{memory_store, AuthLayer, AuthUser};
 use axum_server::tls_rustls::RustlsConfig;
 use clap::{Parser, ValueHint};
 use color_eyre::eyre::Result;
-use log::{info, warn};
+use log::{debug, info, warn};
 use rand::Rng;
 use tokio::sync::RwLock;
 use tower::ServiceExt;
@@ -44,6 +44,12 @@ struct Args {
     #[arg(value_hint = ValueHint::FilePath)]
     out: Option<PathBuf>,
 
+    /// Directory root for serving files.
+    #[arg(short, long)]
+    #[arg(default_value = "www")]
+    #[arg(value_hint = ValueHint::FilePath)]
+    root: PathBuf,
+
     /// Certificate file for TLS.
     #[arg(long)]
     cert: Option<PathBuf>,
@@ -64,20 +70,34 @@ async fn main() -> Result<()> {
 
     // Extract TLS certificate and key
     let tls = CertKey::try_from((args.cert, args.key)).ok();
+    if let Some(tls) = &tls {
+        debug!(
+            "tls: cert: `{}`, key: `{}`",
+            tls.cert.display(),
+            tls.key.display()
+        );
+    }
 
     // Initialize database
     let mut db = match &args.guests {
         Some(path) => Database::try_from(path.as_path())?,
         None => {
+            // Initialize empty database
             warn!("no guestlist provided, login will not be possible");
             Database::default()
         }
     };
-    db.path = args.out; // set optional output file
     info!("loaded {} guests", db.len());
+    // Set (optional) database write path
+    db.path = args.out;
+    if let Some(path) = &db.path {
+        debug!("database: output path: `{}`", path.display());
+    }
+
     // Initialize session layer
     let secret: [u8; 64] = rand::thread_rng().gen();
     let session = SessionLayer::new(async_session::MemoryStore::new(), &secret).with_secure(false);
+
     // Initialize auth layer
     let users = db
         .iter()
@@ -86,10 +106,12 @@ async fn main() -> Result<()> {
     let memory = Arc::new(RwLock::new(users));
     let store = memory_store::MemoryStore::new(&memory);
     let auth = AuthLayer::new(store, &secret);
+
     // Wrap dataabase layer
     let db = Arc::new(RwLock::new(db));
 
     // Build our application with a route
+    debug!("directory root: `{}`", &args.root.display());
     let app = Router::new()
         .route("/", get(route::home))
         .route("/dashboard", get(route::dashboard))
@@ -99,7 +121,7 @@ async fn main() -> Result<()> {
         .route("/rsvp", get(route::rsvp).post(route::reply))
         .fallback_service(
             get_service(
-                ServeDir::new("www").not_found_service(
+                ServeDir::new(args.root).not_found_service(
                     error::e404
                         .into_service()
                         .map_err(|err| -> io::Error { match err {} }),
@@ -121,7 +143,7 @@ async fn main() -> Result<()> {
                 .await
                 .unwrap();
             // Serve the app
-            info!("listening on https://{addr}");
+            info!("listening on <https://{addr}>");
             axum_server::bind_rustls(addr, config)
                 .serve(app.into_make_service_with_connect_info::<SocketAddr>())
                 .await
@@ -129,7 +151,7 @@ async fn main() -> Result<()> {
         }
         None => {
             // Serve the app
-            info!("listening on http://{addr}");
+            info!("listening on <http://{addr}>");
             axum_server::bind(addr)
                 .serve(app.into_make_service_with_connect_info::<SocketAddr>())
                 .await
