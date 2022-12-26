@@ -5,12 +5,22 @@
     margin: auto;
 
     > form {
-      @extend .flex, .column, .gap;
+      @extend .flex, .column, .center, .gap;
       @extend .fx, .tile;
 
       margin: var(--spacer);
       width: 320px;
       padding: var(--spacer);
+
+      input {
+        &[type="submit"] {
+          width: 6em;
+        }
+
+        &[type="text"] {
+          width: 100%;
+        }
+      }
     }
   }
 }
