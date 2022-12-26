@@ -1,6 +1,6 @@
 use axum_login::memory_store::MemoryStore;
 use axum_login::{extractors, RequireAuthorizationLayer};
-use log::trace;
+use log::debug;
 
 use crate::user::User;
 
@@ -13,12 +13,12 @@ pub async fn login(mut auth: AuthContext, user: User) {
         logout(auth.clone()).await;
     }
     auth.login(&user).await.unwrap();
-    trace!("login: `{user}`");
+    debug!("login: `{user}`");
 }
 
 pub async fn logout(mut auth: AuthContext) {
     if let Some(user) = auth.current_user.as_ref() {
-        trace!("logout: `{user}`");
+        debug!("logout: `{user}`");
     }
     auth.logout().await;
 }

@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::io;
 use std::path::{Path, PathBuf};
 
-use log::{debug, trace};
+use log::{debug, info, trace};
 use thiserror::Error;
 use uuid::Uuid;
 
@@ -34,7 +34,11 @@ impl Database {
             trace!(
                 "read: `{}`, rsvp: {}",
                 guest.user().name(),
-                guest.rsvp.is_some()
+                guest
+                    .rsvp
+                    .as_ref()
+                    .map(|rsvp| format!("{rsvp}"))
+                    .unwrap_or_else(|| "none".to_string())
             );
             // Create an identifier for this guest
             let ident = Ident::new_v4();
@@ -91,7 +95,7 @@ impl Database {
         // Convert the reply into an rsvp
         let rsvp = reply.into();
         // Perform the update
-        trace!("update: `{}` -> {}", guest.user().name(), rsvp);
+        info!("update: `{}` -> {}", guest.user(), rsvp);
         guest.update(rsvp);
 
         Ok(())
@@ -110,8 +114,12 @@ impl Database {
             writer.serialize(record).map_err(Error::Csv)?;
             trace!(
                 "wrote: `{}`, rsvp: {}",
-                guest.user().name(),
-                guest.rsvp.is_some()
+                guest.user(),
+                guest
+                    .rsvp
+                    .as_ref()
+                    .map(|rsvp| format!("{rsvp}"))
+                    .unwrap_or_else(|| "none".to_string())
             );
         }
 

@@ -5,7 +5,7 @@ use axum::extract::{ConnectInfo, Query, State};
 use axum::http::StatusCode;
 use axum::response::{IntoResponse, Redirect};
 use axum::Form;
-use log::{error, trace};
+use log::{debug, error, trace, warn};
 use serde::Deserialize;
 use tokio::sync::RwLock;
 
@@ -74,7 +74,7 @@ pub async fn auth(
     // Query the database using provided credentials
     let Some(ident) = db.query(&user).cloned() else {
         // User not found
-        trace!("reject: `{user}`");
+        warn!("reject: `{user}`, from: {addr}");
         // Redirect back on failuer
         return Login::msg(
             format!("Hmm, we couldn't find a login for: {user}")
@@ -103,6 +103,7 @@ pub async fn registry() -> impl IntoResponse {
 pub async fn rsvp(
     State(db): State<Arc<RwLock<Database>>>,
     auth: AuthContext,
+    ConnectInfo(addr): ConnectInfo<SocketAddr>,
     Query(action): Query<Action>,
 ) -> impl IntoResponse {
     // Redirect to the login if no user authenticated
@@ -116,7 +117,7 @@ pub async fn rsvp(
     // Confirm this user is in the requested guest's group
     let group = db.group(&user.ident).unwrap();
     if !group.contains(&guest) {
-        trace!("unauthorized: `{user}`");
+        warn!("unauthorized: `{user}`, from: {addr}");
         return error::e401().await.into_response();
     }
     // Extract the guest to RSVP
@@ -129,6 +130,7 @@ pub async fn reply(
     State(db): State<Arc<RwLock<Database>>>,
     auth: AuthContext,
     Query(action): Query<Action>,
+    ConnectInfo(addr): ConnectInfo<SocketAddr>,
     Form(reply): Form<Reply>,
 ) -> impl IntoResponse {
     // Do nothing if not logged in
@@ -143,12 +145,12 @@ pub async fn reply(
     // Confirm this user is in the requested guest's group
     let group = db.group(&user.ident).unwrap();
     if !group.contains(&guest) {
-        trace!("unauthorized: `{user}`");
+        warn!("unauthorized: `{user}`, from: {addr}");
         return error::e401().await.into_response();
     }
     // Update this user's reply
     // TODO: Handle errors better (don't just unwrap)
-    trace!("reply: `{user}`, for: `{}`", guest);
+    debug!("reply: `{user}`, for: {}", guest);
     db.update(&guest, reply).unwrap();
     // Save the database to a file (optional)
     // TODO: Should this be done async?

@@ -38,7 +38,7 @@ impl Display for Rsvp {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         Display::fmt(
             &match self {
-                Self::Yes { meal, msg } => format!("yes(meal: {meal:?}, msg: \"{msg}\")"),
+                Self::Yes { meal, msg } => format!("yes (meal: {meal:?}, msg: \"{msg}\")"),
                 Self::No => "no".to_string(),
             },
             f,
