@@ -3,25 +3,19 @@ use std::io;
 use askama::Template;
 use axum::http::StatusCode;
 use axum::response::{Html, IntoResponse, Response};
-
-pub async fn e401() -> impl IntoResponse {
-    Error::new(
-        StatusCode::UNAUTHORIZED,
-        "You don't have access to that!".to_string(),
-    )
-}
+use thiserror::Error;
 
 pub async fn e404() -> impl IntoResponse {
-    Error::new(StatusCode::NOT_FOUND, "Page not found :(".to_string())
+    Error::e404()
 }
 
 pub async fn e500(err: io::Error) -> impl IntoResponse {
     (StatusCode::INTERNAL_SERVER_ERROR, format!("{err}"))
 }
 
-#[derive(Template)]
+#[derive(Debug, Error, Template)]
 #[template(path = "error.html")]
-struct Error {
+pub struct Error {
     code: StatusCode,
     msg: String,
 }
@@ -29,6 +23,24 @@ struct Error {
 impl Error {
     fn new(code: StatusCode, msg: String) -> Self {
         Self { code, msg }
+    }
+
+    pub fn e400() -> Self {
+        Self::new(
+            StatusCode::BAD_REQUEST,
+            "Something went wrong...".to_string(),
+        )
+    }
+
+    pub fn e401() -> Self {
+        Self::new(
+            StatusCode::UNAUTHORIZED,
+            "You don't have access to that!".to_string(),
+        )
+    }
+
+    pub fn e404() -> Self {
+        Self::new(StatusCode::NOT_FOUND, "Page not found :(".to_string())
     }
 }
 

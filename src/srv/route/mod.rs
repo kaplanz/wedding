@@ -11,7 +11,7 @@ use tokio::sync::RwLock;
 
 use self::page::{Dashboard, Home, Login, Registry, Rsvp};
 use super::auth::{self, AuthContext};
-use super::error;
+use super::Error;
 use crate::db::guest::Reply;
 use crate::db::{self, Database, Ident};
 use crate::user::User;
@@ -118,7 +118,7 @@ pub async fn rsvp(
     let group = db.group(&user.ident).unwrap();
     if !group.contains(&guest) {
         warn!("unauthorized: `{user}`, from: {addr}");
-        return error::e401().await.into_response();
+        return Error::e401().into_response();
     }
     // Extract the guest to RSVP
     let guest = db.guest(&guest).unwrap().clone();
@@ -146,7 +146,7 @@ pub async fn reply(
     let group = db.group(&user.ident).unwrap();
     if !group.contains(&guest) {
         warn!("unauthorized: `{user}`, from: {addr}");
-        return error::e401().await.into_response();
+        return Error::e401().into_response();
     }
     // Update this user's reply
     // TODO: Handle errors better (don't just unwrap)
