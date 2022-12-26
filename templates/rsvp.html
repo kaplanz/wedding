@@ -7,7 +7,7 @@
 {%- block content -%}
       <div class="rsvp">
         <div class="form">
-          <form action="/rsvp/{{ guest.user().ident }}" method="post">
+          <form action="/rsvp?guest={{ guest.user().ident }}" method="post">
             <div class="section">
               <p>
                 Hey {{ guest.user().first() }}, will you be able to attend?

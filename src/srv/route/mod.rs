@@ -1,22 +1,27 @@
 use std::net::SocketAddr;
 use std::sync::Arc;
 
-use axum::extract::{ConnectInfo, Path, State};
+use axum::extract::{ConnectInfo, Query, State};
 use axum::http::StatusCode;
 use axum::response::{IntoResponse, Redirect};
 use axum::Form;
 use log::{error, trace};
+use serde::Deserialize;
 use tokio::sync::RwLock;
-use uuid::Uuid;
 
 use self::page::{Dashboard, Index, Login, Registry, Rsvp};
 use super::auth::{self, AuthContext};
 use super::error;
 use crate::db::guest::Reply;
-use crate::db::{self, Database};
+use crate::db::{self, Database, Ident};
 use crate::user::User;
 
 mod page;
+
+#[derive(Debug, Deserialize)]
+pub struct Action {
+    guest: Option<Ident>,
+}
 
 pub async fn index() -> impl IntoResponse {
     // Present index page
@@ -98,12 +103,14 @@ pub async fn registry() -> impl IntoResponse {
 pub async fn rsvp(
     State(db): State<Arc<RwLock<Database>>>,
     auth: AuthContext,
-    Path(guest): Path<Uuid>,
+    Query(action): Query<Action>,
 ) -> impl IntoResponse {
     // Redirect to the login if no user authenticated
     let Some(user) = auth.current_user.clone() else {
         return Redirect::to("/login").into_response();
     };
+    // Present to the user if no guest supplied
+    let guest = action.guest.unwrap_or(user.ident);
     // Acquire database as a reader
     let db = db.read().await;
     // Confirm this user is in the requested guest's group
@@ -121,7 +128,7 @@ pub async fn rsvp(
 pub async fn reply(
     State(db): State<Arc<RwLock<Database>>>,
     auth: AuthContext,
-    Path(guest): Path<Uuid>,
+    Query(action): Query<Action>,
     Form(reply): Form<Reply>,
 ) -> impl IntoResponse {
     // Do nothing if not logged in
@@ -129,6 +136,8 @@ pub async fn reply(
         // User not found, return status code
         return StatusCode::UNAUTHORIZED.into_response();
     };
+    // Reply for the user if no guest supplied
+    let guest = action.guest.unwrap_or(user.ident);
     // Acquire database as a writer
     let mut db = db.write().await;
     // Confirm this user is in the requested guest's group

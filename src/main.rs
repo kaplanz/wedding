@@ -96,8 +96,7 @@ async fn main() -> Result<()> {
         .route("/login", get(route::login).post(route::auth))
         .route("/logout", get(route::logout))
         .route("/registry", get(route::registry))
-        .route("/rsvp", get(route::dashboard))
-        .route("/rsvp/:ident", get(route::rsvp).post(route::reply))
+        .route("/rsvp", get(route::rsvp).post(route::reply))
         .fallback_service(
             get_service(
                 ServeDir::new("www").not_found_service(

@@ -10,7 +10,7 @@
         <ul class="guests">
           {% for guest in guests %}
             <li class="guest">
-              <a class="name" href="/rsvp/{{ guest.user().ident }}">
+              <a class="name" href="/rsvp?guest={{ guest.user().ident }}">
                 <div>{{ guest.user() }}</div>
                 {% if let Some(reply) = guest.reply() -%}
                   <div>
