@@ -13,6 +13,10 @@
   </header>
 
   <main role="main">
+    <nav class="nav">
+      {% block nav %}{% endblock %}
+    </nav>
+
     <article class="content">
       {% block content %}{% endblock %}
     </article>

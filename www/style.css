@@ -319,20 +319,20 @@ body.bg.main {
   background-color: var(--color-accent-bg);
 }
 
-.flex, .rsvp div.form > form .section, .rsvp div.form > form .radio, .rsvp div.form > form, .rsvp div.form, .login div.form > form, .login div.form, .dashboard ul.guests li.guest > a, .dashboard ul.guests, header.header {
+.flex, .rsvp div.form > form .section, .rsvp div.form > form .radio, .rsvp div.form > form, .rsvp div.form, .login div.form > form, .login div.form, .dashboard ul.guests li.guest > a, .dashboard ul.guests, nav.nav, header.header {
   display: flex;
 }
-.flex.center, .rsvp div.form > form .center.section, .rsvp div.form > form .radio, .rsvp div.form > form, .rsvp div.form, .login div.form > form.center, .login div.form, .dashboard ul.guests li.guest > a.center, .dashboard ul.guests .rsvp div.form > form li.guest > a.radio, .rsvp div.form > form .dashboard ul.guests li.guest > a.radio, .dashboard ul.center.guests, header.header, footer.flex.footer, .rsvp div.form > form footer.footer.section {
+.flex.center, .rsvp div.form > form .center.section, .rsvp div.form > form .radio, .rsvp div.form > form, .rsvp div.form, .login div.form > form.center, .login div.form, .dashboard ul.guests li.guest > a.center, .dashboard ul.guests .rsvp div.form > form li.guest > a.radio, .rsvp div.form > form .dashboard ul.guests li.guest > a.radio, .dashboard ul.center.guests, nav.nav, header.header, footer.flex.footer, .rsvp div.form > form footer.footer.section {
   align-items: center;
   justify-content: center;
 }
-.flex-column, .flex.column, .rsvp div.form > form .section, .rsvp div.form > form .column.radio, .rsvp div.form > form, .rsvp div.column.form, .login div.form > form, .login div.column.form, .dashboard ul.guests li.guest > a, .dashboard ul.column.guests, header.column.header {
+.flex-column, .flex.column, .rsvp div.form > form .section, .rsvp div.form > form .column.radio, .rsvp div.form > form, .rsvp div.column.form, .login div.form > form, .login div.column.form, .dashboard ul.guests li.guest > a, .dashboard ul.column.guests, nav.column.nav, header.column.header {
   flex-direction: column;
 }
-.flex-row, .flex.row, .rsvp div.form > form .row.section, .rsvp div.form > form .radio, .rsvp div.form > form.row, .rsvp div.row.form, .login div.form > form.row, .login div.row.form, .dashboard ul.guests li.guest > a.row, .dashboard ul.guests .rsvp div.form > form li.guest > a.radio, .rsvp div.form > form .dashboard ul.guests li.guest > a.radio, .dashboard ul.row.guests, header.header {
+.flex-row, .flex.row, .rsvp div.form > form .row.section, .rsvp div.form > form .radio, .rsvp div.form > form.row, .rsvp div.row.form, .login div.form > form.row, .login div.row.form, .dashboard ul.guests li.guest > a.row, .dashboard ul.guests .rsvp div.form > form li.guest > a.radio, .rsvp div.form > form .dashboard ul.guests li.guest > a.radio, .dashboard ul.row.guests, nav.nav, header.header {
   flex-direction: row;
 }
-.flex.gap, .rsvp div.form > form .section, .rsvp div.form > form .radio, .rsvp div.form > form, .rsvp div.gap.form, .login div.form > form, .login div.gap.form, .dashboard ul.guests li.guest > a, .dashboard ul.guests, header.gap.header {
+.flex.gap, .rsvp div.form > form .section, .rsvp div.form > form .radio, .rsvp div.form > form, .rsvp div.gap.form, .login div.form > form, .login div.gap.form, .dashboard ul.guests li.guest > a, .dashboard ul.guests, nav.nav, header.gap.header {
   gap: var(--spacer);
 }
 
@@ -444,7 +444,7 @@ h6.bold {
   font-weight: var(--font-weight-light);
 }
 
-.fx-animate, .fx.animate, .rsvp div.form > form .radio > label.animate:has(input[type=radio]), .login div.form > form.animate, textarea.animate, input.animate, .fx.fx-float, .rsvp div.form > form .radio > label.fx-float:has(input[type=radio]), .login div.form > form.fx-float, textarea.fx-float, input.fx-float, .fx.float, .rsvp div.form > form .radio > label.float:has(input[type=radio]), .login div.form > form.float, .dashboard ul.guests li.guest > a, textarea.float, input.float,
+.fx-animate, .fx.animate, .rsvp div.form > form .radio > label.animate:has(input[type=radio]), .login div.form > form.animate, textarea.animate, input.animate, .fx.fx-float, .rsvp div.form > form .radio > label.fx-float:has(input[type=radio]), .login div.form > form.fx-float, textarea.fx-float, input.fx-float, .fx.float, .rsvp div.form > form .radio > label.float:has(input[type=radio]), .login div.form > form.float, .dashboard ul.guests li.guest > a, nav.nav a.item, textarea.float, input.float,
 .fx.effects-float,
 .rsvp div.form > form .radio > label.effects-float:has(input[type=radio]),
 .login div.form > form.effects-float,
@@ -457,14 +457,15 @@ input.effects-float,
 .effects.float {
   transition: all 0.3s ease;
 }
-.fx-float:hover, .fx.float:hover, .rsvp div.form > form .radio > label.float:hover:has(input[type=radio]), .login div.form > form.float:hover, .dashboard ul.guests li.guest > a:hover, textarea.float:hover, input.float:hover,
+.fx-float:hover, .fx.float:hover, .rsvp div.form > form .radio > label.float:hover:has(input[type=radio]), .login div.form > form.float:hover, .dashboard ul.guests li.guest > a:hover, nav.nav a.item:hover, textarea.float:hover, input.float:hover,
 .effects-float:hover,
 .effects.float:hover {
   transform: translate(0, -2px);
 }
-.fx-outline, .fx.outline, .rsvp div.form > form .radio > label.outline:has(input[type=radio]), textarea.outline, input.outline, .fx.fx-tile, .rsvp div.form > form .radio > label.fx-tile:has(input[type=radio]), textarea.fx-tile, input.fx-tile, .fx.tile, .rsvp div.form > form .radio > label.tile:has(input[type=radio]), .login div.form > form, .dashboard ul.guests li.guest > a, textarea.tile, input.tile,
+.fx-outline, .fx.outline, .rsvp div.form > form .radio > label.outline:has(input[type=radio]), nav.nav a.outline.item, textarea.outline, input.outline, .fx.fx-tile, .rsvp div.form > form .radio > label.fx-tile:has(input[type=radio]), nav.nav a.fx-tile.item, textarea.fx-tile, input.fx-tile, .fx.tile, .rsvp div.form > form .radio > label.tile:has(input[type=radio]), .login div.form > form, .dashboard ul.guests li.guest > a, nav.nav a.tile.item, textarea.tile, input.tile,
 .fx.effects-tile,
 .rsvp div.form > form .radio > label.effects-tile:has(input[type=radio]),
+nav.nav a.effects-tile.item,
 textarea.effects-tile,
 input.effects-tile,
 .effects-outline,
@@ -474,7 +475,7 @@ input.effects-tile,
 .effects.tile {
   border: 0.5px solid var(--color-border);
 }
-.fx-round, .fx.round, .rsvp div.form > form .radio > label:has(input[type=radio]), textarea.fx, textarea, input.fx, input, .fx.fx-tile, textarea.fx-tile, input.fx-tile, .fx.tile, .login div.form > form, .dashboard ul.guests li.guest > a, textarea.tile, input.tile,
+.fx-round, .fx.round, .rsvp div.form > form .radio > label:has(input[type=radio]), nav.nav a.item, textarea.fx, textarea, input.fx, input, .fx.fx-tile, textarea.fx-tile, input.fx-tile, .fx.tile, .login div.form > form, .dashboard ul.guests li.guest > a, textarea.tile, input.tile,
 .fx.effects-tile,
 textarea.effects-tile,
 input.effects-tile,
@@ -487,7 +488,7 @@ input.effects,
 .effects.tile {
   border-radius: var(--border-radius);
 }
-.fx-shadow, .fx.shadow, .rsvp div.form > form .radio > label:has(input[type=radio]), textarea.shadow, input.shadow, .fx.fx-tile, textarea.fx-tile, input.fx-tile, .fx.tile, .login div.form > form, .dashboard ul.guests li.guest > a, textarea.tile, input.tile,
+.fx-shadow, .fx.shadow, .rsvp div.form > form .radio > label:has(input[type=radio]), nav.nav a.item, textarea.shadow, input.shadow, .fx.fx-tile, textarea.fx-tile, input.fx-tile, .fx.tile, .login div.form > form, .dashboard ul.guests li.guest > a, textarea.tile, input.tile,
 .fx.effects-tile,
 textarea.effects-tile,
 input.effects-tile,
@@ -498,7 +499,7 @@ input.effects-tile,
 .effects.tile {
   box-shadow: 0 2px 3px var(--color-shadow);
 }
-.fx-shadow.float:hover, .fx.shadow.float:hover, .rsvp div.form > form .radio > label.float:hover:has(input[type=radio]), textarea.shadow.float:hover, input.shadow.float:hover, .fx.float.fx-tile:hover, textarea.float.fx-tile:hover, input.float.fx-tile:hover, .fx.float.tile:hover, .login div.form > form.float:hover, .dashboard ul.guests li.guest > a:hover, textarea.float.tile:hover, input.float.tile:hover,
+.fx-shadow.float:hover, .fx.shadow.float:hover, .rsvp div.form > form .radio > label.float:hover:has(input[type=radio]), nav.nav a.item:hover, textarea.shadow.float:hover, input.shadow.float:hover, .fx.float.fx-tile:hover, textarea.float.fx-tile:hover, input.float.fx-tile:hover, .fx.float.tile:hover, .login div.form > form.float:hover, .dashboard ul.guests li.guest > a:hover, textarea.float.tile:hover, input.float.tile:hover,
 .fx.float.effects-tile:hover,
 textarea.float.effects-tile:hover,
 input.float.effects-tile:hover,
@@ -509,13 +510,13 @@ input.float.effects-tile:hover,
 .effects.float.tile:hover {
   box-shadow: 0 4px 9px -5px var(--color-shadow);
 }
-.fx-unlink, .fx.unlink, .rsvp div.form > form .radio > label.unlink:has(input[type=radio]), .login div.form > form.unlink, .dashboard ul.guests li.guest > a, textarea.unlink, input.unlink,
+.fx-unlink, .fx.unlink, .rsvp div.form > form .radio > label.unlink:has(input[type=radio]), .login div.form > form.unlink, .dashboard ul.guests li.guest > a, nav.nav a.item, textarea.unlink, input.unlink,
 .effects-unlink,
 .effects.unlink {
   color: inherit;
   text-decoration: none;
 }
-.fx-unlink:visited, .fx-unlink:visited:hover, .fx-unlink:hover, .fx-unlink:focus, .fx.unlink:visited, .rsvp div.form > form .radio > label.unlink:visited:has(input[type=radio]), .login div.form > form.unlink:visited, .dashboard ul.guests li.guest > a:visited, textarea.unlink:visited, input.unlink:visited, .fx.unlink:visited:hover, .fx.unlink:hover, .rsvp div.form > form .radio > label.unlink:hover:has(input[type=radio]), .login div.form > form.unlink:hover, .dashboard ul.guests li.guest > a:hover, textarea.unlink:hover, input.unlink:hover, .fx.unlink:focus, .rsvp div.form > form .radio > label.unlink:focus:has(input[type=radio]), .login div.form > form.unlink:focus, .dashboard ul.guests li.guest > a:focus, textarea.unlink:focus, input.unlink:focus,
+.fx-unlink:visited, .fx-unlink:visited:hover, .fx-unlink:hover, .fx-unlink:focus, .fx.unlink:visited, .rsvp div.form > form .radio > label.unlink:visited:has(input[type=radio]), .login div.form > form.unlink:visited, .dashboard ul.guests li.guest > a:visited, nav.nav a.item:visited, textarea.unlink:visited, input.unlink:visited, .fx.unlink:visited:hover, .fx.unlink:hover, .rsvp div.form > form .radio > label.unlink:hover:has(input[type=radio]), .login div.form > form.unlink:hover, .dashboard ul.guests li.guest > a:hover, nav.nav a.item:hover, textarea.unlink:hover, input.unlink:hover, .fx.unlink:focus, .rsvp div.form > form .radio > label.unlink:focus:has(input[type=radio]), .login div.form > form.unlink:focus, .dashboard ul.guests li.guest > a:focus, nav.nav a.item:focus, textarea.unlink:focus, input.unlink:focus,
 .effects-unlink:visited,
 .effects-unlink:visited:hover,
 .effects-unlink:hover,
@@ -571,13 +572,14 @@ input.float.effects-tile:hover,
 .position.left {
   float: left;
 }
-.pos-center, .pos.center, .rsvp div.form > form .pos.radio, .rsvp div.form > form.pos, .rsvp div.pos.form, .login div.pos.form, header.pos.header, footer.pos.footer,
+.pos-center, .pos.center, .rsvp div.form > form .pos.radio, .rsvp div.form > form.pos, .rsvp div.pos.form, .login div.pos.form, nav.pos.nav, header.pos.header, footer.pos.footer,
 .position-center,
 .position.center,
 .rsvp div.form > form .position.radio,
 .rsvp div.form > form.position,
 .rsvp div.position.form,
 .login div.position.form,
+nav.position.nav,
 header.position.header,
 footer.position.footer {
   float: center;
@@ -595,13 +597,14 @@ header.left.header,
 footer.left.footer {
   text-align: left;
 }
-.tx-center, .rsvp div.form > form .radio > label:has(input[type=radio]), .tx.center, .rsvp div.form > form .tx.radio, .rsvp div.form > form.tx, .rsvp div.tx.form, .login div.tx.form,
+.tx-center, .rsvp div.form > form .radio > label:has(input[type=radio]), .tx.center, .rsvp div.form > form .tx.radio, .rsvp div.form > form.tx, .rsvp div.tx.form, .login div.tx.form, nav.tx.nav,
 .text-center,
 .text.center,
 .rsvp div.form > form .text.radio,
 .rsvp div.form > form.text,
 .rsvp div.text.form,
 .login div.text.form,
+nav.text.nav,
 header.header,
 footer.footer {
   text-align: center;
@@ -769,6 +772,17 @@ header.header hr {
     height: 3em;
     width: 6em;
   }
+}
+
+nav.nav {
+  margin-top: var(--spacer);
+}
+nav.nav a.item {
+  padding: var(--spacer-small-3);
+}
+nav.nav a.item .current {
+  background-color: var(--color-accent-fg);
+  color: var(--color-accent-bg);
 }
 
 /*

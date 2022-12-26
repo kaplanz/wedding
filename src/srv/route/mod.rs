@@ -92,7 +92,7 @@ pub async fn logout(auth: AuthContext) -> impl IntoResponse {
     // Perform logout for the user
     auth::logout(auth).await;
     // Redirect to the homepage
-    Redirect::to("/")
+    Redirect::to("/login")
 }
 
 pub async fn registry() -> impl IntoResponse {

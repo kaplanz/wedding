@@ -1,0 +1,16 @@
+nav.nav {
+  @extend .flex, .row, .center, .gap;
+
+  margin-top: var(--spacer);
+
+  a.item {
+    @extend .fx, .float, .round, .shadow, .unlink;
+
+    padding: var(--spacer-small-3);
+
+    .current {
+      background-color: var(--color-accent-fg);
+      color: var(--color-accent-bg);
+    }
+  }
+}
