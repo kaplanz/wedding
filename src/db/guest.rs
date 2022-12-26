@@ -23,8 +23,8 @@ impl Guest {
         self.rsvp.clone().map(Reply::from)
     }
 
-    pub fn update(&mut self, rsvp: Rsvp) {
-        self.rsvp = Some(rsvp);
+    pub fn update(&mut self, rsvp: Option<Rsvp>) {
+        self.rsvp = rsvp;
     }
 }
 
@@ -46,35 +46,43 @@ impl Display for Rsvp {
     }
 }
 
-impl From<Reply> for Rsvp {
+impl From<Reply> for Option<Rsvp> {
     fn from(reply: Reply) -> Self {
         match reply.attend {
-            Attend::Yes => Self::Yes {
+            Some(Attend::Yes) => Some(Rsvp::Yes {
                 meal: reply.meal.unwrap_or_default(),
                 msg: reply.msg.unwrap_or_default(),
-            },
-            Attend::No => Self::No,
+            }),
+            Some(Attend::No) => Some(Rsvp::No),
+            None => None,
         }
     }
 }
 
 #[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct Reply {
-    pub attend: Attend,
+    #[serde(default)]
+    pub attend: Option<Attend>,
     pub meal: Option<Meal>,
     pub msg: Option<String>,
+}
+
+impl Reply {
+    pub fn new(attend: Option<Attend>, meal: Option<Meal>, msg: Option<String>) -> Self {
+        Self { attend, meal, msg }
+    }
 }
 
 impl From<Rsvp> for Reply {
     fn from(rsvp: Rsvp) -> Self {
         match rsvp {
             Rsvp::Yes { meal, msg } => Reply {
-                attend: Attend::Yes,
+                attend: Some(Attend::Yes),
                 meal: Some(meal),
                 msg: Some(msg),
             },
             Rsvp::No => Reply {
-                attend: Attend::No,
+                attend: Some(Attend::No),
                 meal: None,
                 msg: None,
             },

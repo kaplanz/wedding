@@ -95,7 +95,13 @@ impl Database {
         // Convert the reply into an rsvp
         let rsvp = reply.into();
         // Perform the update
-        info!("update: `{}` -> {}", guest.user(), rsvp);
+        info!(
+            "update: `{}` -> {}",
+            guest.user(),
+            Option::as_ref(&rsvp)
+                .map(|rsvp| format!("{rsvp}"))
+                .unwrap_or_else(|| "none".to_string())
+        );
         guest.update(rsvp);
 
         Ok(())

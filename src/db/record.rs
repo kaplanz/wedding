@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use super::guest::{Attend, Guest, Meal, Reply, Rsvp};
+use super::guest::{Attend, Guest, Meal, Reply};
 use super::Group;
 use crate::user::User;
 
@@ -32,7 +32,7 @@ impl From<Record> for Guest {
             last,
         };
         // Construct rsvp
-        let rsvp = attend.map(|attend| Rsvp::from(Reply { attend, meal, msg }));
+        let rsvp = Reply::new(attend, meal, msg).into();
         // Construct guest
         Self { group, user, rsvp }
     }
@@ -45,7 +45,7 @@ impl From<Guest> for Record {
         // Destructure attend, meal, msg fields
         let (attend, meal, msg) = rsvp.map_or((None, None, None), |rsvp| {
             let Reply { attend, meal, msg } = rsvp.into();
-            (Some(attend), meal, msg)
+            (attend, meal, msg)
         });
         // Construct record
         Self {

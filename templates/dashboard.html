@@ -27,10 +27,12 @@
                   <table>
                     <col class="icon">
                     <col class="data">
-                    <tr>
-                      <td><i class="fa-solid fa-envelope-open-text"></i></td>
-                      <td>{{ reply.attend }}</td>
-                    </tr>
+                    {%- if let Some(attend) = reply.attend -%}
+                      <tr>
+                        <td><i class="fa-solid fa-envelope-open-text"></i></td>
+                        <td>{{ attend }}</td>
+                      </tr>
+                    {%- endif -%}
                     {%- if let Some(meal) = reply.meal -%}
                       <tr>
                         <td><i class="fa-solid fa-utensils"></i></td>
