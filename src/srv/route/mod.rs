@@ -1,9 +1,8 @@
 use std::net::SocketAddr;
 use std::sync::Arc;
 
-use axum::extract::{ConnectInfo, Query, State};
+use axum::extract::{self, ConnectInfo, FromRequest, Query, State};
 use axum::response::{IntoResponse, Redirect};
-use axum::Form;
 use log::{error, trace, warn};
 use serde::Deserialize;
 use tokio::sync::RwLock;
@@ -16,6 +15,10 @@ use crate::db::{self, Database, Ident};
 use crate::user::User;
 
 mod page;
+
+#[derive(FromRequest)]
+#[from_request(via(extract::Form), rejection(Error))]
+pub struct Form<T>(T);
 
 #[derive(Debug, Deserialize)]
 pub struct Action {

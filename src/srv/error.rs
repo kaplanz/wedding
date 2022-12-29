@@ -1,4 +1,5 @@
 use askama::Template;
+use axum::extract::rejection::FormRejection;
 use axum::http::StatusCode;
 use axum::response::{Html, IntoResponse, Response};
 use thiserror::Error;
@@ -43,6 +44,12 @@ impl Error {
 
     pub fn e500<E: std::error::Error>(err: E) -> Self {
         Self::new(StatusCode::INTERNAL_SERVER_ERROR, format!("{err}"))
+    }
+}
+
+impl From<FormRejection> for Error {
+    fn from(_: FormRejection) -> Self {
+        Self::e400()
     }
 }
 
