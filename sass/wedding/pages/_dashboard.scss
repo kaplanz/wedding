@@ -1,4 +1,21 @@
 .dashboard {
+  .greeting {
+    @extend .flex, .row, .repel;
+
+    .item {
+      @extend .fx, .float, .round, .shadow, .unlink;
+
+      padding: var(--spacer-small-3);
+    }
+
+    .text {
+      display: inline;
+
+      margin: 0;
+      padding: 0;
+    }
+  }
+
   ul.guests {
     @extend .flex, .center, .gap;
 

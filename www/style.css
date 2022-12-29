@@ -319,22 +319,25 @@ body.bg.main {
   background-color: var(--color-accent-bg);
 }
 
-.flex, .rsvp div.form > form .radio, .rsvp div.form > form, .rsvp div.form, .login div.form > form, .login div.form, .dashboard ul.guests li.guest > a, .dashboard ul.guests, nav.nav, header.header {
+.flex, .rsvp div.form > form .radio, .rsvp div.form > form, .rsvp div.form, .login div.form > form, .login div.form, .dashboard ul.guests li.guest > a, .dashboard ul.guests, .dashboard .greeting, nav.nav, header.header {
   display: flex;
 }
-.flex.center.horizontal, .rsvp div.form > form .section .flex.horizontal.item, .rsvp div.form > form.horizontal, .login div.form > form.horizontal, .dashboard ul.guests li.guest > a.center.horizontal, .dashboard ul.guests .rsvp div.form > form .section li.guest > a.horizontal.item, .rsvp div.form > form .section .dashboard ul.guests li.guest > a.horizontal.item, .dashboard ul.guests .rsvp div.form > form li.guest > a.horizontal.radio, .rsvp div.form > form .dashboard ul.guests li.guest > a.horizontal.radio, .dashboard ul.horizontal.guests, nav.flex.horizontal.nav, header.flex.horizontal.header, footer.flex.horizontal.footer, .flex.center.flex-row, .rsvp div.form > form .section .flex.flex-row.item, .rsvp div.form > form.flex-row, .login div.form > form.flex-row, .dashboard ul.guests li.guest > a.center.flex-row, .dashboard ul.guests .rsvp div.form > form .section li.guest > a.flex-row.item, .rsvp div.form > form .section .dashboard ul.guests li.guest > a.flex-row.item, .dashboard ul.guests .rsvp div.form > form li.guest > a.flex-row.radio, .rsvp div.form > form .dashboard ul.guests li.guest > a.flex-row.radio, .dashboard ul.flex-row.guests, nav.flex.flex-row.nav, header.flex.flex-row.header, footer.flex.flex-row.footer, .flex.center.row, .rsvp div.form > form .section .flex.row.item, .rsvp div.form > form .radio, .rsvp div.form > form.row, .rsvp div.form, .login div.form > form.row, .login div.form, .dashboard ul.guests li.guest > a.center.row, .dashboard ul.guests .rsvp div.form > form .section li.guest > a.row.item, .rsvp div.form > form .section .dashboard ul.guests li.guest > a.row.item, .dashboard ul.guests .rsvp div.form > form li.guest > a.row.radio, .rsvp div.form > form .dashboard ul.guests li.guest > a.row.radio, .dashboard ul.row.guests, nav.flex.row.nav, nav.nav, header.flex.row.header, header.header, footer.flex.row.footer {
+.flex.center.horizontal, .rsvp div.form > form .section .flex.horizontal.item, .rsvp div.form > form.horizontal, .login div.form > form.horizontal, .dashboard ul.guests li.guest > a.center.horizontal, .dashboard ul.guests .rsvp div.form > form .section li.guest > a.horizontal.item, .rsvp div.form > form .section .dashboard ul.guests li.guest > a.horizontal.item, .dashboard ul.guests .rsvp div.form > form li.guest > a.horizontal.radio, .rsvp div.form > form .dashboard ul.guests li.guest > a.horizontal.radio, .dashboard ul.horizontal.guests, nav.flex.horizontal.nav, header.flex.horizontal.header, footer.flex.horizontal.footer, .flex.center.flex-row, .rsvp div.form > form .section .flex.flex-row.item, .rsvp div.form > form.flex-row, .login div.form > form.flex-row, .dashboard ul.guests li.guest > a.center.flex-row, .dashboard ul.guests .rsvp div.form > form .section li.guest > a.flex-row.item, .rsvp div.form > form .section .dashboard ul.guests li.guest > a.flex-row.item, .dashboard ul.guests .rsvp div.form > form li.guest > a.flex-row.radio, .rsvp div.form > form .dashboard ul.guests li.guest > a.flex-row.radio, .dashboard ul.flex-row.guests, nav.flex.flex-row.nav, header.flex.flex-row.header, footer.flex.flex-row.footer, .flex.center.row, .rsvp div.form > form .section .flex.row.item, .rsvp div.form > form .radio, .rsvp div.form > form.row, .rsvp div.form, .login div.form > form.row, .login div.form, .dashboard ul.guests li.guest > a.center.row, .dashboard ul.guests .rsvp div.form > form .section li.guest > a.row.item, .rsvp div.form > form .section .dashboard ul.guests li.guest > a.row.item, .dashboard ul.guests .rsvp div.form > form li.guest > a.row.radio, .rsvp div.form > form .dashboard ul.guests li.guest > a.row.radio, .dashboard ul.row.guests, .dashboard .center.greeting, .dashboard .rsvp div.form > form .section .greeting.item, .rsvp div.form > form .section .dashboard .greeting.item, .dashboard .rsvp div.form > form.greeting, .rsvp .dashboard div.form > form.greeting, .dashboard .login div.form > form.greeting, .login .dashboard div.form > form.greeting, .dashboard ul.greeting.guests, nav.flex.row.nav, .dashboard nav.nav.greeting, nav.nav, header.flex.row.header, .dashboard header.header.greeting, header.header, footer.flex.row.footer, .dashboard footer.footer.greeting {
   justify-content: center;
 }
-.flex.center.vertical, .rsvp div.form > form .section .flex.vertical.item, .rsvp div.form > form .vertical.radio, .rsvp div.vertical.form, .login div.vertical.form, .dashboard ul.vertical.guests, nav.vertical.nav, header.vertical.header, footer.flex.vertical.footer, .flex.center.flex-column, .rsvp div.form > form .section .flex.flex-column.item, .rsvp div.form > form .flex-column.radio, .rsvp div.flex-column.form, .login div.flex-column.form, .dashboard ul.flex-column.guests, nav.flex-column.nav, header.flex-column.header, footer.flex.flex-column.footer, .flex.center.column, .rsvp div.form > form .section .flex.column.item, .rsvp div.form > form .column.radio, .rsvp div.form > form, .rsvp div.column.form, .login div.form > form, .login div.column.form, .dashboard ul.guests li.guest > a.center, .dashboard ul.guests .rsvp div.form > form .section li.guest > a.item, .rsvp div.form > form .section .dashboard ul.guests li.guest > a.item, .dashboard ul.guests .rsvp div.form > form li.guest > a.radio, .rsvp div.form > form .dashboard ul.guests li.guest > a.radio, .dashboard ul.column.guests, nav.column.nav, header.column.header, footer.flex.column.footer {
+.flex.center.vertical, .rsvp div.form > form .section .flex.vertical.item, .rsvp div.form > form .vertical.radio, .rsvp div.vertical.form, .login div.vertical.form, .dashboard ul.vertical.guests, .dashboard .center.vertical.greeting, .dashboard .rsvp div.form > form .section .vertical.greeting.item, .rsvp div.form > form .section .dashboard .vertical.greeting.item, nav.vertical.nav, header.vertical.header, footer.flex.vertical.footer, .dashboard footer.vertical.footer.greeting, .flex.center.flex-column, .rsvp div.form > form .section .flex.flex-column.item, .rsvp div.form > form .flex-column.radio, .rsvp div.flex-column.form, .login div.flex-column.form, .dashboard ul.flex-column.guests, .dashboard .center.flex-column.greeting, .dashboard .rsvp div.form > form .section .flex-column.greeting.item, .rsvp div.form > form .section .dashboard .flex-column.greeting.item, nav.flex-column.nav, header.flex-column.header, footer.flex.flex-column.footer, .dashboard footer.flex-column.footer.greeting, .flex.center.column, .rsvp div.form > form .section .flex.column.item, .rsvp div.form > form .column.radio, .rsvp div.form > form, .rsvp div.column.form, .login div.form > form, .login div.column.form, .dashboard ul.guests li.guest > a.center, .dashboard ul.guests .rsvp div.form > form .section li.guest > a.item, .rsvp div.form > form .section .dashboard ul.guests li.guest > a.item, .dashboard ul.guests .rsvp div.form > form li.guest > a.radio, .rsvp div.form > form .dashboard ul.guests li.guest > a.radio, .dashboard ul.column.guests, .dashboard .center.column.greeting, .dashboard .rsvp div.form > form .section .column.greeting.item, .rsvp div.form > form .section .dashboard .column.greeting.item, nav.column.nav, header.column.header, footer.flex.column.footer, .dashboard footer.column.footer.greeting {
   align-items: center;
 }
-.flex-column, .flex.column, .rsvp div.form > form .column.radio, .rsvp div.form > form, .rsvp div.column.form, .login div.form > form, .login div.column.form, .dashboard ul.guests li.guest > a, .dashboard ul.column.guests, nav.column.nav, header.column.header {
+.flex.repel, .rsvp div.form > form .repel.radio, .rsvp div.form > form.repel, .rsvp div.repel.form, .login div.form > form.repel, .login div.repel.form, .dashboard ul.guests li.guest > a.repel, .dashboard ul.repel.guests, .dashboard .greeting, nav.repel.nav, header.repel.header {
+  justify-content: space-between;
+}
+.flex-column, .flex.column, .rsvp div.form > form .column.radio, .rsvp div.form > form, .rsvp div.column.form, .login div.form > form, .login div.column.form, .dashboard ul.guests li.guest > a, .dashboard ul.column.guests, .dashboard .column.greeting, nav.column.nav, header.column.header {
   flex-direction: column;
 }
-.flex-row, .flex.row, .rsvp div.form > form .radio, .rsvp div.form > form.row, .rsvp div.form, .login div.form > form.row, .login div.form, .dashboard ul.guests li.guest > a.row, .dashboard ul.guests .rsvp div.form > form li.guest > a.radio, .rsvp div.form > form .dashboard ul.guests li.guest > a.radio, .dashboard ul.row.guests, nav.flex.nav, nav.row.nav, nav.nav, header.flex.header, header.row.header, header.header {
+.flex-row, .flex.row, .rsvp div.form > form .radio, .rsvp div.form > form.row, .rsvp div.form, .login div.form > form.row, .login div.form, .dashboard ul.guests li.guest > a.row, .dashboard ul.guests .rsvp div.form > form li.guest > a.radio, .rsvp div.form > form .dashboard ul.guests li.guest > a.radio, .dashboard ul.row.guests, .dashboard .greeting, nav.flex.nav, nav.row.nav, nav.nav, header.flex.header, header.row.header, header.header {
   flex-direction: row;
 }
-.flex.gap, .rsvp div.form > form .radio, .rsvp div.form > form, .rsvp div.gap.form, .login div.form > form, .login div.gap.form, .dashboard ul.guests li.guest > a.gap, .dashboard ul.guests .rsvp div.form > form li.guest > a.radio, .rsvp div.form > form .dashboard ul.guests li.guest > a.radio, .dashboard ul.guests, nav.flex.nav, nav.nav, header.gap.header {
+.flex.gap, .rsvp div.form > form .radio, .rsvp div.form > form, .rsvp div.gap.form, .login div.form > form, .login div.gap.form, .dashboard ul.guests li.guest > a.gap, .dashboard ul.guests .rsvp div.form > form li.guest > a.radio, .rsvp div.form > form .dashboard ul.guests li.guest > a.radio, .dashboard ul.guests, .dashboard .gap.greeting, nav.flex.nav, .dashboard nav.nav.greeting, nav.nav, header.gap.header {
   gap: var(--spacer);
 }
 
@@ -446,7 +449,7 @@ h6.bold {
   font-weight: var(--font-weight-light);
 }
 
-.fx-animate, .fx.animate, .rsvp div.form > form .section .animate.item, .rsvp div.form > form .radio > label.animate:has(input[type=radio]), .login div.form > form.animate, textarea.animate, input.animate, .fx.fx-float, .rsvp div.form > form .section .fx-float.item, .rsvp div.form > form .radio > label.fx-float:has(input[type=radio]), .login div.form > form.fx-float, textarea.fx-float, input.fx-float, .fx.float, .rsvp div.form > form .section .float.item, .rsvp div.form > form .radio > label.float:has(input[type=radio]), .login div.form > form.float, .dashboard ul.guests li.guest > a, nav.nav a.item, textarea.float, input.float,
+.fx-animate, .fx.animate, .rsvp div.form > form .section .animate.item, .rsvp div.form > form .radio > label.animate:has(input[type=radio]), .login div.form > form.animate, textarea.animate, input.animate, .fx.fx-float, .rsvp div.form > form .section .fx-float.item, .rsvp div.form > form .radio > label.fx-float:has(input[type=radio]), .login div.form > form.fx-float, textarea.fx-float, input.fx-float, .fx.float, .rsvp div.form > form .section .float.item, .rsvp div.form > form .radio > label.float:has(input[type=radio]), .login div.form > form.float, .dashboard ul.guests li.guest > a, .dashboard .greeting .item, nav.nav a.item, textarea.float, input.float,
 .fx.effects-float,
 .rsvp div.form > form .section .effects-float.item,
 .rsvp div.form > form .radio > label.effects-float:has(input[type=radio]),
@@ -460,15 +463,16 @@ input.effects-float,
 .effects.float {
   transition: all 0.3s ease;
 }
-.fx-float:hover, .fx.float:hover, .rsvp div.form > form .section .float.item:hover, .rsvp div.form > form .radio > label.float:hover:has(input[type=radio]), .login div.form > form.float:hover, .dashboard ul.guests li.guest > a:hover, nav.nav a.item:hover, textarea.float:hover, input.float:hover,
+.fx-float:hover, .fx.float:hover, .rsvp div.form > form .section .float.item:hover, .rsvp div.form > form .radio > label.float:hover:has(input[type=radio]), .login div.form > form.float:hover, .dashboard ul.guests li.guest > a:hover, .dashboard .greeting .item:hover, nav.nav a.item:hover, textarea.float:hover, input.float:hover,
 .effects-float:hover,
 .effects.float:hover {
   transform: translate(0, -2px);
 }
-.fx-outline, .fx.outline, .rsvp div.form > form .section .outline.item, .rsvp div.form > form .radio > label.outline:has(input[type=radio]), nav.nav a.outline.item, textarea.outline, input.outline, .fx.fx-tile, .rsvp div.form > form .section .fx-tile.item, .rsvp div.form > form .radio > label.fx-tile:has(input[type=radio]), nav.nav a.fx-tile.item, textarea.fx-tile, input.fx-tile, .fx.tile, .rsvp div.form > form .section .tile.item, .rsvp div.form > form .radio > label.tile:has(input[type=radio]), .login div.form > form, .dashboard ul.guests li.guest > a, nav.nav a.tile.item, textarea.tile, input.tile,
+.fx-outline, .fx.outline, .rsvp div.form > form .section .outline.item, .rsvp div.form > form .radio > label.outline:has(input[type=radio]), .dashboard .greeting .outline.item, nav.nav a.outline.item, textarea.outline, input.outline, .fx.fx-tile, .rsvp div.form > form .section .fx-tile.item, .rsvp div.form > form .radio > label.fx-tile:has(input[type=radio]), .dashboard .greeting .fx-tile.item, nav.nav a.fx-tile.item, textarea.fx-tile, input.fx-tile, .fx.tile, .rsvp div.form > form .section .tile.item, .rsvp div.form > form .radio > label.tile:has(input[type=radio]), .login div.form > form, .dashboard ul.guests li.guest > a, .dashboard .greeting .tile.item, .dashboard .greeting .login div.form > form.item, .login .dashboard .greeting div.form > form.item, nav.nav a.tile.item, textarea.tile, input.tile,
 .fx.effects-tile,
 .rsvp div.form > form .section .effects-tile.item,
 .rsvp div.form > form .radio > label.effects-tile:has(input[type=radio]),
+.dashboard .greeting .effects-tile.item,
 nav.nav a.effects-tile.item,
 textarea.effects-tile,
 input.effects-tile,
@@ -479,7 +483,7 @@ input.effects-tile,
 .effects.tile {
   border: 0.5px solid var(--color-border);
 }
-.fx-round, .fx.round, .rsvp div.form > form .section .round.item, .rsvp div.form > form .radio > label:has(input[type=radio]), nav.nav a.item, textarea.fx, .rsvp div.form > form .section textarea.item, textarea, input.fx, .rsvp div.form > form .section input.item, input, .fx.fx-tile, .rsvp div.form > form .section .fx-tile.item, textarea.fx-tile, input.fx-tile, .fx.tile, .rsvp div.form > form .section .tile.item, .login div.form > form, .dashboard ul.guests li.guest > a, textarea.tile, input.tile,
+.fx-round, .fx.round, .rsvp div.form > form .section .round.item, .rsvp div.form > form .radio > label:has(input[type=radio]), .dashboard .greeting .item, nav.nav a.item, textarea.fx, .rsvp div.form > form .section textarea.item, textarea, input.fx, .rsvp div.form > form .section input.item, input, .fx.fx-tile, .rsvp div.form > form .section .fx-tile.item, textarea.fx-tile, input.fx-tile, .fx.tile, .rsvp div.form > form .section .tile.item, .login div.form > form, .dashboard ul.guests li.guest > a, textarea.tile, input.tile,
 .fx.effects-tile,
 .rsvp div.form > form .section .effects-tile.item,
 textarea.effects-tile,
@@ -493,7 +497,7 @@ input.effects,
 .effects.tile {
   border-radius: var(--border-radius);
 }
-.fx-shadow, .fx.shadow, .rsvp div.form > form .section .shadow.item, .rsvp div.form > form .radio > label:has(input[type=radio]), nav.nav a.item, textarea.shadow, input.shadow, .fx.fx-tile, .rsvp div.form > form .section .fx-tile.item, textarea.fx-tile, input.fx-tile, .fx.tile, .rsvp div.form > form .section .tile.item, .login div.form > form, .dashboard ul.guests li.guest > a, textarea.tile, input.tile,
+.fx-shadow, .fx.shadow, .rsvp div.form > form .section .shadow.item, .rsvp div.form > form .radio > label:has(input[type=radio]), .dashboard .greeting .item, nav.nav a.item, textarea.shadow, input.shadow, .fx.fx-tile, .rsvp div.form > form .section .fx-tile.item, textarea.fx-tile, input.fx-tile, .fx.tile, .rsvp div.form > form .section .tile.item, .login div.form > form, .dashboard ul.guests li.guest > a, textarea.tile, input.tile,
 .fx.effects-tile,
 .rsvp div.form > form .section .effects-tile.item,
 textarea.effects-tile,
@@ -505,7 +509,7 @@ input.effects-tile,
 .effects.tile {
   box-shadow: 0 2px 3px var(--color-shadow);
 }
-.fx-shadow.float:hover, .fx.shadow.float:hover, .rsvp div.form > form .section .shadow.float.item:hover, .rsvp div.form > form .radio > label.float:hover:has(input[type=radio]), nav.nav a.item:hover, textarea.shadow.float:hover, input.shadow.float:hover, .fx.float.fx-tile:hover, .rsvp div.form > form .section .float.fx-tile.item:hover, textarea.float.fx-tile:hover, input.float.fx-tile:hover, .fx.float.tile:hover, .rsvp div.form > form .section .float.tile.item:hover, .login div.form > form.float:hover, .dashboard ul.guests li.guest > a:hover, textarea.float.tile:hover, input.float.tile:hover,
+.fx-shadow.float:hover, .fx.shadow.float:hover, .rsvp div.form > form .section .shadow.float.item:hover, .rsvp div.form > form .radio > label.float:hover:has(input[type=radio]), .dashboard .greeting .item:hover, nav.nav a.item:hover, textarea.shadow.float:hover, input.shadow.float:hover, .fx.float.fx-tile:hover, .rsvp div.form > form .section .float.fx-tile.item:hover, textarea.float.fx-tile:hover, input.float.fx-tile:hover, .fx.float.tile:hover, .rsvp div.form > form .section .float.tile.item:hover, .login div.form > form.float:hover, .dashboard ul.guests li.guest > a:hover, textarea.float.tile:hover, input.float.tile:hover,
 .fx.float.effects-tile:hover,
 .rsvp div.form > form .section .float.effects-tile.item:hover,
 textarea.float.effects-tile:hover,
@@ -517,13 +521,13 @@ input.float.effects-tile:hover,
 .effects.float.tile:hover {
   box-shadow: 0 4px 9px -5px var(--color-shadow);
 }
-.fx-unlink, .fx.unlink, .rsvp div.form > form .section .unlink.item, .rsvp div.form > form .radio > label.unlink:has(input[type=radio]), .login div.form > form.unlink, .dashboard ul.guests li.guest > a, nav.nav a.item, textarea.unlink, input.unlink,
+.fx-unlink, .fx.unlink, .rsvp div.form > form .section .unlink.item, .rsvp div.form > form .radio > label.unlink:has(input[type=radio]), .login div.form > form.unlink, .dashboard ul.guests li.guest > a, .dashboard .greeting .item, nav.nav a.item, textarea.unlink, input.unlink,
 .effects-unlink,
 .effects.unlink {
   color: inherit;
   text-decoration: none;
 }
-.fx-unlink:visited, .fx-unlink:visited:hover, .fx-unlink:hover, .fx-unlink:focus, .fx.unlink:visited, .rsvp div.form > form .section .unlink.item:visited, .rsvp div.form > form .radio > label.unlink:visited:has(input[type=radio]), .login div.form > form.unlink:visited, .dashboard ul.guests li.guest > a:visited, nav.nav a.item:visited, textarea.unlink:visited, input.unlink:visited, .fx.unlink:visited:hover, .fx.unlink:hover, .rsvp div.form > form .section .unlink.item:hover, .rsvp div.form > form .radio > label.unlink:hover:has(input[type=radio]), .login div.form > form.unlink:hover, .dashboard ul.guests li.guest > a:hover, nav.nav a.item:hover, textarea.unlink:hover, input.unlink:hover, .fx.unlink:focus, .rsvp div.form > form .section .unlink.item:focus, .rsvp div.form > form .radio > label.unlink:focus:has(input[type=radio]), .login div.form > form.unlink:focus, .dashboard ul.guests li.guest > a:focus, nav.nav a.item:focus, textarea.unlink:focus, input.unlink:focus,
+.fx-unlink:visited, .fx-unlink:visited:hover, .fx-unlink:hover, .fx-unlink:focus, .fx.unlink:visited, .rsvp div.form > form .section .unlink.item:visited, .rsvp div.form > form .radio > label.unlink:visited:has(input[type=radio]), .login div.form > form.unlink:visited, .dashboard ul.guests li.guest > a:visited, .dashboard .greeting .item:visited, nav.nav a.item:visited, textarea.unlink:visited, input.unlink:visited, .fx.unlink:visited:hover, .fx.unlink:hover, .rsvp div.form > form .section .unlink.item:hover, .rsvp div.form > form .radio > label.unlink:hover:has(input[type=radio]), .login div.form > form.unlink:hover, .dashboard ul.guests li.guest > a:hover, .dashboard .greeting .item:hover, nav.nav a.item:hover, textarea.unlink:hover, input.unlink:hover, .fx.unlink:focus, .rsvp div.form > form .section .unlink.item:focus, .rsvp div.form > form .radio > label.unlink:focus:has(input[type=radio]), .login div.form > form.unlink:focus, .dashboard ul.guests li.guest > a:focus, .dashboard .greeting .item:focus, nav.nav a.item:focus, textarea.unlink:focus, input.unlink:focus,
 .effects-unlink:visited,
 .effects-unlink:visited:hover,
 .effects-unlink:hover,
@@ -821,6 +825,14 @@ nav.nav a.item .current {
  * have very specific styles for the home page hence the need for a `_home.scss`
  * file in `pages/`.
  */
+.dashboard .greeting .item {
+  padding: var(--spacer-small-3);
+}
+.dashboard .greeting .text, .dashboard .greeting footer.footer, .dashboard .greeting header.header {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
 .dashboard ul.guests {
   margin: var(--spacer);
   padding: 0;

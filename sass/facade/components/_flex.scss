@@ -11,6 +11,10 @@
     }
   }
 
+  &.repel {
+    justify-content: space-between;
+  }
+
   &-column,
   &.column {
     @extend .vertical;
