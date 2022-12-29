@@ -1,5 +1,5 @@
 use askama::Template;
-use axum::extract::rejection::FormRejection;
+use axum::extract::rejection::{FormRejection, QueryRejection};
 use axum::http::StatusCode;
 use axum::response::{Html, IntoResponse, Response};
 use thiserror::Error;
@@ -49,6 +49,12 @@ impl Error {
 
 impl From<FormRejection> for Error {
     fn from(_: FormRejection) -> Self {
+        Self::e400()
+    }
+}
+
+impl From<QueryRejection> for Error {
+    fn from(_: QueryRejection) -> Self {
         Self::e400()
     }
 }

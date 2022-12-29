@@ -1,7 +1,7 @@
 use std::net::SocketAddr;
 use std::sync::Arc;
 
-use axum::extract::{self, ConnectInfo, FromRequest, Query, State};
+use axum::extract::{self, ConnectInfo, FromRequest, FromRequestParts, State};
 use axum::response::{IntoResponse, Redirect};
 use log::{error, trace, warn};
 use serde::Deserialize;
@@ -19,6 +19,10 @@ mod page;
 #[derive(FromRequest)]
 #[from_request(via(extract::Form), rejection(Error))]
 pub struct Form<T>(T);
+
+#[derive(FromRequestParts)]
+#[from_request(via(extract::Query), rejection(Error))]
+pub struct Query<T>(T);
 
 #[derive(Debug, Deserialize)]
 pub struct Action {
