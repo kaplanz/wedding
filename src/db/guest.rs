@@ -20,6 +20,10 @@ impl Guest {
         &self.user
     }
 
+    pub fn msg(&self) -> Option<Message> {
+        self.reply()?.msg
+    }
+
     pub fn reply(&self) -> Option<Reply> {
         self.rsvp.clone().map(Reply::from)
     }

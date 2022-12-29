@@ -55,8 +55,16 @@
                   Last question: Do you have any comments for us?
                 </p>
                 <label for="msg"></label>
-                <textarea name="msg" id="msg" rows="8"
-                  placeholder="Leave us a message..."></textarea>
+                <textarea
+                  name="msg"
+                  id="msg"
+                  rows="8"
+                  placeholder="Leave us a message..."
+                >
+                  {%- if let Some(msg) = guest.msg() -%}
+                    {{ msg }}
+                  {%- endif -%}
+                </textarea>
               </div>
             </div>
 
