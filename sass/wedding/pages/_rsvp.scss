@@ -9,10 +9,6 @@
 
       max-width: 420px;
 
-      &:has(input[type="radio"][id="yes"]:not(:checked)) #yesonly {
-        display: none;
-      }
-
       input {
         &[type="submit"] {
           min-width: 6em;
@@ -43,18 +39,32 @@
       }
 
       .section {
-        @extend .flex, .column, .gap;
-
         .item {
           @extend .fx, .center;
+
+          p {
+            margin-bottom: 0;
+          }
         }
+      }
+
+      &:has(input[type="radio"][id="no"]:checked) .noonly {
+        display: revert;
+      }
+
+      &:has(input[type="radio"][id="yes"]:checked) .yesonly {
+        display: revert;
+      }
+
+      .noonly,
+      .yesonly {
+        display: none,
       }
     }
 
     p {
       overflow-wrap: break-word;
 
-      margin-bottom: 0;
       width: auto;
     }
   }

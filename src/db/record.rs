@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use super::guest::{Attend, Guest, Meal, Reply};
+use super::guest::{Attend, Guest, Meal, Message, Reply};
 use super::Group;
 use crate::user::User;
 
@@ -11,7 +11,7 @@ pub(super) struct Record {
     last: String,
     attend: Option<Attend>,
     meal: Option<Meal>,
-    msg: Option<String>,
+    msg: Option<Message>,
 }
 
 impl From<Record> for Guest {

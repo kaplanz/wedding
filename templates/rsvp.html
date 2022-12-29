@@ -12,19 +12,21 @@
               <p>
                 Hey {{ guest.user().first() }}, will you be able to attend?
               </p>
-            </div>
-            <div name="attend" class="radio">
-              <label for="yes">
-                Yes
-                <input type="radio" name="attend" id="yes" value="Yes" required>
-              </label>
-              <label for="no">
-                No
-                <input type="radio" name="attend" id="no" value="No" required>
-              </label>
+              <div class="item">
+                <div name="attend" class="radio">
+                  <label for="yes">
+                    Yes
+                    <input type="radio" name="attend" id="yes" value="Yes" required>
+                  </label>
+                  <label for="no">
+                    No
+                    <input type="radio" name="attend" id="no" value="No" required>
+                  </label>
+                </div>
+              </div>
             </div>
 
-            <div class="section" id="yesonly">
+            <div class="section yesonly">
               <div class="item">
                 <p>
                   We're so glad you can make it! Next, let's figure out what
@@ -45,7 +47,9 @@
                   </label>
                 </div>
               </div>
+            </div>
 
+            <div class="section yesonly noonly">
               <div class="item">
                 <p>
                   Last question: Do you have any comments for us?
