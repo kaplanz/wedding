@@ -105,7 +105,7 @@ impl Display for Attend {
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub enum Meal {
     #[default]
-    Meat,
+    Chicken,
     Fish,
     Veggie,
 }
