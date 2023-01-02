@@ -8,7 +8,7 @@ use serde::Deserialize;
 use tokio::sync::RwLock;
 
 use self::page::{Dashboard, Home, Login, Registry, Rsvp};
-use super::auth::{self, AuthContext};
+use super::auth;
 use super::Error;
 use crate::db::guest::Reply;
 use crate::db::{self, Database, Ident};
@@ -36,7 +36,7 @@ pub async fn home() -> impl IntoResponse {
 
 pub async fn dashboard(
     State(db): State<Arc<RwLock<Database>>>,
-    auth: AuthContext,
+    auth: auth::Context,
 ) -> impl IntoResponse {
     // Redirect to the login if no user authenticated
     let Some(user) = auth.current_user.clone() else {
@@ -59,7 +59,7 @@ pub async fn dashboard(
     Ok(Dashboard::get(user, guests).await)
 }
 
-pub async fn login(auth: AuthContext) -> impl IntoResponse {
+pub async fn login(auth: auth::Context) -> impl IntoResponse {
     match auth.current_user {
         // Redirect if already logged in
         Some(_) => Ok(Redirect::to("/dashboard")),
@@ -70,7 +70,7 @@ pub async fn login(auth: AuthContext) -> impl IntoResponse {
 
 pub async fn auth(
     State(db): State<Arc<RwLock<Database>>>,
-    auth: AuthContext,
+    auth: auth::Context,
     ConnectInfo(addr): ConnectInfo<SocketAddr>,
     Form(mut user): Form<User>,
 ) -> impl IntoResponse {
@@ -80,7 +80,7 @@ pub async fn auth(
     // Acquire database as a reader
     let db = db.read().await;
     // Query the database using provided credentials
-    let Some(ident) = db.query(&user).cloned() else {
+    let Some(ident) = db.query(&user).copied() else {
         // User not found
         warn!("reject: `{user}`, from: {addr}");
         // Return with error message on failure
@@ -96,7 +96,7 @@ pub async fn auth(
     Ok(Redirect::to("/dashboard"))
 }
 
-pub async fn logout(auth: AuthContext) -> impl IntoResponse {
+pub async fn logout(auth: auth::Context) -> impl IntoResponse {
     // Perform logout for the user
     auth::logout(auth).await;
     // Redirect to the homepage
@@ -110,7 +110,7 @@ pub async fn registry() -> impl IntoResponse {
 
 pub async fn rsvp(
     State(db): State<Arc<RwLock<Database>>>,
-    auth: AuthContext,
+    auth: auth::Context,
     ConnectInfo(addr): ConnectInfo<SocketAddr>,
     Query(action): Query<Action>,
 ) -> impl IntoResponse {
@@ -143,7 +143,7 @@ pub async fn rsvp(
 
 pub async fn reply(
     State(db): State<Arc<RwLock<Database>>>,
-    auth: AuthContext,
+    auth: auth::Context,
     Query(action): Query<Action>,
     ConnectInfo(addr): ConnectInfo<SocketAddr>,
     Form(reply): Form<Reply>,

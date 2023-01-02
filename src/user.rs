@@ -42,7 +42,7 @@ impl AuthUser for User {
     }
 
     fn get_password_hash(&self) -> SecretVec<u8> {
-        SecretVec::new(Default::default())
+        SecretVec::new(Vec::default())
     }
 }
 
@@ -70,7 +70,7 @@ fn sanitize(input: &str) -> String {
     chars
         .next()
         .into_iter()
-        .flat_map(|c| c.to_uppercase())
-        .chain(chars.flat_map(|c| c.to_lowercase()))
+        .flat_map(char::to_uppercase)
+        .chain(chars.flat_map(char::to_lowercase))
         .collect()
 }

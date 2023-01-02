@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+use uuid::Uuid;
 
 use super::guest::{Attend, Guest, Meal, Message, Reply};
 use super::Group;
@@ -30,7 +31,7 @@ impl From<Record> for Guest {
     ) -> Self {
         // Construct user
         let user = User {
-            ident: Default::default(),
+            ident: Uuid::default(),
             first,
             last,
         };

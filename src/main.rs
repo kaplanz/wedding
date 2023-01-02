@@ -136,27 +136,24 @@ async fn main() -> Result<()> {
 
     // Run it
     let addr = SocketAddr::from(([0; 8], args.port));
-    match tls {
-        Some(tls) => {
-            // Prepare TLS config
-            let config = RustlsConfig::from_pem_file(tls.cert, tls.key)
-                .await
-                .unwrap();
-            // Serve the app
-            info!("listening on <https://{addr}>");
-            axum_server::bind_rustls(addr, config)
-                .serve(app.into_make_service_with_connect_info::<SocketAddr>())
-                .await
-                .unwrap();
-        }
-        None => {
-            // Serve the app
-            info!("listening on <http://{addr}>");
-            axum_server::bind(addr)
-                .serve(app.into_make_service_with_connect_info::<SocketAddr>())
-                .await
-                .unwrap();
-        }
+    if let Some(tls) = tls {
+        // Prepare TLS config
+        let config = RustlsConfig::from_pem_file(tls.cert, tls.key)
+            .await
+            .unwrap();
+        // Serve the app
+        info!("listening on <https://{addr}>");
+        axum_server::bind_rustls(addr, config)
+            .serve(app.into_make_service_with_connect_info::<SocketAddr>())
+            .await
+            .unwrap();
+    } else {
+        // Serve the app
+        info!("listening on <http://{addr}>");
+        axum_server::bind(addr)
+            .serve(app.into_make_service_with_connect_info::<SocketAddr>())
+            .await
+            .unwrap();
     }
 
     Ok(())

@@ -1,3 +1,5 @@
+#![allow(clippy::unused_async)]
+
 use askama::Template;
 use axum::extract::rejection::{FormRejection, QueryRejection};
 use axum::http::StatusCode;

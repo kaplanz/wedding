@@ -37,8 +37,7 @@ impl Database {
                 guest
                     .rsvp
                     .as_ref()
-                    .map(|rsvp| format!("{rsvp}"))
-                    .unwrap_or_else(|| "none".to_string())
+                    .map_or_else(|| "none".to_string(), |rsvp| format!("{rsvp}"))
             );
             // Create an identifier for this guest
             let ident = Ident::new_v4();
@@ -64,7 +63,7 @@ impl Database {
     }
 
     pub fn iter(&self) -> impl Iterator<Item = &User> {
-        self.guests.values().map(|guest| guest.user())
+        self.guests.values().map(Guest::user)
     }
 
     pub fn len(&self) -> usize {
@@ -98,9 +97,7 @@ impl Database {
         info!(
             "update: `{}` -> {}",
             guest.user(),
-            Option::as_ref(&rsvp)
-                .map(|rsvp| format!("{rsvp}"))
-                .unwrap_or_else(|| "none".to_string())
+            Option::as_ref(&rsvp).map_or_else(|| "none".to_string(), |rsvp| format!("{rsvp}"))
         );
         guest.update(rsvp);
 
@@ -124,8 +121,7 @@ impl Database {
                 guest
                     .rsvp
                     .as_ref()
-                    .map(|rsvp| format!("{rsvp}"))
-                    .unwrap_or_else(|| "none".to_string())
+                    .map_or_else(|| "none".to_string(), |rsvp| format!("{rsvp}"))
             );
         }
 
