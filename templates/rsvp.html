@@ -33,18 +33,25 @@
                   you're eating...
                 </p>
                 <div name="meal" class="radio">
-                  <label for="chicken">
-                    Chicken
-                    <input type="radio" name="meal" id="chicken" value="Chicken" checked>
-                  </label>
-                  <label for="fish">
-                    Fish
-                    <input type="radio" name="meal" id="fish" value="Fish">
-                  </label>
-                  <label for="veggie">
-                    Veggie
-                    <input type="radio" name="meal" id="veggie" value="Veggie">
-                  </label>
+                  {% if guest.child() %}
+                    <label for="kids">
+                      Kids
+                      <input type="radio" name="meal" id="kids" value="Kids" checked>
+                    </label>
+                  {% else %}
+                    <label for="chicken">
+                      Chicken
+                      <input type="radio" name="meal" id="chicken" value="Chicken" checked>
+                    </label>
+                    <label for="fish">
+                      Fish
+                      <input type="radio" name="meal" id="fish" value="Fish">
+                    </label>
+                    <label for="veggie">
+                      Veggie
+                      <input type="radio" name="meal" id="veggie" value="Veggie">
+                    </label>
+                  {% endif %}
                 </div>
               </div>
             </div>

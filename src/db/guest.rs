@@ -11,6 +11,7 @@ pub struct Guest {
     pub(super) group: Group,
     #[serde(flatten)]
     pub(super) user: User,
+    pub(super) child: bool,
     #[serde(flatten)]
     pub(super) rsvp: Option<Rsvp>,
 }
@@ -18,6 +19,10 @@ pub struct Guest {
 impl Guest {
     pub fn user(&self) -> &User {
         &self.user
+    }
+
+    pub fn child(&self) -> bool {
+        self.child
     }
 
     pub fn msg(&self) -> Option<Message> {
@@ -115,6 +120,7 @@ pub enum Meal {
     Chicken,
     Fish,
     Veggie,
+    Kids,
 }
 
 impl Display for Meal {

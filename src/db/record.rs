@@ -9,6 +9,8 @@ pub(super) struct Record {
     group: Group,
     first: String,
     last: String,
+    #[serde(default)]
+    child: bool,
     attend: Option<Attend>,
     meal: Option<Meal>,
     msg: Option<Message>,
@@ -20,6 +22,7 @@ impl From<Record> for Guest {
             group,
             first,
             last,
+            child,
             attend,
             meal,
             msg,
@@ -34,12 +37,24 @@ impl From<Record> for Guest {
         // Construct rsvp
         let rsvp = Reply::new(attend, meal, msg).into();
         // Construct guest
-        Self { group, user, rsvp }
+        Self {
+            group,
+            user,
+            child,
+            rsvp,
+        }
     }
 }
 
 impl From<Guest> for Record {
-    fn from(Guest { group, user, rsvp }: Guest) -> Self {
+    fn from(
+        Guest {
+            group,
+            user,
+            child,
+            rsvp,
+        }: Guest,
+    ) -> Self {
         // Destructure first, last fields
         let User { first, last, .. } = user;
         // Destructure attend, meal, msg fields
@@ -52,6 +67,7 @@ impl From<Guest> for Record {
             group,
             first,
             last,
+            child,
             attend,
             meal,
             msg,
