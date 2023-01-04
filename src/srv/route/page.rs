@@ -24,7 +24,7 @@ macro_rules! add_impl {
     )*)
 }
 
-add_impl! { Home Dashboard Login Registry Rsvp }
+add_impl! { Home Dashboard Login Registry Rsvp Travel }
 
 #[derive(Template)]
 #[template(path = "home.html")]
@@ -104,5 +104,19 @@ impl Rsvp {
 
     pub async fn get(guest: Guest) -> impl IntoResponse {
         Self::new(guest)
+    }
+}
+
+#[derive(Template)]
+#[template(path = "travel.html")]
+pub struct Travel;
+
+impl Travel {
+    fn new() -> Self {
+        Self
+    }
+
+    pub async fn get() -> impl IntoResponse {
+        Self::new()
     }
 }
