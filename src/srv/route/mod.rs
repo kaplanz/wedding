@@ -7,7 +7,7 @@ use log::{error, trace, warn};
 use serde::Deserialize;
 use tokio::sync::RwLock;
 
-use self::page::{Dashboard, Home, Login, Registry, Rsvp};
+use self::page::{Dashboard, Home, Login, Registry, Rsvp, Travel};
 use super::auth;
 use super::Error;
 use crate::db::guest::Reply;
@@ -181,4 +181,9 @@ pub async fn reply(
     };
     // Redirect to the homepage
     Ok(Redirect::to("/dashboard"))
+}
+
+pub async fn travel() -> impl IntoResponse {
+    // Present travel page
+    Travel::get().await
 }
