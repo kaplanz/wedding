@@ -4,7 +4,7 @@ nav.nav {
   margin-top: var(--spacer);
 
   a.item {
-    @extend .fx, .float, .round, .shadow, .unlink;
+    @extend .fx, .float, .unlink;
 
     padding: var(--spacer-small-3);
 
