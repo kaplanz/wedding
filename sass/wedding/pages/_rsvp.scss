@@ -8,6 +8,7 @@
       @extend .flex, .column, .center, .gap;
 
       max-width: 420px;
+      width: 100%;
 
       input {
         &[type="submit"] {
@@ -39,9 +40,13 @@
       }
 
       .section {
-        .item {
-          @extend .fx, .center;
+        width: inherit;
 
+        p {
+          @extend .tx-center;
+        }
+
+        .item {
           p {
             margin-bottom: 0;
           }

@@ -27,15 +27,14 @@
             </div>
 
             <div class="section yesonly">
+              <p>
+                We're so glad you can make it!
+              </p>
               <div class="item">
-                <p>
-                  We're so glad you can make it! Next, let's figure out what
-                  you're eating...
-                </p>
                 <div name="meal" class="radio">
                   {% if guest.child() %}
                     <label for="kids">
-                      Kids
+                      Kids Meal
                       <input type="radio" name="meal" id="kids" value="Kids" checked>
                     </label>
                   {% else %}
@@ -58,8 +57,12 @@
 
             <div class="section yesonly noonly">
               <div class="item">
-                <p>
-                  Last question: Do you have any comments for us?
+                <p class="yesonly">
+                  Do you have any food allergies, dietary restrictions, or
+                  comments?
+                </p>
+                <p class="noonly">
+                  Do you have any comments for us?
                 </p>
                 <label for="msg"></label>
                 <textarea
