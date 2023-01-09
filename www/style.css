@@ -481,8 +481,9 @@ input.effects-tile,
 .effects.tile {
   border: 0.5px solid var(--color-border);
 }
-.fx-round, .fx.round, .rsvp div.form > form .radio > label:has(input[type=radio]), .dashboard .greeting .item, nav.nav a.round.item, textarea.fx, textarea, input.fx, input, .fx.fx-tile, nav.nav a.fx-tile.item, textarea.fx-tile, input.fx-tile, .fx.tile, .login div.form > form, .dashboard ul.guests li.guest > a, nav.nav a.tile.item, textarea.tile, input.tile,
+.fx-round, .fx.round, .rsvp div.form > form .radio > label:has(input[type=radio]), .dashboard .greeting .round.item, nav.nav a.round.item, textarea.fx, .dashboard .greeting textarea.item, textarea, input.fx, .dashboard .greeting input.item, input, .fx.fx-tile, .dashboard .greeting .fx-tile.item, nav.nav a.fx-tile.item, textarea.fx-tile, input.fx-tile, .fx.tile, .login div.form > form, .dashboard ul.guests li.guest > a, .dashboard .greeting .tile.item, .dashboard .greeting .login div.form > form.item, .login .dashboard .greeting div.form > form.item, nav.nav a.tile.item, textarea.tile, input.tile,
 .fx.effects-tile,
+.dashboard .greeting .effects-tile.item,
 nav.nav a.effects-tile.item,
 textarea.effects-tile,
 input.effects-tile,
@@ -495,8 +496,9 @@ input.effects,
 .effects.tile {
   border-radius: var(--border-radius);
 }
-.fx-shadow, .fx.shadow, .rsvp div.form > form .radio > label:has(input[type=radio]), .dashboard .greeting .item, nav.nav a.shadow.item, textarea.shadow, input.shadow, .fx.fx-tile, nav.nav a.fx-tile.item, textarea.fx-tile, input.fx-tile, .fx.tile, .login div.form > form, .dashboard ul.guests li.guest > a, nav.nav a.tile.item, textarea.tile, input.tile,
+.fx-shadow, .fx.shadow, .rsvp div.form > form .radio > label:has(input[type=radio]), .dashboard .greeting .shadow.item, nav.nav a.shadow.item, textarea.shadow, input.shadow, .fx.fx-tile, .dashboard .greeting .fx-tile.item, nav.nav a.fx-tile.item, textarea.fx-tile, input.fx-tile, .fx.tile, .login div.form > form, .dashboard ul.guests li.guest > a, .dashboard .greeting .tile.item, .dashboard .greeting .login div.form > form.item, .login .dashboard .greeting div.form > form.item, nav.nav a.tile.item, textarea.tile, input.tile,
 .fx.effects-tile,
+.dashboard .greeting .effects-tile.item,
 nav.nav a.effects-tile.item,
 textarea.effects-tile,
 input.effects-tile,
@@ -507,12 +509,14 @@ input.effects-tile,
 .effects.tile {
   box-shadow: 0 2px 3px var(--color-shadow);
 }
-.fx-shadow.float:hover, nav.nav a.fx-shadow.item:hover, .fx.shadow.float:hover, .rsvp div.form > form .radio > label.float:hover:has(input[type=radio]), .dashboard .greeting .item:hover, nav.nav a.shadow.item:hover, textarea.shadow.float:hover, input.shadow.float:hover, .fx.float.fx-tile:hover, nav.nav a.fx-tile.item:hover, textarea.float.fx-tile:hover, input.float.fx-tile:hover, .fx.float.tile:hover, .login div.form > form.float:hover, .dashboard ul.guests li.guest > a:hover, nav.nav a.tile.item:hover, textarea.float.tile:hover, input.float.tile:hover,
+.fx-shadow.float:hover, .dashboard .greeting .fx-shadow.item:hover, nav.nav a.fx-shadow.item:hover, .fx.shadow.float:hover, .rsvp div.form > form .radio > label.float:hover:has(input[type=radio]), .dashboard .greeting .shadow.item:hover, .dashboard .greeting .rsvp div.form > form .radio > label.item:hover:has(input[type=radio]), .rsvp div.form > form .dashboard .greeting .radio > label.item:hover:has(input[type=radio]), nav.nav a.shadow.item:hover, textarea.shadow.float:hover, input.shadow.float:hover, .fx.float.fx-tile:hover, .dashboard .greeting .fx-tile.item:hover, nav.nav a.fx-tile.item:hover, textarea.float.fx-tile:hover, input.float.fx-tile:hover, .fx.float.tile:hover, .login div.form > form.float:hover, .dashboard ul.guests li.guest > a:hover, .dashboard .greeting .tile.item:hover, .dashboard .greeting .login div.form > form.item:hover, .login .dashboard .greeting div.form > form.item:hover, nav.nav a.tile.item:hover, textarea.float.tile:hover, input.float.tile:hover,
 .fx.float.effects-tile:hover,
+.dashboard .greeting .effects-tile.item:hover,
 nav.nav a.effects-tile.item:hover,
 textarea.float.effects-tile:hover,
 input.float.effects-tile:hover,
 .effects-shadow.float:hover,
+.dashboard .greeting .effects-shadow.item:hover,
 nav.nav a.effects-shadow.item:hover,
 .effects.shadow.float:hover,
 .effects.float.fx-tile:hover,
