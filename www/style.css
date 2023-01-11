@@ -801,8 +801,9 @@ header.header hr {
   }
 }
 
-nav.nav {
-  margin-top: var(--spacer);
+nav.nav:has(> *) {
+  padding: var(--spacer-small-2);
+  border-bottom: 1px solid var(--color-accent-bg);
 }
 nav.nav a.item {
   padding: var(--spacer-small-3);

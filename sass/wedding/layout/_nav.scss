@@ -1,7 +1,10 @@
 nav.nav {
   @extend .flex, .row, .center, .gap;
 
-  margin-top: var(--spacer);
+  &:has(> *) {
+    padding: var(--spacer-small-2);
+    border-bottom: 1px solid var(--color-accent-bg);
+  }
 
   a.item {
     @extend .fx, .float, .unlink;
