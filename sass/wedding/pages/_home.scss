@@ -1,0 +1,74 @@
+.home {
+  .greeting {
+    @extend .flex, .gap;
+
+    margin: var(--spacer) 0;
+
+    @media screen and (min-width: $screen-sm) {
+      flex-direction: row;
+
+      img.photo {
+        order: 0;
+
+        width: 35%;
+      }
+    }
+
+    @media screen and (max-width: $screen-sm) {
+      flex-direction: column;
+
+      img.photo {
+        order: 99;
+      }
+    }
+
+    img.photo {
+      margin: 0;
+      height: 100%;
+
+      object-fit: cover;
+    }
+
+    > .text {
+      @extend .flex, .column, .repel;
+
+      p {
+        margin: 0;
+      }
+
+      #days {
+        @extend .font, .cursive;
+        @extend .text, .center;
+
+        font-size: 48px;
+      }
+    }
+  }
+
+  .schedule {
+    table {
+      border-width: thin 0 thin;
+
+      caption {
+        @extend .font, .semi;
+        @extend .text, .left;
+
+        font-size: larger;
+      }
+
+      tr {
+        td {
+          text-align: center;
+
+          &:first-child {
+            text-align: start;
+          }
+
+          &:last-child {
+            text-align: end;
+          }
+        }
+      }
+    }
+  }
+}

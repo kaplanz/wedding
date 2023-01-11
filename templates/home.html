@@ -1,18 +1,41 @@
 {% extends "index.html" %}
 
 {%- block content -%}
-      <script type="text/javascript" src="/script/days.js" async></script>
+      <div class="home">
+        <script type="text/javascript" src="/script/days.js" async></script>
 
-      <img class="pos-right" src="/assets/img/engagement.jpg" width="35%">
+        <div class="greeting">
+          <img
+            class="photo"
+            src="/assets/img/engagement.jpg"
+          >
+          <div class="text">
+            <p>
+              Welcome to our wedding homepage. We're so excited to celebrate with
+              you in:
+            </p>
+            <p
+              id="days"
+            ></p>
+            <p>
+              In the meantime, please RSVP by May 1st, and feel free to check out
+              our registry.
+            </p>
+          </div>
+        </div>
 
-      <div class="tx-justify">
-        <p>
-          Welcome to our wedding homepage. We're so excited to celebrate with
-          you in only <span id="days"></span>!
-        </p>
-        <p>
-          In the meantime, you can <a href="/login">log in</a> to RSVP or check
-          out our <a href="/registry">gift registry</a>.
-        </p>
+        <div class="schedule">
+          <table>
+            <caption>Schedule</caption>
+            <tr>
+              <td>Kabbalat Panim</td>
+              <td>5:30 PM</td>
+            </tr>
+            <tr>
+              <td>Chuppah</td>
+              <td>6:30 PM</td>
+            </tr>
+          </table>
+        </div>
       </div>
 {%- endblock -%}
