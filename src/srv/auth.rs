@@ -1,5 +1,5 @@
-use axum_login::memory_store::MemoryStore;
 use axum_login::extractors;
+use axum_login::memory_store::MemoryStore;
 use log::debug;
 
 use crate::user::User;

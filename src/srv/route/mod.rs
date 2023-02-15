@@ -8,8 +8,7 @@ use serde::Deserialize;
 use tokio::sync::RwLock;
 
 use self::page::{Dashboard, Home, Login, Registry, Rsvp, Travel};
-use super::auth;
-use super::Error;
+use super::{auth, Error};
 use crate::db::guest::Reply;
 use crate::db::{self, Database, Ident};
 use crate::user::User;
