@@ -3,13 +3,12 @@ const pluralize = (count, noun, suffix = "s") =>
 
 function countdown(deadline) {
     const now   = new Date();
-    const total = deadline - now;
+    const total = (deadline - now) / 1000;
     return {
-        total,
-        days:    Math.floor( total / (1000 * 60 * 60 * 24)),
-        hours:   Math.floor((total /  1000  / 60) % 60),
-        minutes: Math.floor((total / (1000  * 60 *  60)) % 24),
-        seconds: Math.floor((total /  1000) % 60),
+        days:    Math.floor(total / 60 / 60 / 24),
+        hours:   Math.floor(total / 60 / 60 % 24),
+        minutes: Math.floor(total / 60 % 60),
+        seconds: Math.floor(total % 60),
     }
 }
 
@@ -22,7 +21,7 @@ function update(elem, deadline) {
 }
 
 // Mark the deadline
-const deadline = new Date("2023-06-06 00:00:00");
+const deadline = new Date("2023-06-06T00:00:00");
 const elem = document.getElementById("days");
 
 // Set the initial countdown
