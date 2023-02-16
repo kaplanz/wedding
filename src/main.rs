@@ -150,6 +150,7 @@ async fn main() -> Result<()> {
                 _ = signal::ctrl_c() => {
                     // Signal the server to gracefully shutdown
                     warn!("commencing graceful shutdown");
+                    info!("nofifying {} connections", handle.connection_count());
                     handle.graceful_shutdown(Some(Duration::from_secs(5)));
                 },
                 _ = sigterm.recv() => {
