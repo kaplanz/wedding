@@ -181,7 +181,7 @@ async fn main() -> Result<()> {
             .await
             .unwrap();
         // Serve the app
-        info!("listening on <https://{addr}>");
+        info!("listening on {addr}");
         axum_server::bind_rustls(addr, config)
             .handle(handle)
             .serve(app.into_make_service_with_connect_info::<SocketAddr>())
@@ -189,7 +189,7 @@ async fn main() -> Result<()> {
             .unwrap();
     } else {
         // Serve the app
-        info!("listening on <http://{addr}>");
+        info!("listening on {addr}");
         axum_server::bind(addr)
             .handle(handle)
             .serve(app.into_make_service_with_connect_info::<SocketAddr>())
