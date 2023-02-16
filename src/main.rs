@@ -1,3 +1,4 @@
+use std::fs::File;
 use std::io;
 use std::net::SocketAddr;
 use std::path::PathBuf;
@@ -21,6 +22,9 @@ use tokio::sync::RwLock;
 use tower::ServiceExt;
 use tower_http::services::ServeDir;
 use tower_http::trace::TraceLayer;
+use tracing_subscriber::layer::SubscriberExt;
+use tracing_subscriber::util::SubscriberInitExt;
+use tracing_subscriber::EnvFilter;
 
 mod db;
 mod srv;
@@ -38,6 +42,11 @@ struct Args {
     #[arg(default_value_t = 3000)]
     #[arg(env = "PORT")]
     port: u16,
+
+    /// Path to log output file.
+    #[arg(long)]
+    #[arg(value_hint = ValueHint::FilePath)]
+    log: Option<PathBuf>,
 
     /// Path to input guestlist.
     #[arg(value_hint = ValueHint::FilePath)]
@@ -67,10 +76,31 @@ struct Args {
 async fn main() -> Result<()> {
     // Install panic and error report handlers
     color_eyre::install()?;
-    // Initialize tracing
-    tracing_subscriber::fmt::init();
     // Parse args
     let args = Args::parse();
+
+    // Initialize tracing
+    let filter = EnvFilter::from_default_env(); // use default filter
+    let out = tracing_subscriber::fmt::layer(); // log to stdout
+                                                // produce logfile
+    let log = if let Some(path) = args.log {
+        let file = File::options()
+            .append(true)
+            .create(true)
+            .write(true)
+            .open(&path)?;
+        let log = tracing_subscriber::fmt::layer()
+            .with_ansi(false)
+            .with_writer(file);
+        Some(log)
+    } else {
+        None
+    };
+    tracing_subscriber::registry()
+        .with(filter)
+        .with(out)
+        .with(log)
+        .init();
 
     // Extract TLS certificate and key
     let tls = CertKey::try_from((args.cert, args.key)).ok();
