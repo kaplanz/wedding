@@ -54,7 +54,7 @@ pub async fn dashboard(
                 .cloned()
         })
         .collect::<Result<_, _>>()?;
-    // Present dashbaord page
+    // Present dashboard page
     Ok(Dashboard::get(user, guests).await)
 }
 
@@ -103,7 +103,7 @@ pub async fn logout(auth: auth::Context) -> impl IntoResponse {
 }
 
 pub async fn registry() -> impl IntoResponse {
-    // Present regsitry page
+    // Present registry page
     Registry::get().await
 }
 

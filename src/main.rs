@@ -111,10 +111,10 @@ async fn main() -> Result<()> {
     let store = memory_store::MemoryStore::new(&memory);
     let auth = AuthLayer::new(store, &secret);
 
-    // Wrap dataabase layer
+    // Wrap database layer
     let db = Arc::new(RwLock::new(db));
 
-    // Build our application with a route
+    // Build our application with routes
     debug!("directory root: `{}`", &args.root.display());
     let app = Router::new()
         .route("/", get(route::home))
