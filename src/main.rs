@@ -2,6 +2,7 @@ use std::io;
 use std::net::SocketAddr;
 use std::path::PathBuf;
 use std::sync::Arc;
+use std::time::Duration;
 
 use axum::handler::HandlerWithoutStateExt;
 use axum::routing::{get, get_service};
@@ -9,10 +10,13 @@ use axum::Router;
 use axum_login::axum_sessions::{async_session, SessionLayer};
 use axum_login::{memory_store, AuthLayer, AuthUser};
 use axum_server::tls_rustls::RustlsConfig;
+use axum_server::Handle;
 use clap::{Parser, ValueHint};
 use color_eyre::eyre::Result;
-use log::{debug, info, warn};
+use log::{debug, error, info, warn};
 use rand::Rng;
+use tokio::signal;
+use tokio::signal::unix::SignalKind;
 use tokio::sync::RwLock;
 use tower::ServiceExt;
 use tower_http::services::ServeDir;
@@ -135,6 +139,40 @@ async fn main() -> Result<()> {
         .layer(session)
         .with_state(db);
 
+    // Define signal handlers
+    async fn signal(handle: Handle) {
+        // Prepare signal handlers
+        let mut siginfo =
+            signal::unix::signal(SignalKind::info()).expect("failed to install SIGINFO handler");
+        let mut sigterm = signal::unix::signal(SignalKind::terminate())
+            .expect("failed to install SIGTERM handler");
+
+        loop {
+            tokio::select! {
+                _ = signal::ctrl_c() => {
+                    // Signal the server to gracefully shutdown
+                    warn!("commencing graceful shutdown");
+                    handle.graceful_shutdown(Some(Duration::from_secs(5)));
+                },
+                _ = siginfo.recv() => {
+                    // Gather and log statistics
+                    info!("{} connections", handle.connection_count());
+                }
+                _ = sigterm.recv() => {
+                    // Signal the server to terminate
+                    error!("terminating");
+                    handle.shutdown();
+                },
+            }
+        }
+    }
+
+    // Create a handle for the server
+    let handle = Handle::new();
+
+    // Spawn a task to gracefully shutdown server
+    tokio::spawn(signal(handle.clone()));
+
     // Run it
     let addr = SocketAddr::from(([0; 8], args.port));
     if let Some(tls) = tls {
@@ -145,6 +183,7 @@ async fn main() -> Result<()> {
         // Serve the app
         info!("listening on <https://{addr}>");
         axum_server::bind_rustls(addr, config)
+            .handle(handle)
             .serve(app.into_make_service_with_connect_info::<SocketAddr>())
             .await
             .unwrap();
@@ -152,6 +191,7 @@ async fn main() -> Result<()> {
         // Serve the app
         info!("listening on <http://{addr}>");
         axum_server::bind(addr)
+            .handle(handle)
             .serve(app.into_make_service_with_connect_info::<SocketAddr>())
             .await
             .unwrap();
