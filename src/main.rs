@@ -142,8 +142,6 @@ async fn main() -> Result<()> {
     // Define signal handlers
     async fn signal(handle: Handle) {
         // Prepare signal handlers
-        let mut siginfo =
-            signal::unix::signal(SignalKind::info()).expect("failed to install SIGINFO handler");
         let mut sigterm = signal::unix::signal(SignalKind::terminate())
             .expect("failed to install SIGTERM handler");
 
@@ -154,10 +152,6 @@ async fn main() -> Result<()> {
                     warn!("commencing graceful shutdown");
                     handle.graceful_shutdown(Some(Duration::from_secs(5)));
                 },
-                _ = siginfo.recv() => {
-                    // Gather and log statistics
-                    info!("{} connections", handle.connection_count());
-                }
                 _ = sigterm.recv() => {
                     // Signal the server to terminate
                     error!("terminating");
