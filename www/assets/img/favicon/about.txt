@@ -1,6 +1,0 @@
-This favicon was generated using the following font:
-
-- Font Title: Corinthia
-- Font Author: Copyright 2010 The Corinthia Project Authors (https://github.com/googlefonts/corinthia)
-- Font Source: http://fonts.gstatic.com/s/corinthia/v9/wEO6EBrAnchaJyPMHE097d8v1GAbgbLXQA.ttf
-- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))
