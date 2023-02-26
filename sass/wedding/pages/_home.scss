@@ -1,47 +1,46 @@
 .home {
-  .greeting {
-    @extend .flex, .gap;
-
-    margin: var(--spacer) 0;
+  .carousel {
+    @extend .flex, .center;
 
     @media screen and (min-width: $screen-sm) {
-      flex-direction: row;
-
       img.photo {
-        order: 0;
-
-        width: 35%;
+        width: calc(100% / 3);
       }
     }
 
     @media screen and (max-width: $screen-sm) {
-      flex-direction: column;
-
       img.photo {
-        order: 99;
+        width: calc($screen-md / 3);
       }
     }
+
+    overflow: scroll;
+    overscroll-behavior: none;
+
+    border-radius: var(--border-radius);
 
     img.photo {
       margin: 0;
-      height: 100%;
+      border-radius: 0;
 
       object-fit: cover;
     }
+  }
 
-    > .text {
-      @extend .flex, .column, .repel;
+  .greeting {
+    @extend .flex, .column, .gap, .repel;
 
-      p {
-        margin: 0;
-      }
+    margin: var(--spacer) 0;
 
-      #days {
-        @extend .font, .cursive;
-        @extend .text, .center;
+    p {
+      margin: 0;
+    }
 
-        font-size: 48px;
-      }
+    #days {
+      @extend .font, .cursive;
+      @extend .text, .center;
+
+      font-size: 48px;
     }
   }
 
