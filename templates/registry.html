@@ -5,30 +5,30 @@
 {%- endblock -%}
 
 {%- block content -%}
-      <div class="registry">
-        <div class="tabbed">
-          <ul class="tabs">
-            <li class="tab">
-              <label for="home">
-                <span>Main</span>
-                <input type="radio" id="home" name="tabs" checked>
-              </label>
-            </li>
-            <li class="tab">
-              <label for="judaica">
-                <span>Crown Judaica</span>
-                <input type="radio" id="judaica" name="tabs">
-              </label>
-            </li>
-          </ul>
-          <ul class="contents">
-            <li class="tab home">
-              {% include "registry/home.html" %}
-            </li>
-            <li class="tab judaica">
-              {% include "registry/judaica.html" %}
-            </li>
-          </ul>
-        </div>
-      </div>
+  <div class="registry">
+    <div class="tabbed">
+      <ul class="tabs">
+        <li class="tab">
+          <label for="home">
+            <span>Main</span>
+            <input type="radio" id="home" name="tabs" checked>
+          </label>
+        </li>
+        <li class="tab">
+          <label for="judaica">
+            <span>Crown Judaica</span>
+            <input type="radio" id="judaica" name="tabs">
+          </label>
+        </li>
+      </ul>
+      <ul class="contents">
+        <li class="tab home">
+          {% include "registry/home.html" %}
+        </li>
+        <li class="tab judaica">
+          {% include "registry/judaica.html" %}
+        </li>
+      </ul>
+    </div>
+  </div>
 {%- endblock -%}

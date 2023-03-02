@@ -5,82 +5,82 @@
 {%- endblock -%}
 
 {%- block content -%}
-      <div class="rsvp">
-        <div class="form">
-          <form action="/rsvp?guest={{ guest.user().ident }}" method="post">
-            <div class="section">
-              <p>
-                Hey {{ guest.user().first() }}, will you be able to attend?
-              </p>
-              <div class="item">
-                <div name="attend" class="radio">
-                  <label for="yes">
-                    <span>Yes</span>
-                    <input type="radio" name="attend" id="yes" value="Yes" required>
-                  </label>
-                  <label for="no">
-                    <span>No</span>
-                    <input type="radio" name="attend" id="no" value="No" required>
-                  </label>
-                </div>
-              </div>
+  <div class="rsvp">
+    <div class="form">
+      <form action="/rsvp?guest={{ guest.user().ident }}" method="post">
+        <div class="section">
+          <p>
+            Hey {{ guest.user().first() }}, will you be able to attend?
+          </p>
+          <div class="item">
+            <div name="attend" class="radio">
+              <label for="yes">
+                <span>Yes</span>
+                <input type="radio" name="attend" id="yes" value="Yes" required>
+              </label>
+              <label for="no">
+                <span>No</span>
+                <input type="radio" name="attend" id="no" value="No" required>
+              </label>
             </div>
-
-            <div class="section yesonly">
-              <p>
-                We're so glad you can make it!
-              </p>
-              <div class="item">
-                <div name="meal" class="radio">
-                  {% if guest.child() %}
-                    <label for="kids">
-                      <span>Kids Meal</span>
-                      <input type="radio" name="meal" id="kids" value="Kids" checked>
-                    </label>
-                  {% else %}
-                    <label for="chicken">
-                      <span>Chicken</span>
-                      <input type="radio" name="meal" id="chicken" value="Chicken" checked>
-                    </label>
-                    <label for="fish">
-                      <span>Fish</span>
-                      <input type="radio" name="meal" id="fish" value="Fish">
-                    </label>
-                    <label for="veggie">
-                      <span>Veggie</span>
-                      <input type="radio" name="meal" id="veggie" value="Veggie">
-                    </label>
-                  {% endif %}
-                </div>
-              </div>
-            </div>
-
-            <div class="section yesonly noonly">
-              <div class="item">
-                <p class="yesonly">
-                  Do you have any food allergies, dietary restrictions, or
-                  comments?
-                </p>
-                <p class="noonly">
-                  Do you have any comments for us?
-                </p>
-                <label for="msg"></label>
-                <textarea
-                  name="msg"
-                  id="msg"
-                  rows="8"
-                  placeholder="Leave us a message..."
-                >
-                  {%- if let Some(msg) = guest.msg() -%}
-                    {{ msg }}
-                  {%- endif -%}
-                </textarea>
-              </div>
-            </div>
-
-            <input type="submit" value="RSVP">
-
-          </form>
+          </div>
         </div>
-      </div>
+
+        <div class="section yesonly">
+          <p>
+            We're so glad you can make it!
+          </p>
+          <div class="item">
+            <div name="meal" class="radio">
+              {% if guest.child() %}
+                <label for="kids">
+                  <span>Kids Meal</span>
+                  <input type="radio" name="meal" id="kids" value="Kids" checked>
+                </label>
+              {% else %}
+                <label for="chicken">
+                  <span>Chicken</span>
+                  <input type="radio" name="meal" id="chicken" value="Chicken" checked>
+                </label>
+                <label for="fish">
+                  <span>Fish</span>
+                  <input type="radio" name="meal" id="fish" value="Fish">
+                </label>
+                <label for="veggie">
+                  <span>Veggie</span>
+                  <input type="radio" name="meal" id="veggie" value="Veggie">
+                </label>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <div class="section yesonly noonly">
+          <div class="item">
+            <p class="yesonly">
+              Do you have any food allergies, dietary restrictions, or
+              comments?
+            </p>
+            <p class="noonly">
+              Do you have any comments for us?
+            </p>
+            <label for="msg"></label>
+            <textarea
+              name="msg"
+              id="msg"
+              rows="8"
+              placeholder="Leave us a message..."
+            >
+              {%- if let Some(msg) = guest.msg() -%}
+                {{ msg }}
+              {%- endif -%}
+            </textarea>
+          </div>
+        </div>
+
+        <input type="submit" value="RSVP">
+
+      </form>
+    </div>
+  </div>
 {%- endblock -%}

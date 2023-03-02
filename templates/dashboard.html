@@ -5,58 +5,58 @@
 {%- endblock -%}
 
 {%- block content -%}
-      <div class="dashboard">
-        <div class="greeting">
-          <h3 class="text">Welcome, {{ user.first() }}!</h3>
-          <a class="item" href="/logout">Logout</a>
-        </div>
-        <p>
-          Let us know if you can make it to our wedding, choose your meal
-          preferences, and share any comments you might have! Please note, you
-          can update your RSVP status up until May 1st.
-        </p>
-        <p>
-          We found the following guests on your invitation:
-        </p>
-        <ul class="guests">
-          {%- for guest in guests -%}
-            {% call render(guest) %}
-          {%- endfor -%}
-        </ul>
-      </div>
+  <div class="dashboard">
+    <div class="greeting">
+      <h3 class="text">Welcome, {{ user.first() }}!</h3>
+      <a class="item" href="/logout">Logout</a>
+    </div>
+    <p>
+      Let us know if you can make it to our wedding, choose your meal
+      preferences, and share any comments you might have! Please note, you
+      can update your RSVP status up until May 1st.
+    </p>
+    <p>
+      We found the following guests on your invitation:
+    </p>
+    <ul class="guests">
+      {%- for guest in guests -%}
+        {% call render(guest) %}
+      {%- endfor -%}
+    </ul>
+  </div>
 {%- endblock -%}
 
 {%- macro render(guest) -%}
-            <li class="guest">
-              <a class="name" href="/rsvp?guest={{ guest.user().ident }}">
-                <div>{{ guest.user() }}</div>
-                {%- if let Some(reply) = guest.reply() -%}
-                  <hr>
-                  <table>
-                    <col class="icon">
-                    <col class="data">
-                    {%- if let Some(attend) = reply.attend -%}
-                      <tr>
-                        <td><i class="fa-solid fa-envelope-open-text"></i></td>
-                        <td>{{ attend }}</td>
-                      </tr>
-                    {%- endif -%}
-                    {%- if let Some(meal) = reply.meal -%}
-                      <tr>
-                        <td><i class="fa-solid fa-utensils"></i></td>
-                        <td>{{ meal }}</td>
-                      </tr>
-                    {%- endif -%}
-                    {%- if let Some(msg) = reply.msg -%}
-                      {%- if !msg.is_empty() -%}
-                        <tr>
-                          <td><i class="fa-solid fa-message"></i></td>
-                          <td>"{{ msg|linebreaksbr|safe }}"</td>
-                        </tr>
-                      {%- endif -%}
-                    {%- endif -%}
-                  </table>
-                {%- endif -%}
-              </a>
-            </li>
+  <li class="guest">
+    <a class="name" href="/rsvp?guest={{ guest.user().ident }}">
+      <div>{{ guest.user() }}</div>
+      {%- if let Some(reply) = guest.reply() -%}
+        <hr>
+        <table>
+          <col class="icon">
+          <col class="data">
+          {%- if let Some(attend) = reply.attend -%}
+            <tr>
+              <td><i class="fa-solid fa-envelope-open-text"></i></td>
+              <td>{{ attend }}</td>
+            </tr>
+          {%- endif -%}
+          {%- if let Some(meal) = reply.meal -%}
+            <tr>
+              <td><i class="fa-solid fa-utensils"></i></td>
+              <td>{{ meal }}</td>
+            </tr>
+          {%- endif -%}
+          {%- if let Some(msg) = reply.msg -%}
+            {%- if !msg.is_empty() -%}
+              <tr>
+                <td><i class="fa-solid fa-message"></i></td>
+                <td>"{{ msg|linebreaksbr|safe }}"</td>
+              </tr>
+            {%- endif -%}
+          {%- endif -%}
+        </table>
+      {%- endif -%}
+    </a>
+  </li>
 {%- endmacro -%}
