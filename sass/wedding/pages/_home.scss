@@ -30,7 +30,7 @@
   }
 
   .greeting {
-    @extend .flex, .column, .gap, .repel;
+    @extend .flex, .column, .center, .gap, .repel;
 
     margin: var(--spacer) 0;
 

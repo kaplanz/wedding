@@ -5,9 +5,30 @@
 {%- endblock -%}
 
 {%- block content -%}
-      <script
-        type="text/javascript"
-        id="script_myregistry_giftlist_iframe"
-        src="//www.myregistry.com//Visitors/GiftList/iFrames/EmbedRegistry.ashx?r=dSkIz-7nnQI8R8NKecHD8g2&v=2"
-      ></script>
+      <div class="registry">
+        <div class="tabbed">
+          <ul class="tabs">
+            <li class="tab">
+              <label for="home">
+                <span>Main</span>
+                <input type="radio" id="home" name="tabs" checked>
+              </label>
+            </li>
+            <li class="tab">
+              <label for="judaica">
+                <span>Crown Judaica</span>
+                <input type="radio" id="judaica" name="tabs">
+              </label>
+            </li>
+          </ul>
+          <ul class="contents">
+            <li class="tab home">
+              {% include "registry/home.html" %}
+            </li>
+            <li class="tab judaica">
+              {% include "registry/judaica.html" %}
+            </li>
+          </ul>
+        </div>
+      </div>
 {%- endblock -%}

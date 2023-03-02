@@ -15,11 +15,11 @@
               <div class="item">
                 <div name="attend" class="radio">
                   <label for="yes">
-                    Yes
+                    <span>Yes</span>
                     <input type="radio" name="attend" id="yes" value="Yes" required>
                   </label>
                   <label for="no">
-                    No
+                    <span>No</span>
                     <input type="radio" name="attend" id="no" value="No" required>
                   </label>
                 </div>
@@ -34,20 +34,20 @@
                 <div name="meal" class="radio">
                   {% if guest.child() %}
                     <label for="kids">
-                      Kids Meal
+                      <span>Kids Meal</span>
                       <input type="radio" name="meal" id="kids" value="Kids" checked>
                     </label>
                   {% else %}
                     <label for="chicken">
-                      Chicken
+                      <span>Chicken</span>
                       <input type="radio" name="meal" id="chicken" value="Chicken" checked>
                     </label>
                     <label for="fish">
-                      Fish
+                      <span>Fish</span>
                       <input type="radio" name="meal" id="fish" value="Fish">
                     </label>
                     <label for="veggie">
-                      Veggie
+                      <span>Veggie</span>
                       <input type="radio" name="meal" id="veggie" value="Veggie">
                     </label>
                   {% endif %}

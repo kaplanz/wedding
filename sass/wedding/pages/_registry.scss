@@ -1,0 +1,90 @@
+.registry {
+  .tabbed {
+    input[type="radio"] {
+      display: none;
+    }
+
+    ul.tabs {
+      @extend .flex, .row, .center, .gap;
+
+      margin: var(--spacer);
+      padding: 0;
+
+      list-style-type: none;
+
+      li.tab {
+        label:has(input[type="radio"]) {
+          @extend .fx, .round, .shadow;
+          @extend .tx-center;
+
+          padding: var(--spacer-small-3);
+          min-width: 4em;
+
+          cursor: pointer;
+
+          &:has(:checked) {
+            background-color: var(--color-accent-fg);
+            color: var(--color-accent-bg);
+          }
+        }
+      }
+    }
+
+    ul.contents {
+      margin: 0;
+      padding: 0;
+
+      list-style-type: none;
+
+      li.tab {}
+    }
+
+    &:has(input[type="radio"][id="home"]:checked) .home {
+      display: revert;
+    }
+
+    &:has(input[type="radio"][id="judaica"]:checked) .judaica {
+      display: revert;
+    }
+
+    .home,
+    .judaica {
+      display: none;
+    }
+
+    .judaica {
+      ul.items {
+        @extend .flex, .row, .center, .gap;
+
+        flex-wrap: wrap;
+
+        margin: 0;
+        padding: 0;
+
+        list-style-type: none;
+
+        li.item {
+          @extend .fx, .tile;
+
+          max-width: 340px;
+
+          img {
+            margin: 0;
+            width: 340px;
+            height: 340px;
+
+            object-fit: cover;
+          }
+
+          p {
+            @extend .tx-center;
+
+            margin: 0;
+            width: 100%;
+            padding: var(--spacer-small-2);
+          }
+        }
+      }
+    }
+  }
+}
