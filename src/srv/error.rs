@@ -10,10 +10,6 @@ pub async fn e404() -> impl IntoResponse {
     Error::e404()
 }
 
-pub async fn e500<E: std::error::Error>(err: E) -> impl IntoResponse {
-    Error::e500(err)
-}
-
 #[derive(Debug, Error, Template)]
 #[template(path = "error.html")]
 pub struct Error {

@@ -1,5 +1,4 @@
 use std::fs::File;
-use std::io;
 use std::net::SocketAddr;
 use std::path::PathBuf;
 use std::sync::Arc;
@@ -19,7 +18,6 @@ use rand::Rng;
 use tokio::signal;
 use tokio::signal::unix::SignalKind;
 use tokio::sync::RwLock;
-use tower::ServiceExt;
 use tower_http::services::ServeDir;
 use tower_http::trace::TraceLayer;
 use tracing_subscriber::layer::SubscriberExt;
@@ -154,16 +152,9 @@ async fn main() -> Result<()> {
         .route("/registry", get(route::registry))
         .route("/rsvp", get(route::rsvp).post(route::reply))
         .route("/travel", get(route::travel))
-        .fallback_service(
-            get_service(
-                ServeDir::new(args.root).not_found_service(
-                    error::e404
-                        .into_service()
-                        .map_err(|err| -> io::Error { match err {} }),
-                ),
-            )
-            .handle_error(error::e500),
-        )
+        .fallback_service(get_service(
+            ServeDir::new(args.root).not_found_service(error::e404.into_service()),
+        ))
         .layer(TraceLayer::new_for_http())
         .layer(auth)
         .layer(session)
