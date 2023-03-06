@@ -86,7 +86,7 @@ async fn main() -> Result<()> {
             .append(true)
             .create(true)
             .write(true)
-            .open(&path)?;
+            .open(path)?;
         let log = tracing_subscriber::fmt::layer()
             .with_ansi(false)
             .with_writer(file);
@@ -160,29 +160,6 @@ async fn main() -> Result<()> {
         .layer(session)
         .with_state(db);
 
-    // Define signal handlers
-    async fn signal(handle: Handle) {
-        // Prepare signal handlers
-        let mut sigterm = signal::unix::signal(SignalKind::terminate())
-            .expect("failed to install SIGTERM handler");
-
-        loop {
-            tokio::select! {
-                _ = signal::ctrl_c() => {
-                    // Signal the server to gracefully shutdown
-                    warn!("commencing graceful shutdown");
-                    info!("nofifying {} connections", handle.connection_count());
-                    handle.graceful_shutdown(Some(Duration::from_secs(1)));
-                },
-                _ = sigterm.recv() => {
-                    // Signal the server to terminate
-                    error!("terminating");
-                    handle.shutdown();
-                },
-            }
-        }
-    }
-
     // Create a handle for the server
     let handle = Handle::new();
 
@@ -214,6 +191,28 @@ async fn main() -> Result<()> {
     }
 
     Ok(())
+}
+
+async fn signal(handle: Handle) {
+    // Prepare signal handlers
+    let mut sigterm = signal::unix::signal(SignalKind::terminate())
+        .expect("failed to install SIGTERM handler");
+
+    loop {
+        tokio::select! {
+            _ = signal::ctrl_c() => {
+                // Signal the server to gracefully shutdown
+                warn!("commencing graceful shutdown");
+                info!("nofifying {} connections", handle.connection_count());
+                handle.graceful_shutdown(Some(Duration::from_secs(1)));
+            },
+            _ = sigterm.recv() => {
+                // Signal the server to terminate
+                error!("terminating");
+                handle.shutdown();
+            },
+        }
+    }
 }
 
 #[derive(Debug)]
