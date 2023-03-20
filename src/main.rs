@@ -195,8 +195,8 @@ async fn main() -> Result<()> {
 
 async fn signal(handle: Handle) {
     // Prepare signal handlers
-    let mut sigterm = signal::unix::signal(SignalKind::terminate())
-        .expect("failed to install SIGTERM handler");
+    let mut sigterm =
+        signal::unix::signal(SignalKind::terminate()).expect("failed to install SIGTERM handler");
 
     loop {
         tokio::select! {

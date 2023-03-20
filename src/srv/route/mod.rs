@@ -145,7 +145,7 @@ pub async fn reply(
     auth: auth::Context,
     Query(action): Query<Action>,
     ConnectInfo(addr): ConnectInfo<SocketAddr>,
-    Form(reply): Form<Reply>,
+    Form(mut reply): Form<Reply>,
 ) -> impl IntoResponse {
     // Do nothing if not logged in
     let Some(user) = auth.current_user else {
@@ -171,6 +171,7 @@ pub async fn reply(
             .ok_or_else(|| Error::e500(db::Error::Guest))?
             .user()
     );
+    reply.validate();
     db.update(&guest, reply).map_err(Error::e500)?;
     // Save the database to a file (optional)
     // TODO: Should this be done async?

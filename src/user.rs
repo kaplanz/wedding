@@ -9,6 +9,7 @@ pub use crate::db::Ident;
 
 #[derive(Clone, Debug, Default, Deserialize, Eq, Serialize)]
 pub struct User {
+    #[serde(default)]
     #[serde(skip)]
     pub(crate) ident: Ident,
     pub(super) first: String,

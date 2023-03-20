@@ -8,15 +8,20 @@ use crate::user::User;
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct Guest {
-    pub(super) group: Group,
+    group: Group,
     #[serde(flatten)]
-    pub(super) user: User,
-    pub(super) child: bool,
+    user: User,
+    #[serde(default)]
+    child: bool,
     #[serde(flatten)]
-    pub(super) rsvp: Option<Rsvp>,
+    reply: Option<Reply>,
 }
 
 impl Guest {
+    pub fn group(&self) -> Group {
+        self.group
+    }
+
     pub fn user(&self) -> &User {
         &self.user
     }
@@ -25,49 +30,16 @@ impl Guest {
         self.child
     }
 
+    pub fn reply(&self) -> Option<&Reply> {
+        self.reply.as_ref()
+    }
+
     pub fn msg(&self) -> Option<Message> {
-        self.reply()?.msg
+        self.reply.clone()?.msg
     }
 
-    pub fn reply(&self) -> Option<Reply> {
-        self.rsvp.clone().map(Reply::from)
-    }
-
-    pub fn update(&mut self, rsvp: Option<Rsvp>) {
-        self.rsvp = rsvp;
-    }
-}
-
-#[derive(Clone, Debug, Deserialize, Serialize)]
-pub enum Rsvp {
-    Yes { meal: Meal, msg: Message },
-    No { msg: Message },
-}
-
-impl Display for Rsvp {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        Display::fmt(
-            &match self {
-                Self::Yes { meal, msg } => format!("yes (meal: {meal:?}, msg: \"{msg}\")"),
-                Self::No { msg } => format!("no (msg: \"{msg}\")"),
-            },
-            f,
-        )
-    }
-}
-
-impl From<Reply> for Option<Rsvp> {
-    fn from(reply: Reply) -> Self {
-        match reply.attend {
-            Some(Attend::Yes) => Some(Rsvp::Yes {
-                meal: reply.meal.unwrap_or_default(),
-                msg: reply.msg.unwrap_or_default(),
-            }),
-            Some(Attend::No) => Some(Rsvp::No {
-                msg: reply.msg.unwrap_or_default(),
-            }),
-            None => None,
-        }
+    pub fn update(&mut self, reply: Reply) {
+        self.reply = Some(reply);
     }
 }
 
@@ -80,24 +52,18 @@ pub struct Reply {
 }
 
 impl Reply {
-    pub fn new(attend: Option<Attend>, meal: Option<Meal>, msg: Option<Message>) -> Self {
-        Self { attend, meal, msg }
+    pub fn validate(&mut self) {
+        if !matches!(self.attend, Some(Attend::Yes)) {
+            self.meal = None;
+        }
     }
 }
 
-impl From<Rsvp> for Reply {
-    fn from(rsvp: Rsvp) -> Self {
-        match rsvp {
-            Rsvp::Yes { meal, msg } => Reply {
-                attend: Some(Attend::Yes),
-                meal: Some(meal),
-                msg: Some(msg),
-            },
-            Rsvp::No { msg } => Reply {
-                attend: Some(Attend::No),
-                meal: None,
-                msg: Some(msg),
-            },
+impl Display for Reply {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match &self.attend {
+            Some(attend) => Display::fmt(&attend, f),
+            None => Ok(()),
         }
     }
 }
