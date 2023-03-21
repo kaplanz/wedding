@@ -17,6 +17,14 @@ pub struct User {
 }
 
 impl User {
+    pub fn new(first: String, last: String) -> Self {
+        Self {
+            first,
+            last,
+            ..Default::default()
+        }
+    }
+
     #[allow(unused)]
     pub fn first(&self) -> &str {
         self.first.as_ref()

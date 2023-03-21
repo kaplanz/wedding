@@ -12,8 +12,10 @@ use uuid::Uuid;
 use crate::user::User;
 
 pub mod guest;
+mod record;
 
 use self::guest::{Guest, Reply};
+use self::record::Record;
 
 pub type Group = usize;
 
@@ -54,14 +56,7 @@ impl Database {
 
         // Use the guests to populate the database
         for guest in guests {
-            trace!(
-                "read: `{}`, reply: {}",
-                guest.user().name(),
-                guest
-                    .reply()
-                    .as_ref()
-                    .map_or_else(|| "none".to_string(), |reply| format!("{reply}"))
-            );
+            trace!("read: `{}`, reply: {}", guest.user().name(), guest.reply());
             // Get the identifier for this guest
             let ident = guest.user().ident;
             // Get the guest's group
@@ -127,16 +122,11 @@ impl Database {
         debug!("writing: `{}`", path.display());
         // Write the database
         for guest in self.guests.values() {
-            // Serialize and write each guest
-            writer.serialize(guest).map_err(Error::Csv)?;
-            trace!(
-                "wrote: `{}`, reply: {}",
-                guest.user(),
-                guest
-                    .reply()
-                    .as_ref()
-                    .map_or_else(|| "none".to_string(), |reply| format!("{reply}"))
-            );
+            // Convert the guest into a writable record
+            let record = Record::from(guest.clone());
+            // Serialize and write it
+            writer.serialize(record).map_err(Error::Csv)?;
+            trace!("wrote: `{}`, reply: {}", guest.user(), guest.reply());
         }
 
         Ok(())
@@ -152,9 +142,12 @@ impl TryFrom<&Path> for Database {
         // Read the guests
         debug!("reading: `{}`", path.display());
         let data: Vec<Guest> = reader
-            .deserialize::<Guest>()
-            .collect::<Result<_, _>>()
-            .map_err(Error::Csv)?;
+            .deserialize::<Record>()
+            .collect::<Result<Vec<_>, _>>()
+            .map_err(Error::Csv)?
+            .into_iter()
+            .map(Into::into)
+            .collect();
         // Construct a database
         Ok(Database::new(data))
     }

@@ -1,21 +1,20 @@
 use std::fmt::{Debug, Display};
 use std::ops::Deref;
 
-use serde::ser::SerializeStruct;
 use serde::{Deserialize, Serialize};
 
 use crate::db::Group;
 use crate::user::User;
 
-#[derive(Clone, Debug, Default, Deserialize)]
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct Guest {
-    group: Group,
+    pub(super) group: Group,
     #[serde(flatten)]
-    user: User,
+    pub(super) user: User,
     #[serde(default)]
-    child: bool,
+    pub(super) child: bool,
     #[serde(flatten)]
-    reply: Option<Reply>,
+    pub(super) reply: Reply,
 }
 
 impl Guest {
@@ -31,45 +30,27 @@ impl Guest {
         self.child
     }
 
-    pub fn reply(&self) -> Option<&Reply> {
-        self.reply.as_ref()
-    }
-
-    pub fn msg(&self) -> Option<Message> {
-        self.reply.clone()?.msg
+    pub fn reply(&self) -> &Reply {
+        &self.reply
     }
 
     pub fn update(&mut self, reply: Reply) {
-        self.reply = Some(reply);
+        self.reply = reply;
     }
 }
 
-impl Serialize for Guest {
-    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::Serializer,
-    {
-        let mut row = serializer.serialize_struct("Guest", 7)?;
-        row.serialize_field("group", &self.group)?;
-        row.serialize_field("first", &self.user.first)?;
-        row.serialize_field("last", &self.user.last)?;
-        row.serialize_field("child", &self.child)?;
-        row.serialize_field("attend", &self.reply.as_ref().map(|reply| &reply.attend))?;
-        row.serialize_field("meal", &self.reply.as_ref().map(|reply| &reply.meal))?;
-        row.serialize_field("msg", &self.reply.as_ref().map(|reply| &reply.msg))?;
-        row.end()
-    }
-}
-
-#[derive(Clone, Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct Reply {
-    #[serde(default)]
     pub attend: Option<Attend>,
     pub meal: Option<Meal>,
     pub msg: Option<Message>,
 }
 
 impl Reply {
+    pub fn responded(&self) -> bool {
+        self.attend.is_some() || self.meal.is_some() || self.msg.is_some()
+    }
+
     pub fn validate(&mut self) {
         if !matches!(self.attend, Some(Attend::Yes)) {
             self.meal = None;

@@ -30,7 +30,8 @@
   <li class="guest">
     <a class="name" href="/rsvp?guest={{ guest.user().ident }}">
       <div>{{ guest.user() }}</div>
-      {%- if let Some(reply) = guest.reply() -%}
+      {%- let reply = guest.reply() -%}
+      {%- if reply.responded() -%}
         <hr>
         <table>
           <col class="icon">
