@@ -105,6 +105,7 @@ pub enum Meal {
     Fish,
     Veggie,
     Kids,
+    None,
 }
 
 impl Display for Meal {
