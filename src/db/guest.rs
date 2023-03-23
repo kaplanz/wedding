@@ -86,12 +86,21 @@ pub enum Meal {
     Fish,
     Veggie,
     Kids,
-    None,
+    NoMeal,
 }
 
 impl Display for Meal {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        Debug::fmt(self, f)
+        Display::fmt(
+            match self {
+                Meal::Chicken => "Chicken",
+                Meal::Fish => "Fish",
+                Meal::Veggie => "Vegetarian",
+                Meal::Kids => "Kids Meal",
+                Meal::NoMeal => "No Meal",
+            },
+            f,
+        )
     }
 }
 

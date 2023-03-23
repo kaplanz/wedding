@@ -37,26 +37,26 @@
             <div name="meal" class="radio">
               {% if guest.child() %}
                 <label for="kids">
-                  <span>Kids Meal</span>
+                  <span>{{ crate::db::guest::Meal::Kids }}</span>
                   <input type="radio" name="meal" id="kids" value="Kids" checked>
                 </label>
               {% else %}
                 <label for="chicken">
-                  <span>Chicken</span>
+                  <span>{{ crate::db::guest::Meal::Chicken }}</span>
                   <input type="radio" name="meal" id="chicken" value="Chicken" checked>
                 </label>
                 <label for="fish">
-                  <span>Fish</span>
+                  <span>{{ crate::db::guest::Meal::Fish }}</span>
                   <input type="radio" name="meal" id="fish" value="Fish">
                 </label>
                 <label for="veggie">
-                  <span>Veggie</span>
+                  <span>{{ crate::db::guest::Meal::Veggie }}</span>
                   <input type="radio" name="meal" id="veggie" value="Veggie">
                 </label>
               {% endif %}
               <label for="none">
-                <span>None</span>
-                <input type="radio" name="meal" id="none" value="None">
+                <span>{{ crate::db::guest::Meal::NoMeal }}</span>
+                <input type="radio" name="meal" id="none" value="NoMeal">
               </label>
             </div>
           </div>
