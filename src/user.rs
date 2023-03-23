@@ -3,6 +3,7 @@ use std::hash::Hash;
 
 use axum_login::secrecy::SecretVec;
 use axum_login::AuthUser;
+use itertools::Itertools;
 use serde::{Deserialize, Serialize};
 
 pub use crate::db::Ident;
@@ -36,7 +37,10 @@ impl User {
     }
 
     pub fn name(&self) -> String {
-        format!("{} {}", self.first, self.last)
+        [&*self.first, &*self.last]
+            .iter()
+            .filter(|s| !s.is_empty())
+            .join(" ")
     }
 
     pub fn sanitize(&mut self) {
