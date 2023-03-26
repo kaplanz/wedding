@@ -905,13 +905,14 @@ nav.nav a.item .current {
 }
 
 .home .carousel {
+  gap: 0.5%;
   overflow: scroll;
   overscroll-behavior: none;
   border-radius: var(--border-radius);
 }
 @media screen and (min-width: 32rem) {
   .home .carousel img.photo {
-    width: 33.3333333333%;
+    width: 33%;
   }
 }
 @media screen and (max-width: 32rem) {

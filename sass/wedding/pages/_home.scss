@@ -4,7 +4,7 @@
 
     @media screen and (min-width: $screen-sm) {
       img.photo {
-        width: calc(100% / 3);
+        width: calc(99% / 3);
       }
     }
 
@@ -13,6 +13,8 @@
         width: calc($screen-md / 3);
       }
     }
+
+    gap: .5%;
 
     overflow: scroll;
     overscroll-behavior: none;
