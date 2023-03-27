@@ -60,10 +60,17 @@ impl Reply {
 
 impl Display for Reply {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match &self.attend {
-            Some(attend) => Display::fmt(&attend, f),
-            None => Ok(()),
-        }
+        Debug::fmt(
+            &[
+                self.attend.as_ref().map(ToString::to_string),
+                self.meal.as_ref().map(ToString::to_string),
+                self.msg.as_ref().map(ToString::to_string),
+            ]
+            .iter()
+            .flatten()
+            .collect::<Vec<_>>(),
+            f,
+        )
     }
 }
 
