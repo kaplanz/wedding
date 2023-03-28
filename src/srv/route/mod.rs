@@ -76,7 +76,7 @@ pub async fn auth(
     Form(mut user): Form<User>,
 ) -> impl IntoResponse {
     // Log client when forwarded
-    if let Some(client) = headers.get("X-Forwarded-For") {
+    if let Some(client) = headers.get("CF-Connecting-IP") {
         trace!("proxy: {addr}, forwarded for: {client:?}");
     }
     // Sanitize user input
@@ -155,7 +155,7 @@ pub async fn reply(
     Form(mut reply): Form<Reply>,
 ) -> impl IntoResponse {
     // Log client when forwarded
-    if let Some(client) = headers.get("X-Forwarded-For") {
+    if let Some(client) = headers.get("CF-Connecting-IP") {
         trace!("proxy: {addr}, forwarded for: {client:?}");
     }
     // Do nothing if not logged in
