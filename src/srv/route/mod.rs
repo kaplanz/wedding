@@ -2,6 +2,7 @@ use std::net::SocketAddr;
 use std::sync::Arc;
 
 use axum::extract::{self, ConnectInfo, FromRequest, FromRequestParts, State};
+use axum::http::HeaderMap;
 use axum::response::{IntoResponse, Redirect};
 use log::{error, trace, warn};
 use serde::Deserialize;
@@ -71,8 +72,13 @@ pub async fn auth(
     State(db): State<Arc<RwLock<Database>>>,
     auth: auth::Context,
     ConnectInfo(addr): ConnectInfo<SocketAddr>,
+    headers: HeaderMap,
     Form(mut user): Form<User>,
 ) -> impl IntoResponse {
+    // Log client when forwarded
+    if let Some(client) = headers.get("X-Forwarded-For") {
+        trace!("proxy: {addr}, forwarded for: {client:?}");
+    }
     // Sanitize user input
     trace!("attempt: `{user}`, from: {addr}");
     user.sanitize();
@@ -145,8 +151,13 @@ pub async fn reply(
     auth: auth::Context,
     Query(action): Query<Action>,
     ConnectInfo(addr): ConnectInfo<SocketAddr>,
+    headers: HeaderMap,
     Form(mut reply): Form<Reply>,
 ) -> impl IntoResponse {
+    // Log client when forwarded
+    if let Some(client) = headers.get("X-Forwarded-For") {
+        trace!("proxy: {addr}, forwarded for: {client:?}");
+    }
     // Do nothing if not logged in
     let Some(user) = auth.current_user else {
         // User not found, return status code
