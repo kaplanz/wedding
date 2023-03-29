@@ -76,8 +76,12 @@ pub async fn auth(
     Form(mut user): Form<User>,
 ) -> impl IntoResponse {
     // Log client when forwarded
-    if let Some(client) = headers.get("CF-Connecting-IP") {
-        trace!("proxy: {addr}, forwarded for: {client:?}");
+    if let Some(client) = headers
+        .get("CF-Connecting-IP")
+        .map(|value| value.to_str().ok())
+        .flatten()
+    {
+        trace!("proxy: {addr}, forwarded for: {client}");
     }
     // Sanitize user input
     trace!("attempt: `{user}`, from: {addr}");
@@ -155,8 +159,12 @@ pub async fn reply(
     Form(mut reply): Form<Reply>,
 ) -> impl IntoResponse {
     // Log client when forwarded
-    if let Some(client) = headers.get("CF-Connecting-IP") {
-        trace!("proxy: {addr}, forwarded for: {client:?}");
+    if let Some(client) = headers
+        .get("CF-Connecting-IP")
+        .map(|value| value.to_str().ok())
+        .flatten()
+    {
+        trace!("proxy: {addr}, forwarded for: {client}");
     }
     // Do nothing if not logged in
     let Some(user) = auth.current_user else {
