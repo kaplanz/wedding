@@ -83,8 +83,7 @@ pub async fn auth(
     // Log client when forwarded
     if let Some(client) = headers
         .get("CF-Connecting-IP")
-        .map(|value| value.to_str().ok())
-        .flatten()
+        .and_then(|value| value.to_str().ok())
     {
         trace!("proxy: {addr}, forwarded for: {client}");
     }
@@ -166,8 +165,7 @@ pub async fn reply(
     // Log client when forwarded
     if let Some(client) = headers
         .get("CF-Connecting-IP")
-        .map(|value| value.to_str().ok())
-        .flatten()
+        .and_then(|value| value.to_str().ok())
     {
         trace!("proxy: {addr}, forwarded for: {client}");
     }
