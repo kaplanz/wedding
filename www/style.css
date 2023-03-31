@@ -152,14 +152,6 @@ a:visited:hover, a:visited:focus {
   color: var(--color-link-hover);
 }
 
-ul,
-ol,
-dl {
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-left: 0;
-}
-
 ol ol,
 ul ol {
   list-style-type: lower-roman;
