@@ -146,6 +146,7 @@ async fn main() -> Result<()> {
     debug!("directory root: `{}`", &args.root.display());
     let app = Router::new()
         .route("/", get(route::home))
+        .route("/about", get(route::about))
         .route("/dashboard", get(route::dashboard))
         .route("/login", get(route::login).post(route::auth))
         .route("/logout", get(route::logout))

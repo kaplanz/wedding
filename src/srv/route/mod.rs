@@ -8,7 +8,7 @@ use log::{error, trace, warn};
 use serde::Deserialize;
 use tokio::sync::RwLock;
 
-use self::page::{Dashboard, Home, Login, Registry, Rsvp, Travel};
+use self::page::{About, Dashboard, Home, Login, Registry, Rsvp, Travel};
 use super::{auth, Error};
 use crate::db::guest::Reply;
 use crate::db::{self, Database, Ident};
@@ -27,6 +27,11 @@ pub struct Query<T>(T);
 #[derive(Debug, Deserialize)]
 pub struct Action {
     guest: Option<Ident>,
+}
+
+pub async fn about() -> impl IntoResponse {
+    // Present about page
+    About::get().await
 }
 
 pub async fn home() -> impl IntoResponse {
