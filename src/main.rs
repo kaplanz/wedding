@@ -5,6 +5,7 @@ use std::sync::Arc;
 use std::time::Duration;
 
 use axum::handler::HandlerWithoutStateExt;
+use axum::http::Request;
 use axum::routing::{get, get_service};
 use axum::Router;
 use axum_login::axum_sessions::{async_session, SessionLayer};
@@ -13,7 +14,7 @@ use axum_server::tls_rustls::RustlsConfig;
 use axum_server::Handle;
 use clap::{Parser, ValueHint};
 use color_eyre::eyre::Result;
-use log::{debug, error, info, warn};
+use log::{debug, error, info, trace, warn};
 use rand::Rng;
 use tokio::signal;
 use tokio::signal::unix::SignalKind;
@@ -29,6 +30,7 @@ mod srv;
 mod user;
 
 use crate::db::Database;
+use crate::srv::route::Incoming;
 use crate::srv::{error, route};
 
 /// Hannah & Zakhary's wedding server.
@@ -126,6 +128,14 @@ async fn main() -> Result<()> {
         debug!("database: output path: `{}`", path.display());
     }
 
+    // Initialize tracing layer
+    let trace = TraceLayer::new_for_http().on_request(|req: &Request<_>, _: &_| {
+        // Collect incoming info
+        let info = Incoming::new(req);
+        // Log the request
+        trace!("{info}");
+    });
+
     // Initialize session layer
     let secret: [u8; 64] = rand::thread_rng().gen();
     let session = SessionLayer::new(async_session::MemoryStore::new(), &secret).with_secure(false);
@@ -153,10 +163,10 @@ async fn main() -> Result<()> {
         .route("/registry", get(route::registry))
         .route("/rsvp", get(route::rsvp).post(route::reply))
         .route("/travel", get(route::travel))
+        .layer(trace)
         .fallback_service(get_service(
             ServeDir::new(args.root).not_found_service(error::e404.into_service()),
         ))
-        .layer(TraceLayer::new_for_http())
         .layer(auth)
         .layer(session)
         .with_state(db);

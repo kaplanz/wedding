@@ -1,8 +1,9 @@
+use std::fmt::Display;
 use std::net::SocketAddr;
 use std::sync::Arc;
 
 use axum::extract::{self, ConnectInfo, FromRequest, FromRequestParts, State};
-use axum::http::HeaderMap;
+use axum::http::{Method, Request, Uri};
 use axum::response::{IntoResponse, Redirect};
 use log::{error, trace, warn};
 use serde::Deserialize;
@@ -27,6 +28,58 @@ pub struct Query<T>(T);
 #[derive(Debug, Deserialize)]
 pub struct Action {
     guest: Option<Ident>,
+}
+
+#[derive(Debug)]
+pub struct Incoming {
+    addr: SocketAddr,
+    from: Option<String>,
+    method: Method,
+    uri: Uri,
+}
+
+impl Incoming {
+    pub fn new<T>(req: &Request<T>) -> Self {
+        // Extract connection info
+        let ConnectInfo(addr) = *req.extensions().get::<ConnectInfo<SocketAddr>>().unwrap();
+        // Extract original client
+        let from = req
+            .headers()
+            .get("CF-Connecting-IP")
+            .and_then(|value| value.to_str().ok())
+            .map(ToString::to_string);
+        // Extract request
+        let method = req.method().clone();
+        let uri = req.uri().clone();
+
+        Self {
+            addr,
+            from,
+            method,
+            uri,
+        }
+    }
+}
+
+impl Display for Incoming {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        // Destructure self
+        let Self {
+            addr,
+            from,
+            method,
+            uri,
+        } = self;
+        // Display self
+        write!(
+            f,
+            "{}, req: {method} {uri}",
+            match from {
+                Some(from) => format!("proxy: {addr}, for: {from}"),
+                None => format!("from: {addr}"),
+            },
+        )
+    }
 }
 
 pub async fn about() -> impl IntoResponse {
@@ -76,26 +129,17 @@ pub async fn login(auth: auth::Context) -> impl IntoResponse {
 pub async fn auth(
     State(db): State<Arc<RwLock<Database>>>,
     auth: auth::Context,
-    ConnectInfo(addr): ConnectInfo<SocketAddr>,
-    headers: HeaderMap,
     Form(mut user): Form<User>,
 ) -> impl IntoResponse {
-    // Log client when forwarded
-    if let Some(client) = headers
-        .get("CF-Connecting-IP")
-        .and_then(|value| value.to_str().ok())
-    {
-        trace!("proxy: {addr}, forwarded for: {client}");
-    }
     // Sanitize user input
-    trace!("attempt: `{user}`, from: {addr}");
+    trace!("attempt: `{user}`");
     user.sanitize();
     // Acquire database as a reader
     let db = db.read().await;
     // Query the database using provided credentials
     let Some(ident) = db.query(&user).copied() else {
         // User not found
-        warn!("reject: `{user}`, from: {addr}");
+        warn!("reject: `{user}`");
         // Return with error message on failure
         return Err(Login::msg(
             format!("Hmm, we couldn't find a login for: {user}")
@@ -124,7 +168,6 @@ pub async fn registry() -> impl IntoResponse {
 pub async fn rsvp(
     State(db): State<Arc<RwLock<Database>>>,
     auth: auth::Context,
-    ConnectInfo(addr): ConnectInfo<SocketAddr>,
     Query(action): Query<Action>,
 ) -> impl IntoResponse {
     // Redirect to the login if no user authenticated
@@ -141,7 +184,7 @@ pub async fn rsvp(
         .map_err(|err| Error::e500(err).into_response())?;
     if !group.contains(&guest) {
         // Guest not in user's group
-        warn!("unauthorized: `{user}`, from: {addr}");
+        warn!("unauthorized: `{user}`");
         // Present error page on failure
         return Err(Error::e401().into_response());
     }
@@ -158,17 +201,8 @@ pub async fn reply(
     State(db): State<Arc<RwLock<Database>>>,
     auth: auth::Context,
     Query(action): Query<Action>,
-    ConnectInfo(addr): ConnectInfo<SocketAddr>,
-    headers: HeaderMap,
     Form(mut reply): Form<Reply>,
 ) -> impl IntoResponse {
-    // Log client when forwarded
-    if let Some(client) = headers
-        .get("CF-Connecting-IP")
-        .and_then(|value| value.to_str().ok())
-    {
-        trace!("proxy: {addr}, forwarded for: {client}");
-    }
     // Do nothing if not logged in
     let Some(user) = auth.current_user else {
         // User not found, return status code
@@ -182,7 +216,7 @@ pub async fn reply(
     let group = db.group(&user.ident).map_err(Error::e500)?;
     if !group.contains(&guest) {
         // Guest not in user's group
-        warn!("unauthorized: `{user}`, from: {addr}");
+        warn!("unauthorized: `{user}`");
         // Present error page on failure
         return Err(Error::e401());
     }
