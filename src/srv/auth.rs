@@ -4,7 +4,7 @@ use log::debug;
 
 use crate::user::User;
 
-pub type Context = extractors::AuthContext<User, MemoryStore<User>>;
+pub type Context = extractors::AuthContext<String, User, MemoryStore<String, User>>;
 
 pub async fn login(mut auth: Context, user: User) {
     if auth.current_user.is_some() {

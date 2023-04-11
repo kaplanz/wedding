@@ -49,7 +49,7 @@ impl User {
     }
 }
 
-impl AuthUser for User {
+impl AuthUser<String> for User {
     fn get_id(&self) -> String {
         self.name()
     }
