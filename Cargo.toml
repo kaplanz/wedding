@@ -8,19 +8,19 @@ edition = "2021"
 [dependencies]
 askama = "0.12.0"
 axum = { version = "0.6.12", features = ["form", "macros", "query"] }
-axum-login = "0.4.1"
+axum-login = "0.4.0"
 axum-server = { version = "0.4.7", features = ["tls-rustls"] }
-clap = { version = "4.1.13", features = ["derive", "env"] }
+clap = { version = "4.2.1", features = ["derive", "env"] }
 color-eyre = "0.6.2"
 csv = "1.2.1"
 indexmap = "1.9.3"
 itertools = "0.10.5"
 log = "0.4.17"
 rand = { version = "0.8.5", features = ["min_const_gen"] }
-serde = { version = "1.0.158", features = ["derive"] }
+serde = { version = "1.0.159", features = ["derive"] }
 thiserror = "1.0.40"
 tokio = { version = "1.27.0", features = ["full"] }
 tower = "0.4.13"
 tower-http = { version = "0.4.0", features = ["fs", "trace"] }
 tracing-subscriber = { version = "0.3.16", features = ["env-filter"] }
-uuid = { version = "1.3.0", features = ["v4", "serde"] }
+uuid = { version = "1.3.1", features = ["v4", "serde"] }
