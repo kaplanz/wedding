@@ -1,4 +1,8 @@
 .login {
+  div.body {
+    @extend .text, .center;
+  }
+
   div.form {
     @extend .flex, .row, .center;
 
