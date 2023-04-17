@@ -129,15 +129,14 @@ pub async fn login(auth: auth::Context) -> impl IntoResponse {
 pub async fn auth(
     State(db): State<Arc<RwLock<Database>>>,
     auth: auth::Context,
-    Form(mut user): Form<User>,
+    Form(user): Form<User>,
 ) -> impl IntoResponse {
     // Sanitize user input
     trace!("attempt: `{user}`");
-    user.sanitize();
     // Acquire database as a reader
     let db = db.read().await;
     // Query the database using provided credentials
-    let Some(ident) = db.query(&user).copied() else {
+    let Some(user) = db.auth(&user).cloned() else {
         // User not found
         warn!("reject: `{user}`");
         // Return with error message on failure
@@ -145,8 +144,6 @@ pub async fn auth(
             format!("Hmm, we couldn't find a login for: {user}")
         ).await);
     };
-    // Update user identifier
-    user.ident = ident;
     // Authenticate user
     auth::login(auth, user).await;
     // Redirect onwards to RSVP

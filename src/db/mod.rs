@@ -87,7 +87,15 @@ impl Database {
         self.guests.len()
     }
 
-    pub fn query(&self, user: &User) -> Option<&Ident> {
+    pub fn auth(&self, user: &User) -> Option<&User> {
+        self.idents
+            .get(user)
+            .and_then(|ident| self.guests.get(ident))
+            .map(Guest::user)
+    }
+
+    #[allow(unused)]
+    pub fn ident(&self, user: &User) -> Option<&Ident> {
         self.idents.get(user)
     }
 

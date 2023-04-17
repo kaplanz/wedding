@@ -42,11 +42,6 @@ impl User {
             .filter(|s| !s.is_empty())
             .join(" ")
     }
-
-    pub fn sanitize(&mut self) {
-        self.first = sanitize(&self.first);
-        self.last = sanitize(&self.last);
-    }
 }
 
 impl AuthUser<String> for User {
@@ -67,23 +62,18 @@ impl Display for User {
 
 impl Hash for User {
     fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
-        self.first.hash(state);
-        self.last.hash(state);
+        sanitize(&self.first).hash(state);
+        sanitize(&self.last).hash(state);
     }
 }
 
 impl PartialEq for User {
     fn eq(&self, other: &Self) -> bool {
-        (self.first == other.first) && (self.last == other.last)
+        (sanitize(&self.first) == sanitize(&other.first))
+            && (sanitize(&self.last) == sanitize(&other.last))
     }
 }
 
 fn sanitize(input: &str) -> String {
-    let mut chars = input.trim().chars();
-    chars
-        .next()
-        .into_iter()
-        .flat_map(char::to_uppercase)
-        .chain(chars.flat_map(char::to_lowercase))
-        .collect()
+    input.trim().to_lowercase()
 }
