@@ -52,6 +52,10 @@ struct Args {
     #[arg(value_hint = ValueHint::FilePath)]
     guests: Option<PathBuf>,
 
+    /// Disable the RSVP system.
+    #[arg(long)]
+    lock: bool,
+
     /// Path to output guestlist.
     #[arg(short, long)]
     #[arg(value_hint = ValueHint::FilePath)]
@@ -122,6 +126,10 @@ async fn main() -> Result<()> {
         }
     };
     info!("loaded {} guests", db.len());
+    db.locked = args.lock;
+    if db.locked {
+        warn!("database is locked");
+    }
     // Set (optional) database write path
     db.path = args.out;
     if let Some(path) = &db.path {

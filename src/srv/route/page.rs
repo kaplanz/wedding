@@ -59,15 +59,20 @@ impl Home {
 pub struct Dashboard {
     user: User,
     guests: Vec<Guest>,
+    locked: bool,
 }
 
 impl Dashboard {
-    fn new(user: User, guests: Vec<Guest>) -> Self {
-        Self { user, guests }
+    fn new(user: User, guests: Vec<Guest>, locked: bool) -> Self {
+        Self {
+            user,
+            guests,
+            locked,
+        }
     }
 
-    pub async fn get(user: User, guests: Vec<Guest>) -> impl IntoResponse {
-        Self::new(user, guests)
+    pub async fn get(user: User, guests: Vec<Guest>, locked: bool) -> impl IntoResponse {
+        Self::new(user, guests, locked)
     }
 }
 

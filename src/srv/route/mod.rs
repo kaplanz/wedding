@@ -114,7 +114,7 @@ pub async fn dashboard(
         })
         .collect::<Result<_, _>>()?;
     // Present dashboard page
-    Ok(Dashboard::get(user, guests).await)
+    Ok(Dashboard::get(user, guests, db.locked).await)
 }
 
 pub async fn login(auth: auth::Context) -> impl IntoResponse {
@@ -205,6 +205,10 @@ pub async fn reply(
         // User not found, return status code
         return Err(Error::e401());
     };
+    // Do nothing if locked
+    if db.read().await.locked {
+        return Err(Error::e401());
+    }
     // Reply for the user if no guest supplied
     let guest = action.guest.unwrap_or(user.ident);
     // Acquire database as a writer

@@ -15,6 +15,12 @@
       preferences, and share any comments you might have! Please note, you
       can update your RSVP status up until May 1st.
     </p>
+    {% if locked %}
+      <p class="msg warn tx-center" style="background-color: transparent;">
+        RSVPs are now locked. Please contact us directly if you wish to change
+        your RSVP status.
+      </p>
+    {% endif %}
     <p>
       We found the following guests on your invitation:
     </p>
@@ -28,7 +34,13 @@
 
 {%- macro render(guest) -%}
   <li class="guest">
-    <a class="name" href="/rsvp?guest={{ guest.user().ident }}">
+    <a class="name"
+      {% if locked %}
+        title="RSVPs are now locked."
+      {% else %}
+        href="/rsvp?guest={{ guest.user().ident }}"
+      {% endif %}
+    >
       <div>{{ guest.user() }}</div>
       {%- let reply = guest.reply() -%}
       {%- if reply.responded() -%}

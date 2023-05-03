@@ -45,6 +45,7 @@ impl Display for Ident {
 #[derive(Debug, Default)]
 pub struct Database {
     pub path: Option<PathBuf>,
+    pub locked: bool,
     idents: IndexMap<User, Ident>,
     guests: IndexMap<Ident, Guest>,
     groups: IndexMap<Group, Vec<Ident>>,
@@ -114,10 +115,14 @@ impl Database {
     }
 
     pub fn update(&mut self, ident: &Ident, reply: Reply) -> Result<(), Error> {
+        // Error when locked
+        if self.locked {
+            return Err(Error::Locked);
+        }
         // Extract the guest to update
         let guest = self.guests.get_mut(ident).ok_or(Error::Guest)?;
-        // Perform the update
         info!("update: `{}` -> {reply}", guest.user(),);
+        // Perform the update
         guest.update(reply);
 
         Ok(())
@@ -171,4 +176,6 @@ pub enum Error {
     Csv(#[from] csv::Error),
     #[error("missing guest")]
     Guest,
+    #[error("database locked")]
+    Locked,
 }
