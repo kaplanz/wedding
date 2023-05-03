@@ -37,29 +37,25 @@ use crate::srv::{error, route};
 #[derive(Parser)]
 #[command(author, version, about)]
 struct Args {
-    /// Port to listen for connections.
+    /// Path to input guestlist.
+    #[arg(value_hint = ValueHint::FilePath)]
+    guests: Option<PathBuf>,
+
+    /// Path to output guestlist.
     #[arg(short, long)]
-    #[arg(default_value_t = 3000)]
-    #[arg(env = "PORT")]
-    port: u16,
+    #[arg(value_hint = ValueHint::FilePath)]
+    out: Option<PathBuf>,
 
     /// Path to log output file.
     #[arg(long)]
     #[arg(value_hint = ValueHint::FilePath)]
     log: Option<PathBuf>,
 
-    /// Path to input guestlist.
-    #[arg(value_hint = ValueHint::FilePath)]
-    guests: Option<PathBuf>,
-
-    /// Disable the RSVP system.
-    #[arg(long)]
-    lock: bool,
-
-    /// Path to output guestlist.
+    /// Port to listen for connections.
     #[arg(short, long)]
-    #[arg(value_hint = ValueHint::FilePath)]
-    out: Option<PathBuf>,
+    #[arg(default_value_t = 3000)]
+    #[arg(env = "PORT")]
+    port: u16,
 
     /// Directory root for serving files.
     #[arg(short, long)]
@@ -74,6 +70,10 @@ struct Args {
     /// Key file for TLS.
     #[arg(long)]
     key: Option<PathBuf>,
+
+    /// Disable RSVP system.
+    #[arg(long)]
+    lock: bool,
 }
 
 #[tokio::main]
