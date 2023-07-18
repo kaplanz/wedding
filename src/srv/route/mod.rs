@@ -140,9 +140,7 @@ pub async fn auth(
         // User not found
         warn!("reject: `{user}`");
         // Return with error message on failure
-        return Err(Login::msg(
-            format!("Hmm, we couldn't find a login for: {user}")
-        ).await);
+        return Err(Login::msg(format!("Hmm, we couldn't find a login for: {user}")).await);
     };
     // Authenticate user
     auth::login(auth, user).await;
