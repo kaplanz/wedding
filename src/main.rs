@@ -13,7 +13,7 @@ use axum_login::{memory_store, AuthLayer, AuthUser};
 use axum_server::tls_rustls::RustlsConfig;
 use axum_server::Handle;
 use clap::{Parser, ValueHint};
-use color_eyre::eyre::Result;
+use color_eyre::eyre::{Context, Result};
 use log::{debug, error, info, trace, warn};
 use rand::Rng;
 use tokio::signal;
@@ -92,7 +92,8 @@ async fn main() -> Result<()> {
             .append(true)
             .create(true)
             .write(true)
-            .open(path)?;
+            .open(path)
+            .context("failed to open log file")?;
         let log = tracing_subscriber::fmt::layer()
             .with_ansi(false)
             .with_writer(file);
@@ -118,7 +119,9 @@ async fn main() -> Result<()> {
 
     // Initialize database
     let mut db = match &args.guests {
-        Some(path) => Database::try_from(path.as_path())?,
+        Some(path) => {
+            Database::try_from(path.as_path()).context("failed to initialize database")?
+        }
         None => {
             // Initialize empty database
             warn!("no guestlist provided, login will not be possible");
